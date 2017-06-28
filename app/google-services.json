@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "348358423706",
+    "firebase_url": "https://jnauction-d45ac.firebaseio.com",
+    "project_id": "jnauction-d45ac",
+    "storage_bucket": "jnauction-d45ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348358423706:android:a4c3280ef1373264",
+        "android_client_info": {
+          "package_name": "kr.co.hiowner.jnauction"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348358423706-9orkfeugob47jfmqdi8dn4vgleb0b2uo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx0neGHmp9Tl-oB8hNBeRkSk3V2l-Fgrw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
