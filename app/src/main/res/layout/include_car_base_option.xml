@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <!-- 차량 상세정보 Text 모음 -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@color/WHITE"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <!-- 기본정보 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:text="기본정보"
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <!-- END : 기본정보 -->
+        <!-- 변속기 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:text="변속기"
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_trans"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="오토"
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <!-- END : 변속기 -->
+        <!-- 옵션정보 -->
+        <!-- 4륜구동 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:text="옵션정보"
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_4wd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="4륜구동"
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_alu"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="알루미늄휠"
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <!-- 썬루프 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_sroof"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="썬루프"
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_bbox"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="블랙박스"
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <!-- 스마트키 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_skey"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="스마트키"
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_as"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="제조사AS"
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <!-- 네비게이션 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_navi"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="네비게이션"
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_rsensor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="후방감지센서"
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <!-- 통풍시트 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_fan"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="통풍시트"
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_heat"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="열선시트"
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <!-- 후방카메라 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_rcam"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="후방카메라"
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <!-- END : 옵션정보 -->
+        <!-- 사고유무 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:text="사고유무"
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_history"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="무사고차량"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <!-- END : 사고유무 -->
+        <!-- 연료종류 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:text="연료종류"
+                android:textColor="@color/text_color_999999"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cas_ops_fuel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text="휘발유"
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/text_color_333333"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <!-- END : 사고유무 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="50dp"
+            android:background="@color/WHITE" />
+    </LinearLayout>
+    <!-- END : 차량 상세정보 Text 모음 -->
