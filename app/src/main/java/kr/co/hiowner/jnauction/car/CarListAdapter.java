@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.hiowner.jnauction.R;
+import kr.co.hiowner.jnauction.api.data.AuctionsData;
 import kr.co.hiowner.jnauction.util.GlobalValues;
 
 /**
@@ -27,7 +28,7 @@ import kr.co.hiowner.jnauction.util.GlobalValues;
  */
 public class CarListAdapter extends BaseAdapter {
     LayoutInflater mInflater;
-    List<CarData> mRowList;
+    List<AuctionsData.ResultObject.AuctionsObject> mRowList;
     Context mContext;
 
     public CarListAdapter(Context context) {
@@ -35,20 +36,29 @@ public class CarListAdapter extends BaseAdapter {
         super();
         mContext = context;
         this.mInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mRowList = new ArrayList<CarData>();
+        mRowList = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
 //        this.mRowList = mRowList;
     }
 
-    public void addItems(List<CarData> items){
+    public void addItems(List<AuctionsData.ResultObject.AuctionsObject> items){
+        mRowList = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
         mRowList.addAll(items);
+        notifyDataSetChanged();
     }
 
-    public void addOneItem(CarData item){
+    public void changeItem(List<AuctionsData.ResultObject.AuctionsObject> items) {
+        for (int i=0 ; i<items.size() ; i++){
+            mRowList.set(i, items.get(i));
+        }
+        notifyDataSetChanged();
+    }
+
+    public void addOneItem(AuctionsData.ResultObject.AuctionsObject item){
         mRowList.add(item);
     }
 
     public void removeAllData(){
-        mRowList = new ArrayList<CarData>();
+        mRowList = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
     }
 
     @Override
@@ -59,7 +69,7 @@ public class CarListAdapter extends BaseAdapter {
     }
 
     @Override
-    public CarData getItem(int position) {
+    public AuctionsData.ResultObject.AuctionsObject getItem(int position) {
         if(position >= 0 && position < mRowList.size())
             return mRowList.get(position);
         return null;
@@ -75,7 +85,7 @@ public class CarListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
 
-        final CarData data = mRowList.get(position);
+        final AuctionsData.ResultObject.AuctionsObject data = mRowList.get(position);
 
         if(convertView == null){
 

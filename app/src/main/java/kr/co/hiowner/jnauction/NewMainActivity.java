@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import kr.co.hiowner.jnauction.R;
+import kr.co.hiowner.jnauction.fragment.AuctionFragment;
 import kr.co.hiowner.jnauction.fragment.AutionFragment;
 import kr.co.hiowner.jnauction.fragment.MyPageFragment;
 
@@ -114,7 +115,7 @@ public class NewMainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position){
                 case 0:
-                    return new AutionFragment().newInstance();
+                    return new AuctionFragment().newInstance();
                 case 1:
                     return new MyPageFragment().newInstance();
             }

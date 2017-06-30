@@ -51,6 +51,7 @@ public class GlobalValues {
 	public final static int POPUP_REQUEST = 1515;
 	public final static String SERVER = "http://joongna.hiowner.co.kr/api";
 	public final static String SERVER1 = "http://joongna.hiowner.co.kr/api/";
+	public final static String SERVER_SUCCESS = "200";
 
 
 	static Typeface mFont = null;

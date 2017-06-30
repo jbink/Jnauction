@@ -40,19 +40,19 @@ public class IntroActivity extends AppCompatActivity{
         setContentView(R.layout.activity_intro);
 
         mContext = IntroActivity.this;
+        Log.d("where", "토큰" + SharedPreUtil.getTokenID(mContext));
 
         mStrPushToken = FirebaseInstanceId.getInstance().getToken();
         if(TextUtils.isEmpty(mStrPushToken)){
             mHandler.sendEmptyMessageDelayed(0, 500);
         }else{
-            delayHandler.sendEmptyMessageDelayed(0, 1000);
+            delayHandler.sendEmptyMessageDelayed(0, 500);
         }
     }
 
     Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            Log.d("where", "핸들러");
             mStrPushToken = FirebaseInstanceId.getInstance().getToken();
             if(TextUtils.isEmpty(mStrPushToken)){
                 mHandler.sendEmptyMessageDelayed(0, 500);

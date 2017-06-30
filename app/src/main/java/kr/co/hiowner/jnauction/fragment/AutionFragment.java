@@ -374,11 +374,11 @@ public class AutionFragment extends Fragment {
 
             if(jsonParsing(result) == true){
                 if(mCurListViewPage == LISTVIEW_CUR_FULL) {
-                    mAdapterCar.addItems(mDataCar_Full);
-                    mAdapterCar.notifyDataSetChanged();
+//                    mAdapterCar.addItems(mDataCar_Full);
+//                    mAdapterCar.notifyDataSetChanged();
                 }else if(mCurListViewPage == LISTVIEW_CUR_MY) {
-                    mAdapterCar.addItems(mDataCar_My);
-                    mAdapterCar.notifyDataSetChanged();
+//                    mAdapterCar.addItems(mDataCar_My);
+//                    mAdapterCar.notifyDataSetChanged();
                 }
 
             }
