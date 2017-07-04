@@ -1,6 +1,7 @@
 package kr.co.hiowner.jnauction;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -103,6 +104,12 @@ public class NewMainActivity extends AppCompatActivity {
                 mTvMainTxt_1.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_99ffffff));
                 break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("where", "ACTIVITY   onActivityResult");
     }
 
     class SectionsPagerAdapter extends FragmentPagerAdapter {

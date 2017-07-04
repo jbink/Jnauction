@@ -19,7 +19,7 @@
 
             <ImageView
                 android:id="@+id/row_main_img_thumbnail"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

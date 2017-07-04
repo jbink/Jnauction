@@ -145,8 +145,6 @@ public class LoginActivity extends AppCompatActivity {
                 response = response.replace("\t", "");
             }
 
-            Log.d("where", "full_url : " + full_url);
-            Log.d("where", "result : " + response);
             return response;
         }
 
@@ -191,14 +189,7 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }else if(base_url.equals(USER_URL)){
-                if(jsonParsing(result) == true){
-
-                    new UserUpdateAsyncTask().execute();
-
-                    Intent intent = new Intent(mContext, NewMainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+                new UserUpdateAsyncTask().execute();
             }else if(base_url.equals(AUTH_URL)){
                 try {
                     JSONObject object = new JSONObject(result);
@@ -217,36 +208,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
 
-        }
-
-        private boolean jsonParsing(String result){
-            String status_code, status_msg, count = null;
-            String name, phone, license_start_date, license_end_date = null;
-            try {
-                JSONObject object = new JSONObject(result);
-                status_code = object.getString("status_code");
-                status_msg = object.getString("status_msg");
-
-                if (!"200".equals(status_code)) {
-                    Toast.makeText(LoginActivity.this, status_msg, Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-                JSONObject jsonObject_result = object.getJSONObject("result");
-                name = jsonObject_result.optString("name", "NULL");
-                phone = jsonObject_result.optString("phone", "NULL");
-                license_start_date = jsonObject_result.optString("license_start_date", "NULL");
-                license_end_date = jsonObject_result.optString("license_end_date", "NULL");
-
-                UserData.getInstance().setName(name);
-                UserData.getInstance().setPhone(phone);
-                UserData.getInstance().setLicense_end_date(license_end_date);
-                UserData.getInstance().setLicense_start_date(license_start_date);
-
-            }catch (Exception e){
-                Log.e("where", ""+e.getMessage());
-                return false;
-            }
-            return true;
         }
     }
 
@@ -273,11 +234,9 @@ public class LoginActivity extends AppCompatActivity {
             data.enqueue(new Callback<ResponseBaseData>() {
                 @Override
                 public void onResponse(Call<ResponseBaseData> call, Response<ResponseBaseData> response) {
-                    Log.d("where", "----------------------------");
-                    Log.d("where", response.body().getStatus_code());
-                    Log.d("where", response.body().getStatus_msg());
-                    Log.d("where", "****************************");
-
+                    Intent intent = new Intent(mContext, NewMainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
 
                 @Override

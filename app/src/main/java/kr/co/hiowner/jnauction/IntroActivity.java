@@ -118,7 +118,6 @@ public class IntroActivity extends AppCompatActivity{
         @Override
         protected Void doInBackground(Void... params) {
 
-            //POST
             Call<ResponseBaseData> data = API_Adapter.getInstance().UserUpdate(
                     SharedPreUtil.getTokenID(IntroActivity.this),
                     "A",

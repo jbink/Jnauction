@@ -55,12 +55,12 @@ public class PermissionActivity extends AppCompatActivity {
                     )
                     .check();
         }else{
-            if(chkGpsService() == true){
-                mHandler.sendEmptyMessageDelayed(0, 2000);
-            }
-//            Intent intent = new Intent(PermissionActivity.this, IntroActivity.class);
-//            startActivity(intent);
-//            finish();
+//            if(chkGpsService() == true){
+//                mHandler.sendEmptyMessageDelayed(0, 2000);
+//            }
+            Intent intent = new Intent(PermissionActivity.this, IntroActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -68,7 +68,7 @@ public class PermissionActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Intent intent = new Intent(PermissionActivity.this, LoginActivity.class);
+            Intent intent = new Intent(PermissionActivity.this, IntroActivity.class);
             startActivity(intent);
             finish();
         }
@@ -80,7 +80,7 @@ public class PermissionActivity extends AppCompatActivity {
 //            if(chkGpsService() == true){
 //                mHandler.sendEmptyMessageDelayed(0, 2000);
 //            }
-            Intent intent = new Intent(PermissionActivity.this, LoginActivity.class);
+            Intent intent = new Intent(PermissionActivity.this, IntroActivity.class);
             startActivity(intent);
             finish();
         }

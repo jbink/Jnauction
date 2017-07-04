@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/HALF_TRANSPARENT"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:padding="14dp"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/round_rectangle1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:text="입찰되었습니다"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="7dp"
+            android:text="회원정보는 입찰시간 종료후 최고가 딜러에게 공개되며,  회원은 최고가 입찰딜러 TOP3 의 연락처를 확인할 수 있습니다. 딜러 입찰내역은 [마이페이지]에서 확인할 수 있습니다."
+            android:textColor="#999999"
+            android:textSize="16dp"/>
+
+        <Button
+            android:onClick="onClick"
+            android:id="@+id/tender_popup2_btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/sel_btn_red"
+            android:text="확인"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/WHITE"
+            android:textSize="17dp" />
+
+    </LinearLayout>
+</LinearLayout>

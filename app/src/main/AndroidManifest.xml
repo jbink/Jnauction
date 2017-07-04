@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".IntroActivity"
+        <activity android:name=".PermissionActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,13 +20,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".IntroActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".LoginActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".NewMainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".CarDetailActivity"
+        <activity android:name=".car.CarDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mypage.MyPagePopup"
+            android:theme="@style/AppTheme.NoActionBar.Transparent"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".car.popup.TenderPopup1"
+            android:theme="@style/AppTheme.NoActionBar.Transparent"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".car.popup.TenderPopup2"
+            android:theme="@style/AppTheme.NoActionBar.Transparent"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".car.popup.TenderPopupRe"
+            android:theme="@style/AppTheme.NoActionBar.Transparent"
             android:screenOrientation="portrait"/>
 
 

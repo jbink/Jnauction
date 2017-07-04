@@ -1,5 +1,6 @@
 package kr.co.hiowner.jnauction.fragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,12 +23,11 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
+import kr.co.hiowner.jnauction.car.CarDetailActivity;
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.api.API_Adapter;
-import kr.co.hiowner.jnauction.api.API_Interface;
 import kr.co.hiowner.jnauction.api.data.AuctionsData;
 import kr.co.hiowner.jnauction.api.data.ServerTimeData;
-import kr.co.hiowner.jnauction.car.CarData;
 import kr.co.hiowner.jnauction.car.CarListAdapter;
 import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
@@ -38,13 +38,14 @@ import retrofit2.Response;
 /**
  * Created by user on 2017-06-29.
  */
-public class AuctionFragment extends Fragment {
+public class AuctionFragment extends Fragment implements View.OnClickListener {
 
     private final int LISTVIEW_CUR_FULL = 1100;
     private final int LISTVIEW_CUR_MY = 2200;
 //    Context mContext;
 
     Spinner mSpinSort;
+    String mStrSpinValue;
 
     //입찰 남은시간
     TextView mTvRemainTime, mTvEndDate;
@@ -52,25 +53,33 @@ public class AuctionFragment extends Fragment {
 
     //차량 List
     List<AuctionsData.ResultObject.AuctionsObject> mDataCar_Full;
-    List<CarData> mDataCar_My;
-    ListView mListViewCar;
-    CarListAdapter mAdapterCar;
+    ListView mListViewFullCar;
+    CarListAdapter mAdapterFullCar;
+
+    List<AuctionsData.ResultObject.AuctionsObject> mDataCar_My;
+    ListView mListViewMyCar;
+    CarListAdapter mAdapterMyCar;
 
     //전체차량, 내입찰차량
     CheckBox mChkMyAuctions;
     private int mCurListViewPage;
 
-    //list의 Index 관리
+    //list의 Index 관리 - FULL
     TextView mTvTotalCount_Full, mTvTotalCount_My ;
     private int mIntOffSet_Full = 1;
-    private int mIntLimit_Full = 30;
-    private int mIntTotal_Full = 0;
+    private int mIntLimit_Full = 10;
+
+    //list의 Index 관리 - MY
     private int mIntOffSet_My = 1;
-    private int mIntLimit_My = 3;
+    private int mIntLimit_My = 5;
+
+    //LIST의 결과값 총 갯수
+    private int mIntTotal_Full = 0;
     private int mIntTotal_My = 0;
 
     //화면에 리스트의 마지막 아이템이 보여지는지 체크
-    boolean lastItemVisibleFlag = false;
+    boolean mLastItemFullVisibleFlag = false;
+    boolean mLastItemMyVisibleFlag = false;
 
     public AuctionFragment() {
     }
@@ -107,54 +116,120 @@ public class AuctionFragment extends Fragment {
 //        mTvUserLicenseStart = (TextView)rootView.findViewById(R.id.main_user_txt_license_start);
 //        mTvMainUnderline_1 = (ImageView)rootView.findViewById(R.id.main_btn_underline_1);
 //        mTvMainUnderline_2 = (ImageView)rootView.findViewById(R.id.main_btn_underline_2);
-        mListViewCar = (ListView)rootView.findViewById(R.id.main_car_listview);
         mChkMyAuctions = (CheckBox)rootView.findViewById(R.id.main_chk_my_product);
+        mChkMyAuctions.setOnClickListener(this);
 
         mCurListViewPage = LISTVIEW_CUR_FULL;
 
-        mAdapterCar = new CarListAdapter(getActivity());
-//        mListViewCar.setOnItemClickListener(mItemClickListener);
-        mListViewCar.setAdapter(mAdapterCar);
-        mListViewCar.setOnScrollListener(mOnScrollListener);
+        mListViewFullCar = (ListView)rootView.findViewById(R.id.main_car_full_listview);
+        mAdapterFullCar = new CarListAdapter(getActivity());
+        mListViewFullCar.setAdapter(mAdapterFullCar);
+        mListViewFullCar.setOnItemClickListener(mItemClickFullListener);
+        mListViewFullCar.setOnScrollListener(mOnScrollFullListener);
+
+        mListViewMyCar = (ListView)rootView.findViewById(R.id.main_car_my_listview);
+        mAdapterMyCar = new CarListAdapter(getActivity());
+        mListViewMyCar.setAdapter(mAdapterMyCar);
+        mListViewMyCar.setOnItemClickListener(mItemClickMyListener);
+        mListViewMyCar.setOnScrollListener(mOnScrollMyListener);
+
         mSpinSort.setOnItemSelectedListener(mSpinSelect);
+        mStrSpinValue = "reg_desc";
+
+        new TimeAsyncTask().execute();
 
         return rootView;
     }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    AdapterView.OnItemClickListener mItemClickFullListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            AuctionsData.ResultObject.AuctionsObject data = (AuctionsData.ResultObject.AuctionsObject) adapterView.getAdapter().getItem(i);
+            Intent intent = new Intent(getActivity(), CarDetailActivity.class);
+            intent.putExtra("auction_idx",  data.getAuction_idx());
+            startActivityForResult(intent, 7777);
+        }
+    };
 
-    @Override
-    public void onResume() {
-        new TimeAsyncTask().execute();
-        new AuctionsAsyncTask("reg_desc").execute();
-        super.onResume();
-    }
-
-    AbsListView.OnScrollListener mOnScrollListener = new AbsListView.OnScrollListener() {
+    AbsListView.OnScrollListener mOnScrollFullListener = new AbsListView.OnScrollListener() {
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             //현재 화면에 보이는 첫번째 리스트 아이템의 번호(firstVisibleItem) + 현재 화면에 보이는 리스트 아이템의 갯수(visibleItemCount)가 리스트 전체의 갯수(totalItemCount) -1 보다 크거나 같을때
-            lastItemVisibleFlag = (totalItemCount > 0) && (firstVisibleItem + visibleItemCount >= totalItemCount);
+            mLastItemFullVisibleFlag = (totalItemCount > 0) && (firstVisibleItem + visibleItemCount >= totalItemCount);
         }
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
             //OnScrollListener.SCROLL_STATE_IDLE은 스크롤이 이동하다가 멈추었을때 발생되는 스크롤 상태입니다.
             //즉 스크롤이 바닦에 닿아 멈춘 상태에 처리를 하겠다는 뜻
-            if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastItemVisibleFlag) {
-                //TODO 화면이 바닦에 닿을때 처리
-//                    if(mIntTotal > mIntOffSet) {
-                mIntOffSet_Full += mIntLimit_Full;
+            if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && mLastItemFullVisibleFlag) {
+                Log.d("where", "바닥");
+                if(mIntOffSet_Full < mIntTotal_Full) {
+                    new AuctionsAsyncTask().execute();
+                    mIntOffSet_Full += mIntLimit_Full;
+                }
+                else{
+                    Log.d("where", "그만 받아와");
+                }
             }
         }
     };
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    AdapterView.OnItemClickListener mItemClickMyListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            AuctionsData.ResultObject.AuctionsObject data = (AuctionsData.ResultObject.AuctionsObject) adapterView.getAdapter().getItem(i);
+            Intent intent = new Intent(getActivity(), CarDetailActivity.class);
+            intent.putExtra("auction_idx",  data.getAuction_idx());
+            startActivityForResult(intent, 7777);
+        }
+    };
 
+    AbsListView.OnScrollListener mOnScrollMyListener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            //현재 화면에 보이는 첫번째 리스트 아이템의 번호(firstVisibleItem) + 현재 화면에 보이는 리스트 아이템의 갯수(visibleItemCount)가 리스트 전체의 갯수(totalItemCount) -1 보다 크거나 같을때
+            mLastItemMyVisibleFlag = (totalItemCount > 0) && (firstVisibleItem + visibleItemCount >= totalItemCount);
+        }
+
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            //OnScrollListener.SCROLL_STATE_IDLE은 스크롤이 이동하다가 멈추었을때 발생되는 스크롤 상태입니다.
+            //즉 스크롤이 바닦에 닿아 멈춘 상태에 처리를 하겠다는 뜻
+            if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && mLastItemMyVisibleFlag) {
+                Log.d("where", " 내 입찰 바닥");
+                if(mIntOffSet_My < mIntTotal_My) {
+                    new MyAuctionsAsyncTask().execute();
+                    mIntOffSet_My += mIntLimit_My;
+                }
+                else{
+                    Log.d("where", "그만 받아와");
+                }
+
+            }
+        }
+    };
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     AdapterView.OnItemSelectedListener mSpinSelect = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            Toast.makeText(getActivity(), ""+adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
-            if(i == 0)
-                new AuctionsAsyncTask("reg_desc").execute();
-            else if(i == 1)
-                new AuctionsAsyncTask("bid_desc").execute();
+//            mStrSpinValue = adapterView.getItemAtPosition(i).toString();
+            if(i == 0) {
+                Log.d("where", "설마");
+                mIntOffSet_Full = 0;
+                mStrSpinValue = "reg_desc";
+                mAdapterFullCar.removeAllData();
+                new AuctionsAsyncTask().execute();
+                new MyAuctionsAsyncTask().execute();
+
+            }
+            else if(i == 1) {
+                mIntOffSet_Full = 0;
+                mStrSpinValue = "bid_desc";
+                mAdapterFullCar.removeAllData();
+                new AuctionsAsyncTask().execute();
+                new MyAuctionsAsyncTask().execute();
+            }
         }
 
         @Override
@@ -163,46 +238,155 @@ public class AuctionFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        new AuctionsRefreshAsyncTask().execute();
+        new MyAuctionsRefreshAsyncTask().execute();
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.main_chk_my_product :
+                if(mChkMyAuctions.isChecked()){
+                    mListViewFullCar.setVisibility(View.GONE);
+                    mListViewMyCar.setVisibility(View.VISIBLE);
+                }else{
+                    mListViewFullCar.setVisibility(View.VISIBLE);
+                    mListViewMyCar.setVisibility(View.GONE);
+                }
+                break;
+        }
+    }
 
-    //상품관련 AsyncTask
+    /*************************************************************************************************************************************************/
+    //전체상품관련 AsyncTask
     private class AuctionsAsyncTask extends AsyncTask<Void, Void, Void>{
 
-        String mStrSort;
-        int mIntListViewCurPosition;
 
-        public AuctionsAsyncTask(String sort) {
-            mIntListViewCurPosition = mListViewCar.getFirstVisiblePosition();
-            mStrSort = sort;
+        public AuctionsAsyncTask() {
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
 
+            Log.d("where", "오프셋 : " + mIntOffSet_Full);
+
 
             HashMap<String, String> map = new HashMap<>();
             map.put("token", SharedPreUtil.getTokenID(getActivity()));
             map.put("mybid", "N");
-            map.put("order", mStrSort);
-            map.put("limit", "30");
-            map.put("offset", "1");
-            map.put("status_min", "100");
-            map.put("status_max", "499");
+            map.put("order", mStrSpinValue);
+            map.put("limit", ""+mIntLimit_Full);
+//            map.put("limit", "10");
+            map.put("offset", ""+mIntOffSet_Full);
+            map.put("status_min", "200");
+            map.put("status_max", "299");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
                 public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
-                    Log.d("where",response.body().getStatus_code());
-                    Log.d("where",""+response.body().getResult().getTotal_count());
+//                    Log.d("where",response.body().getStatus_code());
+//                    Log.d("where",""+response.body().getResult().getTotal_count());
                     mIntTotal_Full = response.body().getResult().getTotal_count();
-
                     mDataCar_Full = response.body().getResult().getAuctions();
-                    mAdapterCar.addItems(mDataCar_Full);
+                    mAdapterFullCar.addItems(mDataCar_Full);
+                    DecimalFormat df = new DecimalFormat("###,###");
+//                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
+                    mTvTotalCount_Full.setText("매물수 "+df.format(mIntTotal_Full)+"대");
+                }
+
+                @Override
+                public void onFailure(Call<AuctionsData> call, Throwable t) {
+
+                }
+            });
+            return null;
+        }
+    }
+    //전체상품관련 AsyncTask REFRESH
+    private class AuctionsRefreshAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        int mIntListViewCurPosition;
+
+        public AuctionsRefreshAsyncTask() {
+            mIntListViewCurPosition = mListViewFullCar.getFirstVisiblePosition();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            int refreshOffset = 0;
+
+            //리스트를 한번도 더 받아온 경우가 없을때
+            if(mIntOffSet_Full < mIntLimit_Full)
+                refreshOffset = mIntLimit_Full;
+            else
+                refreshOffset = mIntOffSet_Full-1;
+
+            HashMap<String, String> map = new HashMap<>();
+            map.put("token", SharedPreUtil.getTokenID(getActivity()));
+            map.put("mybid", "N");
+            map.put("order", mStrSpinValue);
+            map.put("limit", ""+refreshOffset);//+mIntLimit_Full);
+            map.put("offset", "0");
+            map.put("status_min", "200");
+            map.put("status_max", "299");
+            Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
+            auctions.enqueue(new Callback<AuctionsData>() {
+                @Override
+                public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
+//                    Log.d("where",response.body().getStatus_code());
+//                    Log.d("where",""+response.body().getResult().getTotal_count());
+                    mIntTotal_Full = response.body().getResult().getTotal_count();
+                    mDataCar_Full = response.body().getResult().getAuctions();
+                    mAdapterFullCar.changeItem(mDataCar_Full);
                     DecimalFormat df = new DecimalFormat("###,###");
 //                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
                     mTvTotalCount_Full.setText("매물수 "+df.format(mIntTotal_Full)+"대");
 
-                    mListViewCar.setSelection(mIntListViewCurPosition);
+                    mListViewFullCar.setSelection(mIntListViewCurPosition);
+                }
+
+                @Override
+                public void onFailure(Call<AuctionsData> call, Throwable t) {
+
+                }
+            });
+            return null;
+        }
+    }
+/*************************************************************************************************************************************************/
+    //내입찰상품관련 AsyncTask
+    private class MyAuctionsAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        public MyAuctionsAsyncTask() {
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            HashMap<String, String> map = new HashMap<>();
+            map.put("token", SharedPreUtil.getTokenID(getActivity()));
+            map.put("mybid", "Y");
+            map.put("order", mStrSpinValue);
+            map.put("limit", ""+mIntLimit_My);
+    //            map.put("limit", "10");
+            map.put("offset", ""+mIntOffSet_My);
+            map.put("status_min", "100");
+            map.put("status_max", "399");
+            Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
+            auctions.enqueue(new Callback<AuctionsData>() {
+                @Override
+                public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
+    //                    Log.d("where",response.body().getStatus_code());
+    //                    Log.d("where",""+response.body().getResult().getTotal_count());
+                    mIntTotal_My = response.body().getResult().getTotal_count();
+                    mDataCar_My = response.body().getResult().getAuctions();
+                    mAdapterMyCar.addItems(mDataCar_My);
+                    DecimalFormat df = new DecimalFormat("###,###");
+    //                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
+                    mTvTotalCount_My.setText(""+df.format(mIntTotal_My)+"대");
                 }
 
                 @Override
@@ -214,6 +398,58 @@ public class AuctionFragment extends Fragment {
         }
     }
 
+    //내입찰상품관련 AsyncTask REFRESH
+    private class MyAuctionsRefreshAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        int mIntListViewCurPosition;
+
+        public MyAuctionsRefreshAsyncTask() {
+            mIntListViewCurPosition = mListViewMyCar.getFirstVisiblePosition();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            int refreshOffset = 0;
+
+            //리스트를 한번도 더 받아온 경우가 없을때
+            if(mIntOffSet_My < mIntLimit_My)
+                refreshOffset = mIntLimit_My;
+            else
+                refreshOffset = mIntOffSet_My-1;
+
+            HashMap<String, String> map = new HashMap<>();
+            map.put("token", SharedPreUtil.getTokenID(getActivity()));
+            map.put("mybid", "N");
+            map.put("order", mStrSpinValue);
+            map.put("limit", ""+refreshOffset);//+mIntLimit_My);
+            map.put("offset", "0");
+            map.put("status_min", "100");
+            map.put("status_max", "399");
+            Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
+            auctions.enqueue(new Callback<AuctionsData>() {
+                @Override
+                public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
+//                    Log.d("where",response.body().getStatus_code());
+//                    Log.d("where",""+response.body().getResult().getTotal_count());
+                    mIntTotal_My = response.body().getResult().getTotal_count();
+                    mDataCar_My = response.body().getResult().getAuctions();
+                    mAdapterMyCar.changeItem(mDataCar_My);
+                    DecimalFormat df = new DecimalFormat("###,###");
+//                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
+                    mTvTotalCount_My.setText(""+df.format(mIntTotal_My)+"대");
+
+                    mListViewMyCar.setSelection(mIntListViewCurPosition);
+                }
+
+                @Override
+                public void onFailure(Call<AuctionsData> call, Throwable t) {
+
+                }
+            });
+            return null;
+        }
+    }
+/*************************************************************************************************************************************************/
     //시간 관련 AsyncTask
     private class TimeAsyncTask extends AsyncTask<Void, Void, Void>{
         ServerTimeData TimeData;
@@ -320,6 +556,18 @@ public class AuctionFragment extends Fragment {
             returnValue = "0"+returnValue;
         return returnValue;
     }
+
+
+//    //내 입찰차량
+//    public void setMyBidCarData(ArrayList<AuctionsData.ResultObject.AuctionsObject> data){
+//        for(int i=0 ; i< data.size() ; i++){
+//            if("Y".equals(data.get(i).getB_mybid())){
+//                mDataCar_My.add(data.get(i));
+//            }
+//        }
+//
+//    }
+
 
     @Override
     public void onDestroy() {

@@ -2,8 +2,10 @@ package kr.co.hiowner.jnauction.api;
 
 import java.util.HashMap;
 
+import kr.co.hiowner.jnauction.api.data.AuctionData;
 import kr.co.hiowner.jnauction.api.data.AuctionsData;
 import kr.co.hiowner.jnauction.api.data.ServerTimeData;
+import kr.co.hiowner.jnauction.api.data.UserData;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -12,6 +14,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -23,9 +26,8 @@ public interface API_Interface {
     Call<ServerTimeData> ServerTime();
 
     @FormUrlEncoded
-    @POST("duplicate.php")
-    Call<String> Duplicate(@Field("id") String id);
-//    Call<String> Duplicate(@FieldMap HashMap<String, String> fields);
+    @POST("bid")
+    Call<ResponseBaseData> Tender(@FieldMap HashMap<String, String> fields);
 
     @FormUrlEncoded
     @PATCH("user")
@@ -33,4 +35,10 @@ public interface API_Interface {
 
     @GET("auctions")
     Call<AuctionsData> Auctions(@QueryMap HashMap<String, String> fields);
+
+    @GET("auction")
+    Call<AuctionData> AuctionIdx(@QueryMap HashMap<String, String> fields);
+
+    @GET("user")
+    Call<UserData> User(@Query("token") String token);
 }

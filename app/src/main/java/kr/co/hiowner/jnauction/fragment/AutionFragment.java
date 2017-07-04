@@ -1,13 +1,10 @@
 package kr.co.hiowner.jnauction.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,11 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jbink.appnapps.okhttplibrary.ApiCall;
-import kr.co.hiowner.jnauction.CarDetailActivity;
+import kr.co.hiowner.jnauction.car.CarDetailActivity;
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.car.CarData;
 import kr.co.hiowner.jnauction.car.CarListAdapter;
-import kr.co.hiowner.jnauction.user.UserData;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
 import okhttp3.OkHttpClient;
 

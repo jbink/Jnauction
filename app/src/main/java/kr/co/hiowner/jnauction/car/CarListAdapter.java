@@ -41,6 +41,10 @@ public class CarListAdapter extends BaseAdapter {
     }
 
     public void addItems(List<AuctionsData.ResultObject.AuctionsObject> items){
+        mRowList.addAll(items);
+        notifyDataSetChanged();
+    }
+    public void refreshItems(List<AuctionsData.ResultObject.AuctionsObject> items){
         mRowList = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
         mRowList.addAll(items);
         notifyDataSetChanged();
@@ -59,6 +63,7 @@ public class CarListAdapter extends BaseAdapter {
 
     public void removeAllData(){
         mRowList = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+        notifyDataSetChanged();
     }
 
     @Override
@@ -111,7 +116,9 @@ public class CarListAdapter extends BaseAdapter {
         Glide.with(mContext).load(data.getC_img_1()).into(holder.car_image);
         holder.car_loc_addr.setText(data.getC_loc_addr());
         holder.car_year.setText(data.getC_myear()+"년식");
-        holder.car_name.setText(data.getC_brand() +" "+ data.getC_mname());
+        holder.car_name.setText(""+data.getAuction_idx()+"  "+data.getC_brand() +" "+ data.getC_mname());
+        holder.car_status_200_person.setText(data.getA_bid_count()+"명 입찰중");
+        holder.car_status_300_person.setText("["+data.getA_bid_count()+"명 입찰중]");
 
         DecimalFormat df = new DecimalFormat("###,###");
         holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
@@ -122,8 +129,13 @@ public class CarListAdapter extends BaseAdapter {
                 holder.car_status_200.setVisibility(View.GONE);
                 holder.car_status_300.setVisibility(View.GONE);
             }else if (status >= 200 && status < 300){//입찰중
-                holder.car_status_200.setVisibility(View.VISIBLE);
-                holder.car_status_300.setVisibility(View.GONE);
+                if ("Y".equals(data.getB_mybid())){
+                    holder.car_status_300.setVisibility(View.VISIBLE);
+                    holder.car_status_200.setVisibility(View.GONE);
+                }else{
+                    holder.car_status_300.setVisibility(View.GONE);
+                    holder.car_status_200.setVisibility(View.VISIBLE);
+                }
             }else if (status >= 300 && status < 400){//입찰완료
                 holder.car_status_200.setVisibility(View.GONE);
                 holder.car_status_300.setVisibility(View.VISIBLE);

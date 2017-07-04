@@ -13,10 +13,12 @@
     <color name="HALF_TRANSPARENT">#a0000000</color>
     <color name="border_line">#cccccc</color>
     <color name="default_background">#f0f0f0</color>
+    <color name="background_color_e0e0e0">#e0e0e0</color>
     <color name="text_color_333333">#333333</color>
     <color name="text_color_4d4d4d">#4d4d4d</color>
     <color name="text_color_999999">#999999</color>
     <color name="text_color_cccccc">#cccccc</color>
+    <color name="text_color_b3b3b3">#b3b3b3</color>
     <color name="text_color_blue">#3192e4</color>
     <color name="text_color_99ffffff">#99ffffff</color>
 </resources>

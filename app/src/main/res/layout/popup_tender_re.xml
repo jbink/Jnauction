@@ -9,10 +9,12 @@
 
     <RelativeLayout
         android:layout_width="310dp"
-        android:layout_height="419dp"
+        android:layout_height="520dp"
         android:background="@drawable/round_rectangle1">
 
         <Button
+            android:id="@+id/tender_popup_re_btn_x"
+            android:onClick="onClick"
             android:layout_width="19dp"
             android:layout_height="19dp"
             android:layout_alignParentRight="true"
@@ -22,7 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp">
@@ -52,15 +54,16 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="#999999"
                     android:textSize="15dp"
-                    tools:text="제조사/차량명" />
+                    android:text="제조사/차량명" />
 
                 <TextView
+                    android:id="@+id/tender_popup_re_txt_brand_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7.5dp"
                     android:textColor="#222222"
                     android:textSize="15dp"
-                    tools:text="" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -75,15 +78,16 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="#999999"
                     android:textSize="15dp"
-                    tools:text="연식" />
+                    android:text="연식" />
 
                 <TextView
+                    android:id="@+id/tender_popup_re_txt_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7.5dp"
                     android:textColor="#222222"
                     android:textSize="15dp"
-                    tools:text="" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -98,15 +102,16 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="#999999"
                     android:textSize="15dp"
-                    tools:text="주행거리" />
+                    android:text="주행거리" />
 
                 <TextView
+                    android:id="@+id/tender_popup_re_txt_kms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7.5dp"
                     android:textColor="#222222"
                     android:textSize="15dp"
-                    tools:text="" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -121,15 +126,16 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="#999999"
                     android:textSize="15dp"
-                    tools:text="지역" />
+                    android:text="지역" />
 
                 <TextView
+                    android:id="@+id/tender_popup_re_txt_addr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7.5dp"
                     android:textColor="#222222"
                     android:textSize="15dp"
-                    tools:text="" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -144,15 +150,40 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="#999999"
                     android:textSize="15dp"
-                    tools:text="입찰 최고 가격" />
+                    android:text="평균 입찰가" />
 
                 <TextView
+                    android:id="@+id/tender_popup_re_txt_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7.5dp"
                     android:textColor="#222222"
                     android:textSize="15dp"
-                    tools:text="" />
+                    android:text="" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#999999"
+                    android:textSize="15dp"
+                    android:text="이전 입찰가" />
+
+                <TextView
+                    android:id="@+id/tender_popup_re_txt_my_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7.5dp"
+                    android:textColor="#222222"
+                    android:textSize="15dp"
+                    android:text="" />
             </LinearLayout>
 
             <ImageView
@@ -164,25 +195,43 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
-                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/text_color_blue"
                 android:textSize="15dp"
-                tools:text="입찰 가격" />
+                android:text="입찰 가격" />
 
             <EditText
+                android:id="@+id/tender_popup_re_edit_cost"
                 android:layout_width="272dp"
                 android:layout_marginTop="11dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:layout_height="45dp"
-                android:background="@drawable/border_primary"/>
+                android:inputType="number"
+                android:hint="만원단위"
+                android:background="@drawable/border_blue"/>
+
+            <TextView
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="#999999"
+                android:lineSpacingExtra="7dp"
+                android:text="- 입찰가격은 평균가보다 높아야합니다.\n- 입찰 호가는 최소 10만원 단위입니다.\n- 매물당 1회 재입찰가능(건수 미차감)"
+                />
 
         </LinearLayout>
 
         <Button
+            android:onClick="onClick"
+            android:id="@+id/tender_popup_re_btn_ok"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/popup_tender_btn"
-            android:text="입찰 하기"
+            android:background="@drawable/sel_btn_blue"
+            android:text="재 입찰 하기"
             android:textColor="@color/WHITE"
             android:textSize="17dp" />
 

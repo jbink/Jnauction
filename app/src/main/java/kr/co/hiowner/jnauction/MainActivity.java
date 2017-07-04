@@ -2,7 +2,6 @@ package kr.co.hiowner.jnauction;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -27,17 +26,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import jbink.appnapps.okhttplibrary.ApiCall;
 import kr.co.hiowner.jnauction.car.CarData;
+import kr.co.hiowner.jnauction.car.CarDetailActivity;
 import kr.co.hiowner.jnauction.car.CarListAdapter;
-import kr.co.hiowner.jnauction.user.UserData;
-import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 
 public class MainActivity extends AppCompatActivity {
@@ -106,9 +102,9 @@ public class MainActivity extends AppCompatActivity {
 
         mCurListViewPage = LISTVIEW_CUR_FULL;
 
-        mTvUserName.setText(UserData.getInstance().getName());
-        mTvUSerPhone.setText(UserData.getInstance().getPhone());
-        mTvUserLicenseStart.setText("서비스 시작일 ["+UserData.getInstance().getLicense_start_date()+"]");
+//        mTvUserName.setText(UserData.getInstance().getName());
+//        mTvUSerPhone.setText(UserData.getInstance().getPhone());
+//        mTvUserLicenseStart.setText("서비스 시작일 ["+UserData.getInstance().getLicense_start_date()+"]");
 
         mListCar.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override

@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Jnauction</string>
-    <string name="permission_msg">카메라 및 사진, 핸드폰 정보 활용을 위해 권한동의가 필요합니다.</string>
+    <string name="permission_msg">핸드폰 정보 활용을 위해 권한동의가 필요합니다.</string>
+    <string name="permission_msg1">카메라 및 사진, 핸드폰 정보 활용을 위해 권한동의가 필요합니다.</string>
 
     <string-array name="spinner_item">
         <item>최종등록 순</item>
-        <item>마감임박 순</item>
+        <item>입찰수 순</item>
     </string-array>
 </resources>

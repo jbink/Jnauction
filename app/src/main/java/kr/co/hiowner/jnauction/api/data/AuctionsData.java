@@ -150,6 +150,16 @@ public class AuctionsData {
             private Object b_rank;
             private Object b_count;
 
+            public Object getB_mybid() {
+                return b_mybid;
+            }
+
+            public void setB_mybid(Object b_mybid) {
+                this.b_mybid = b_mybid;
+            }
+
+            private Object b_mybid;
+
             public String getAuction_idx() {
                 return auction_idx;
             }

@@ -100,14 +100,27 @@
 
         </RelativeLayout>
 
-
-        <ListView
-            android:id="@+id/main_car_listview"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:dividerHeight="6dp"
-            android:divider="@color/default_background"
             android:layout_height="match_parent"
-            android:layout_marginTop="6dp" />
+            android:layout_marginTop="6dp" >
+
+            <ListView
+                android:id="@+id/main_car_full_listview"
+                android:layout_width="match_parent"
+                android:dividerHeight="6dp"
+                android:divider="@color/default_background"
+                android:layout_height="match_parent"/>
+            <ListView
+                android:visibility="gone"
+                android:id="@+id/main_car_my_listview"
+                android:layout_width="match_parent"
+                android:dividerHeight="6dp"
+                android:divider="@color/default_background"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+
     </LinearLayout>
 
 </LinearLayout>
