@@ -426,7 +426,7 @@ public class MySuccessDetailActivity extends AppCompatActivity {
             mTvCarOps4wd.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
 
-        mTvMaxPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getA_max_price()) + "만원");
+        mTvMaxPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getB_price()) + "만원");
 
         //입찰여부
         int status = Integer.parseInt(mCarData.getResult().getA_status());

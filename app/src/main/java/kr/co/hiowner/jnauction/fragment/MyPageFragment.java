@@ -70,7 +70,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
         ((ImageButton)rootView.findViewById(R.id.main_user_btn_bid_info)).setOnClickListener(this);
         ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_seccess)).setOnClickListener(this);
         ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_purchase)).setOnClickListener(this);
-        ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_bid)).setOnClickListener(this);
+        ((LinearLayout)rootView.findViewById(R.id.main_user_layout_bid_info)).setOnClickListener(this);
 
 //        mTvUserName.setText(UserData.getInstance().getName());
 //        mTvUSerPhone.setText(UserData.getInstance().getPhone());
