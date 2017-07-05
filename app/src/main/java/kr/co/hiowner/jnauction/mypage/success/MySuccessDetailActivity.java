@@ -457,7 +457,7 @@ public class MySuccessDetailActivity extends AppCompatActivity {
         }catch (Exception e){
 
         }
-        mTvBidTime.setText(date);
+        mTvBidTime.setText("입찰완료 : "+ date);
 
         mTvMemberName.setText(mCarData.getResult().getU_name());
         mTvMemberPhone.setText(mCarData.getResult().getU_phone());

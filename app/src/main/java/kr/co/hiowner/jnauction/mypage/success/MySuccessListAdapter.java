@@ -111,7 +111,8 @@ public class MySuccessListAdapter extends BaseAdapter {
         holder.car_loc_addr.setText(data.getC_loc_addr());
         holder.car_year.setText(data.getC_myear()+"년식");
         holder.car_name.setText(""+data.getAuction_idx()+"  "+data.getC_brand() +" "+ data.getC_mname());
-        holder.car_date.setText("[XX.XX XX:XX]");
+        String date = data.getB_upd_date().substring(5, 16);
+        holder.car_date.setText("["+date+"]");
 
         holder.car_kms.setText(GlobalValues.getWonFormat(data.getC_kms()) + "km");
 

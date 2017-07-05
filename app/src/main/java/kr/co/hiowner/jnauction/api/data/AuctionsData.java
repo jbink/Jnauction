@@ -87,6 +87,8 @@ public class AuctionsData {
          * b_rank : null
          * b_count : null
          * a_max_price
+         * b_upd_date : 2017-06-29 18:23:31
+         * b_mybid : Y
          */
 
         private List<AuctionsObject> auctions;
@@ -148,6 +150,8 @@ public class AuctionsData {
             private String a_avg_price;
             private String a_max_price;
             private String a_bid_count;
+            private String b_upd_date;
+            private String b_mybid;
 
             public String getA_max_price() {
                 return a_max_price;
@@ -161,15 +165,21 @@ public class AuctionsData {
             private Object b_rank;
             private Object b_count;
 
-            public Object getB_mybid() {
+            public String getB_upd_date() {
+                return b_upd_date;
+            }
+
+            public void setB_upd_date(String b_upd_date) {
+                this.b_upd_date = b_upd_date;
+            }
+
+            public String getB_mybid() {
                 return b_mybid;
             }
 
-            public void setB_mybid(Object b_mybid) {
+            public void setB_mybid(String b_mybid) {
                 this.b_mybid = b_mybid;
             }
-
-            private Object b_mybid;
 
             public String getAuction_idx() {
                 return auction_idx;

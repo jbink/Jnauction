@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,6 +84,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v){
         Intent intent;
         switch (v.getId()){
+            case R.id.main_user_layout_bid_info :
             case R.id.main_user_btn_bid_info :
                 intent = new Intent(getActivity(), MyPagePopup.class);
                 startActivity(intent);
@@ -92,8 +94,9 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.main_user_btn_bid :
-                intent = new Intent(getActivity(), MyBidActivity.class);
-                startActivity(intent);
+                Toast.makeText(getActivity(), "작업중입니다.", Toast.LENGTH_SHORT).show();
+//                intent = new Intent(getActivity(), MyBidActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.main_user_btn_purchase :
                 intent = new Intent(getActivity(), MyPurchaseListActivity.class);

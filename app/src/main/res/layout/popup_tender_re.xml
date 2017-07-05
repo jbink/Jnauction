@@ -157,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7.5dp"
-                    android:textColor="#222222"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="15dp"
                     android:text="" />
 
@@ -198,7 +198,7 @@
                 android:layout_marginTop="15dp"
                 android:textColor="@color/text_color_blue"
                 android:textSize="15dp"
-                android:text="입찰 가격" />
+                android:text="신규 입찰 가격" />
 
             <EditText
                 android:id="@+id/tender_popup_re_edit_cost"
