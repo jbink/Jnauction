@@ -543,4 +543,12 @@ public class GlobalValues {
 		else
 			return "Empty Phone Number!";
 	}
+
+	public static String setTextAdd_0(long value){
+		String returnValue = null;
+		returnValue = String.valueOf(value);
+		if(returnValue.length() < 2)
+			returnValue = "0"+returnValue;
+		return returnValue;
+	}
 }

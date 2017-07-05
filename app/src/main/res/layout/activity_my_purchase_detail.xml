@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="차량상세"
+            android:text="입찰성공"
             android:textColor="@color/WHITE"
             android:textSize="19dp"
             android:textStyle="bold" />
@@ -26,13 +26,13 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/car_detail_btn_buy"
+            android:id="@+id/my_purchase_detail_btn_buy"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:background="#272727"
             android:onClick="onClick"
-            android:text="입찰 신청하기"
+            android:text="입찰 완료된 차량입니다."
             android:textColor="@color/WHITE"
             android:textSize="19dp" />
 
@@ -40,7 +40,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/car_detail_btn_buy">
+            android:layout_above="@id/my_purchase_detail_btn_buy">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,13 +52,13 @@
                     android:layout_height="240dp">
 
                     <android.support.v4.view.ViewPager
-                        android:id="@+id/car_detail_pager"
+                        android:id="@+id/my_purchase_detail_pager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
                     <!-- 인덱스 -->
                     <LinearLayout
-                        android:id="@+id/car_detail_layout_index"
+                        android:id="@+id/my_purchase_detail_layout_index"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -82,44 +82,16 @@
                             android:padding="6dp">
 
                             <TextView
-                                android:id="@+id/car_detail_txt_bid_count"
+                                android:id="@+id/my_purchase_detail_txt_bid_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="X명 입찰중"
+                                android:text="입찰완료 : XXXX.XX.XX"
                                 android:textColor="@color/WHITE"
                                 android:textSize="18dp" />
 
                         </RelativeLayout>
 
-                        <LinearLayout
-                            android:id="@+id/time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginLeft="7dp"
-                            android:background="#a0ffffff"
-                            android:orientation="horizontal"
-                            android:padding="6dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="입찰마감 시간 "
-                                android:textColor="@color/BLACK"
-                                android:textSize="18dp" />
-
-                            <TextView
-                                android:id="@+id/car_detail_txt_remain_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="00:00:00"
-                                android:textColor="@color/BLACK"
-                                android:textSize="18dp" />
-
-                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -137,7 +109,7 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/car_detail_txt_name"
+                        android:id="@+id/my_purchase_detail_txt_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="BMW 3-series 320i"
@@ -149,7 +121,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/car_detail_txt_car_number"
+                            android:id="@+id/my_purchase_detail_txt_car_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -176,7 +148,7 @@
                     android:weightSum="3">
 
                     <TextView
-                        android:id="@+id/car_detail_txt_car_year"
+                        android:id="@+id/my_purchase_detail_txt_car_year"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -192,7 +164,7 @@
                         android:background="#e6e6e6" />
 
                     <TextView
-                        android:id="@+id/car_detail_txt_car_kms"
+                        android:id="@+id/my_purchase_detail_txt_car_kms"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -208,7 +180,7 @@
                         android:background="#e6e6e6" />
 
                     <TextView
-                        android:id="@+id/car_detail_txt_car_loc_addr"
+                        android:id="@+id/my_purchase_detail_txt_car_loc_addr"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -233,14 +205,14 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="25dp"
                         android:lineSpacingExtra="17sp"
-                        android:text="평균 입찰가"
+                        android:text="최고 입찰가"
                         android:textColor="#999999"
                         android:textSize="16dp" />
 
                     <TextView
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
-                        android:id="@+id/car_detail_txt_car_avg_price"
+                        android:id="@+id/my_purchase_detail_txt_car_max_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -251,69 +223,7 @@
 
                 </RelativeLayout>
                 <!-- END 평균입찰가 -->
-                <!-- 나의입찰가 -->
-                <RelativeLayout
-                    android:visibility="gone"
-                    android:id="@+id/car_detail_layout_car_my"
-                    android:layout_width="match_parent"
-                    android:layout_height="145dp"
-                    android:layout_marginTop="6dp"
-                    android:background="@color/WHITE"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="25dp"
-                        android:lineSpacingExtra="17sp"
-                        android:text="나의 입찰가"
-                        android:textColor="#999999"
-                        android:textSize="16dp" />
-
-                    <LinearLayout
-                        android:id="@+id/detail_layout_my"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/car_detail_txt_car_my_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:gravity="center"
-                            android:text="XXXX만원"
-                            android:textColor="@color/text_color_blue"
-                            android:textSize="36dp" />
-
-                        <ImageButton
-                            android:id="@+id/car_detail_btn_car_my_retry"
-                            android:onClick="onClick"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10.5dp"
-                            android:background="@drawable/sel_btn_re_tender" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/car_detail_txt_car_my_date"
-                        android:layout_marginTop="10dp"
-                        android:layout_below="@+id/detail_layout_my"
-                        android:layout_centerHorizontal="true"
-                        android:text="최종 입찰일 2017.06.14 (12:11)"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:textColor="#999999"
-                        android:textSize="16sp" />
-
-
-                </RelativeLayout>
-                <!-- END 나의입찰가 -->
+                <include layout="@layout/include_member_info" />
                 <include layout="@layout/include_car_base_option" />
             </LinearLayout>
         </ScrollView>

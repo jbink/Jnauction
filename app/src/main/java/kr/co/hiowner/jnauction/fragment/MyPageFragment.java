@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -19,6 +21,9 @@ import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.api.API_Adapter;
 import kr.co.hiowner.jnauction.api.data.AuctionsData;
 import kr.co.hiowner.jnauction.mypage.MyPagePopup;
+import kr.co.hiowner.jnauction.mypage.bid.MyBidActivity;
+import kr.co.hiowner.jnauction.mypage.purchase.MyPurchaseListActivity;
+import kr.co.hiowner.jnauction.mypage.success.MySuccessListActivity;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,6 +67,9 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
         mTvExtraPoint = (TextView)rootView.findViewById(R.id.main_user_txt_extra_point);
         mTvMonthlyPoint = (TextView)rootView.findViewById(R.id.main_user_txt_monthly_point);
         ((ImageButton)rootView.findViewById(R.id.main_user_btn_bid_info)).setOnClickListener(this);
+        ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_seccess)).setOnClickListener(this);
+        ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_purchase)).setOnClickListener(this);
+        ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_bid)).setOnClickListener(this);
 
 //        mTvUserName.setText(UserData.getInstance().getName());
 //        mTvUSerPhone.setText(UserData.getInstance().getPhone());
@@ -77,6 +85,18 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.main_user_btn_bid_info :
                 intent = new Intent(getActivity(), MyPagePopup.class);
+                startActivity(intent);
+                break;
+            case R.id.main_user_btn_seccess :
+                intent = new Intent(getActivity(), MySuccessListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.main_user_btn_bid :
+                intent = new Intent(getActivity(), MyBidActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.main_user_btn_purchase :
+                intent = new Intent(getActivity(), MyPurchaseListActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -100,6 +120,12 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
             auctions.enqueue(new Callback<UserData>() {
                 @Override
                 public void onResponse(Call<UserData> call, Response<UserData> response) {
+
+                    if(!"200".equals(response.body().getStatus_code())){
+                        Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     UserData data = response.body();
                     mTvUserName.setText(data.getResult().getName());
                     mTvUserPhone.setText(data.getResult().getPhone());

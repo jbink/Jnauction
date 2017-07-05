@@ -19,6 +19,9 @@
     <color name="text_color_999999">#999999</color>
     <color name="text_color_cccccc">#cccccc</color>
     <color name="text_color_b3b3b3">#b3b3b3</color>
-    <color name="text_color_blue">#3192e4</color>
+    <color name="text_color_bfbfbf">#bfbfbf</color>
+    <color name="text_color_blue">#333333</color>
+    <color name="text_color_blue1">#3192e4</color>
     <color name="text_color_99ffffff">#99ffffff</color>
+    <color name="text_color_808080">#808080</color>
 </resources>

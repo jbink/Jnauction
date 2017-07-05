@@ -30,7 +30,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#ffff00" />
+                        android:background="@drawable/profile_default" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -141,6 +141,8 @@
             <!-- END : 입찰 성공 -->
             <!-- 입찰 성공 -->
             <RelativeLayout
+                android:id="@+id/main_user_btn_seccess"
+                android:onClick="onClick"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="10dp"
@@ -206,6 +208,8 @@
             <!-- END : 입찰 성공 -->
             <!-- 나의 입찰차량 -->
             <RelativeLayout
+                android:id="@+id/main_user_btn_bid"
+                android:onClick="onClick"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="10dp"
@@ -271,6 +275,8 @@
             <!-- END : 나의 입찰차량 -->
             <!-- 매입 확정 -->
             <RelativeLayout
+                android:id="@+id/main_user_btn_purchase"
+                android:onClick="onClick"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="10dp"

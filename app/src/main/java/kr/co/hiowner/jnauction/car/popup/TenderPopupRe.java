@@ -150,7 +150,7 @@ public class TenderPopupRe extends AppCompatActivity{
             map.put("auction_idx", mStrAuctionIdx);
             map.put("price", strPrice);
 
-            Call<ResponseBaseData> auction = API_Adapter.getInstance().Tender(map);
+            Call<ResponseBaseData> auction = API_Adapter.getInstance().ReTender(map);
             auction.enqueue(new Callback<ResponseBaseData>() {
 
                 @Override

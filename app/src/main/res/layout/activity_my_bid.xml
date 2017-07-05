@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorPrimary">
+
+        <Button
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/ic_back" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="나의 입찰 차량"
+                android:textColor="@color/WHITE"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:includeFontPadding="false"
+                android:background="@drawable/bg_noti_w"
+                android:text="4"
+                android:textColor="@color/colorPrimary"
+                android:textSize="13dp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffb69c" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/my_bid_txt_remain_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.05"
+            android:text="00:00:00"
+            android:textColor="#ffffff"
+            android:textSize="49sp" />
+
+        <TextView
+            android:id="@+id/my_bid_txt_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="6sp"
+            android:text="0월 00일 입찰마감 시간"
+            android:textColor="#ffdc90"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+
+        <!-- 오늘 -->
+        <LinearLayout
+            android:id="@+id/my_bid_btn_layout_0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@color/WHITE"
+            android:onClick="onClick">
+
+            <TextView
+                android:id="@+id/my_bid_btn_txt_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="오늘"
+                android:textColor="@color/text_color_333333"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/my_bid_btn_count_0"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:includeFontPadding="false"
+                android:background="@drawable/bg_noti_r"
+                android:text="4"
+                android:textColor="@color/WHITE"
+                android:textSize="13dp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="#808080" />
+
+        <!-- 전체 -->
+        <LinearLayout
+            android:id="@+id/my_bid_btn_layout_1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@color/default_background"
+            android:onClick="onClick">
+
+            <TextView
+                android:id="@+id/my_bid_btn_txt_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="전체"
+                android:textColor="@color/text_color_808080"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/my_bid_btn_count_1"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:includeFontPadding="false"
+                android:background="@drawable/bg_noti_b"
+                android:text="999"
+                android:textColor="@color/WHITE"
+                android:textSize="13dp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="#808080" />
+
+        <!-- TOP3 -->
+        <LinearLayout
+            android:id="@+id/my_bid_btn_layout_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@color/default_background"
+            android:onClick="onClick">
+
+            <TextView
+                android:id="@+id/my_bid_btn_txt_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="TOP3"
+                android:textColor="@color/text_color_808080"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/my_bid_btn_count_2"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="16.5dp"
+                android:includeFontPadding="false"
+                android:background="@drawable/bg_noti_r"
+                android:text="999"
+                android:textColor="@color/WHITE"
+                android:textSize="13dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/my_bid_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/HALF_TRANSPARENT"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="310dp"
+        android:layout_height="355dp"
+        android:background="@drawable/round_rectangle1">
+
+        <Button
+            android:id="@+id/date_sel_btn_x"
+            android:onClick="onClick"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dp"
+            android:background="@drawable/ic_close" />
+
+        <Button
+            android:id="@+id/date_sel_btn_ok"
+            android:onClick="onClick"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/sel_btn_red"
+            android:text="확인"
+            android:textColor="@color/WHITE"
+            android:textSize="17dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:text="기간설정"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:paddingLeft="19dp"
+                android:paddingRight="19dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/date_sel_0_today"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="4.5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:text="오늘"
+                    android:textColor="@color/WHITE"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/date_sel_1_entire"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_rect_gray"
+                    android:gravity="center"
+                    android:text="전체"
+                    android:textColor="@color/text_color_333333"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingLeft="19dp"
+                android:paddingRight="19dp"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/date_sel_2_one_week"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="4.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_rect_gray"
+                    android:gravity="center"
+                    android:text="1주"
+                    android:textColor="@color/text_color_333333"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/date_sel_3_two_week"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4.5dp"
+                    android:layout_marginRight="4.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_rect_gray"
+                    android:gravity="center"
+                    android:text="2주"
+                    android:textColor="@color/text_color_333333"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/date_sel_4_one_month"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_rect_gray"
+                    android:gravity="center"
+                    android:text="1개월"
+                    android:textColor="@color/text_color_333333"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="20dp"
+                android:text="기간입력"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="11dp"
+                android:orientation="horizontal"
+                android:paddingLeft="19dp"
+                android:paddingRight="19dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/date_sel_5_start_day"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="4.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_rect_gray"
+                    android:gravity="center"
+                    android:text="시작일 입력"
+                    android:textColor="#bfbfbf"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/date_sel_6_end_day"
+                    android:onClick="onClick"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_rect_gray"
+                    android:gravity="center"
+                    android:text="종료일 입력"
+                    android:textColor="#bfbfbf"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>
+

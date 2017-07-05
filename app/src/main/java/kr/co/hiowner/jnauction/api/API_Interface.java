@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import kr.co.hiowner.jnauction.api.data.AuctionData;
 import kr.co.hiowner.jnauction.api.data.AuctionsData;
+import kr.co.hiowner.jnauction.api.data.SalesData;
 import kr.co.hiowner.jnauction.api.data.ServerTimeData;
 import kr.co.hiowner.jnauction.api.data.UserData;
 import okhttp3.ResponseBody;
@@ -30,6 +31,10 @@ public interface API_Interface {
     Call<ResponseBaseData> Tender(@FieldMap HashMap<String, String> fields);
 
     @FormUrlEncoded
+    @PATCH("bid")
+    Call<ResponseBaseData> ReTender(@FieldMap HashMap<String, String> fields);
+
+    @FormUrlEncoded
     @PATCH("user")
     Call<ResponseBaseData> UserUpdate(@Field("token") String token, @Field("device_os") String device_os, @Field("device_model") String device_model, @Field("device_id") String device_id, @Field("push_id") String push_id);
 
@@ -41,4 +46,7 @@ public interface API_Interface {
 
     @GET("user")
     Call<UserData> User(@Query("token") String token);
+
+    @GET("sales")
+    Call<SalesData> Sales(@QueryMap HashMap<String, String> fields);
 }

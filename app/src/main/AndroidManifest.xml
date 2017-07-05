@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
@@ -40,6 +40,22 @@
             android:theme="@style/AppTheme.NoActionBar.Transparent"
             android:screenOrientation="portrait"/>
         <activity android:name=".car.popup.TenderPopupRe"
+            android:theme="@style/AppTheme.NoActionBar.Transparent"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mypage.success.MySuccessListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mypage.purchase.MyPurchaseListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mypage.purchase.MyPurchaseDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mypage.success.MySuccessDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mypage.bid.MyBidActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".util.TermSelectPopup"
+            android:theme="@style/AppTheme.NoActionBar.Transparent"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".util.DatePickerActivity"
             android:theme="@style/AppTheme.NoActionBar.Transparent"
             android:screenOrientation="portrait"/>
 

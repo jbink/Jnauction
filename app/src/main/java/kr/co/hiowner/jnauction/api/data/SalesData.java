@@ -3,23 +3,21 @@ package kr.co.hiowner.jnauction.api.data;
 import java.util.List;
 
 /**
- * Created by user on 2017-06-30.
+ * Created by user on 2017-07-05.
  */
-public class AuctionsData {
-
+public class SalesData {
 
     /**
      * status_code : 200
      * status_msg : SUCCESS
-     * result : {"auctions":[{"auction_idx":"33","u_name":"문**","u_phone":"010********","c_brand":"현대","c_mname":"nf소나타","c_myear":"2008","c_num":"61거9479","c_kms":"247000","c_trans":"A","c_history":"N","c_fuel":"L","c_opt_bbox":"N","c_opt_rcam":"N","c_opt_rsensor":"N","c_opt_as":"N","c_opt_navi":"Y","c_opt_4wd":"N","c_opt_sroof":"N","c_opt_skey":"N","c_opt_heat":"N","c_opt_fan":"N","c_opt_alu":"N","c_loc_addr":"대구 북구","c_img_1":"http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_1_9220.jpg","c_img_2":"http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_2_7650.jpg","c_img_3":"http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_3_6446.jpg","c_img_4":"http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_4_531.jpg","c_memo":"출퇴근용","a_status":"300","a_avg_price":"0","a_bid_count":"0","b_price":null,"b_rank":null,"b_count":null},{"auction_idx":"32","u_name":"문**","u_phone":"010********","c_brand":"현대","c_mname":"트라제XG 골드","c_myear":"3001","c_num":"06보1533","c_kms":"188200","c_trans":"A","c_history":"N","c_fuel":"L","c_opt_bbox":"N","c_opt_rcam":"N","c_opt_rsensor":"Y","c_opt_as":"Y","c_opt_navi":"Y","c_opt_4wd":"N","c_opt_sroof":"N","c_opt_skey":"Y","c_opt_heat":"N","c_opt_fan":"N","c_opt_alu":"Y","c_loc_addr":"충북 청주시 서원구성봉로93","c_img_1":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_1_6529.jpg","c_img_2":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_2_2342.jpg","c_img_3":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_3_191.jpg","c_img_4":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_4_6618.jpg","c_memo":"9인승이며 하부부식 현대서비스센터 에서 2016년에 수리받음 무사고입니다","a_status":"300","a_avg_price":"0","a_bid_count":"0","b_price":null,"b_rank":null,"b_count":null}],"count":30,"total_count":31}
+     * result : {"sales":[{"u_name":"문석중","u_phone":"01000000000","c_brand":"현대","c_mname":"트라제XG 골드","c_myear":"3001","c_num":"06보1533","c_kms":"188200","c_trans":"A","c_history":"N","c_fuel":"L","c_opt_bbox":"N","c_opt_rcam":"N","c_opt_rsensor":"Y","c_opt_as":"Y","c_opt_navi":"Y","c_opt_4wd":"N","c_opt_sroof":"N","c_opt_skey":"Y","c_opt_heat":"N","c_opt_fan":"N","c_opt_alu":"Y","c_loc_addr":"충북 청주시 서원구성봉로93","c_img_1":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_1_6529.jpg","c_img_2":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_2_2342.jpg","c_img_3":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_3_191.jpg","c_img_4":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_4_6618.jpg","c_memo":"9인승이며 하부부식 현대서비스센터 에서 2016년에 수리받음 무사고입니다","a_status":"300","a_avg_price":"0","a_bid_count":"0"}],"count":3}
      */
 
     private String status_code;
     private String status_msg;
     /**
-     * auctions : [{"auction_idx":"33","u_name":"문**","u_phone":"010********","c_brand":"현대","c_mname":"nf소나타","c_myear":"2008","c_num":"61거9479","c_kms":"247000","c_trans":"A","c_history":"N","c_fuel":"L","c_opt_bbox":"N","c_opt_rcam":"N","c_opt_rsensor":"N","c_opt_as":"N","c_opt_navi":"Y","c_opt_4wd":"N","c_opt_sroof":"N","c_opt_skey":"N","c_opt_heat":"N","c_opt_fan":"N","c_opt_alu":"N","c_loc_addr":"대구 북구","c_img_1":"http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_1_9220.jpg","c_img_2":"http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_2_7650.jpg","c_img_3":"http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_3_6446.jpg","c_img_4":"http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_4_531.jpg","c_memo":"출퇴근용","a_status":"300","a_avg_price":"0","a_bid_count":"0","b_price":null,"b_rank":null,"b_count":null},{"auction_idx":"32","u_name":"문**","u_phone":"010********","c_brand":"현대","c_mname":"트라제XG 골드","c_myear":"3001","c_num":"06보1533","c_kms":"188200","c_trans":"A","c_history":"N","c_fuel":"L","c_opt_bbox":"N","c_opt_rcam":"N","c_opt_rsensor":"Y","c_opt_as":"Y","c_opt_navi":"Y","c_opt_4wd":"N","c_opt_sroof":"N","c_opt_skey":"Y","c_opt_heat":"N","c_opt_fan":"N","c_opt_alu":"Y","c_loc_addr":"충북 청주시 서원구성봉로93","c_img_1":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_1_6529.jpg","c_img_2":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_2_2342.jpg","c_img_3":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_3_191.jpg","c_img_4":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_4_6618.jpg","c_memo":"9인승이며 하부부식 현대서비스센터 에서 2016년에 수리받음 무사고입니다","a_status":"300","a_avg_price":"0","a_bid_count":"0","b_price":null,"b_rank":null,"b_count":null}]
-     * count : 30
-     * total_count : 31
+     * sales : [{"u_name":"문석중","u_phone":"01000000000","c_brand":"현대","c_mname":"트라제XG 골드","c_myear":"3001","c_num":"06보1533","c_kms":"188200","c_trans":"A","c_history":"N","c_fuel":"L","c_opt_bbox":"N","c_opt_rcam":"N","c_opt_rsensor":"Y","c_opt_as":"Y","c_opt_navi":"Y","c_opt_4wd":"N","c_opt_sroof":"N","c_opt_skey":"Y","c_opt_heat":"N","c_opt_fan":"N","c_opt_alu":"Y","c_loc_addr":"충북 청주시 서원구성봉로93","c_img_1":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_1_6529.jpg","c_img_2":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_2_2342.jpg","c_img_3":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_3_191.jpg","c_img_4":"http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_4_6618.jpg","c_memo":"9인승이며 하부부식 현대서비스센터 에서 2016년에 수리받음 무사고입니다","a_status":"300","a_avg_price":"0","a_bid_count":"0"}]
+     * count : 3
      */
 
     private ResultObject result;
@@ -50,46 +48,40 @@ public class AuctionsData {
 
     public static class ResultObject {
         private int count;
-        private int total_count;
         /**
-         * auction_idx : 33
-         * u_name : 문**
-         * u_phone : 010********
+         * u_name : 문석중
+         * u_phone : 01000000000
          * c_brand : 현대
-         * c_mname : nf소나타
-         * c_myear : 2008
-         * c_num : 61거9479
-         * c_kms : 247000
+         * c_mname : 트라제XG 골드
+         * c_myear : 3001
+         * c_num : 06보1533
+         * c_kms : 188200
          * c_trans : A
          * c_history : N
          * c_fuel : L
          * c_opt_bbox : N
          * c_opt_rcam : N
-         * c_opt_rsensor : N
-         * c_opt_as : N
+         * c_opt_rsensor : Y
+         * c_opt_as : Y
          * c_opt_navi : Y
          * c_opt_4wd : N
          * c_opt_sroof : N
-         * c_opt_skey : N
+         * c_opt_skey : Y
          * c_opt_heat : N
          * c_opt_fan : N
-         * c_opt_alu : N
-         * c_loc_addr : 대구 북구
-         * c_img_1 : http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_1_9220.jpg
-         * c_img_2 : http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_2_7650.jpg
-         * c_img_3 : http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_3_6446.jpg
-         * c_img_4 : http://image.theowner.co.kr/joongna/mycarsale/00/0008/849_img_4_531.jpg
-         * c_memo : 출퇴근용
+         * c_opt_alu : Y
+         * c_loc_addr : 충북 청주시 서원구성봉로93
+         * c_img_1 : http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_1_6529.jpg
+         * c_img_2 : http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_2_2342.jpg
+         * c_img_3 : http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_3_191.jpg
+         * c_img_4 : http://image.theowner.co.kr/joongna/mycarsale/00/0010/1081_img_4_6618.jpg
+         * c_memo : 9인승이며 하부부식 현대서비스센터 에서 2016년에 수리받음 무사고입니다
          * a_status : 300
          * a_avg_price : 0
          * a_bid_count : 0
-         * b_price : null
-         * b_rank : null
-         * b_count : null
-         * a_max_price
          */
 
-        private List<AuctionsObject> auctions;
+        private List<SalesObject> sales;
 
         public int getCount() {
             return count;
@@ -99,23 +91,23 @@ public class AuctionsData {
             this.count = count;
         }
 
-        public int getTotal_count() {
-            return total_count;
+        public List<SalesObject> getSales() {
+            return sales;
         }
 
-        public void setTotal_count(int total_count) {
-            this.total_count = total_count;
+        public void setSales(List<SalesObject> sales) {
+            this.sales = sales;
         }
 
-        public List<AuctionsObject> getAuctions() {
-            return auctions;
-        }
+        public static class SalesObject {
+            public String getAuction_idx() {
+                return auction_idx;
+            }
 
-        public void setAuctions(List<AuctionsObject> auctions) {
-            this.auctions = auctions;
-        }
+            public void setAuction_idx(String auction_idx) {
+                this.auction_idx = auction_idx;
+            }
 
-        public static class AuctionsObject {
             private String auction_idx;
             private String u_name;
             private String u_phone;
@@ -146,38 +138,7 @@ public class AuctionsData {
             private String c_memo;
             private String a_status;
             private String a_avg_price;
-            private String a_max_price;
             private String a_bid_count;
-
-            public String getA_max_price() {
-                return a_max_price;
-            }
-
-            public void setA_max_price(String a_max_price) {
-                this.a_max_price = a_max_price;
-            }
-
-            private Object b_price;
-            private Object b_rank;
-            private Object b_count;
-
-            public Object getB_mybid() {
-                return b_mybid;
-            }
-
-            public void setB_mybid(Object b_mybid) {
-                this.b_mybid = b_mybid;
-            }
-
-            private Object b_mybid;
-
-            public String getAuction_idx() {
-                return auction_idx;
-            }
-
-            public void setAuction_idx(String auction_idx) {
-                this.auction_idx = auction_idx;
-            }
 
             public String getU_name() {
                 return u_name;
@@ -417,30 +378,6 @@ public class AuctionsData {
 
             public void setA_bid_count(String a_bid_count) {
                 this.a_bid_count = a_bid_count;
-            }
-
-            public Object getB_price() {
-                return b_price;
-            }
-
-            public void setB_price(Object b_price) {
-                this.b_price = b_price;
-            }
-
-            public Object getB_rank() {
-                return b_rank;
-            }
-
-            public void setB_rank(Object b_rank) {
-                this.b_rank = b_rank;
-            }
-
-            public Object getB_count() {
-                return b_count;
-            }
-
-            public void setB_count(Object b_count) {
-                this.b_count = b_count;
             }
         }
     }

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -66,12 +67,12 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
 
     //list의 Index 관리 - FULL
     TextView mTvTotalCount_Full, mTvTotalCount_My ;
-    private int mIntOffSet_Full = 1;
+    private int mIntOffSet_Full = 0;
     private int mIntLimit_Full = 10;
 
     //list의 Index 관리 - MY
-    private int mIntOffSet_My = 1;
-    private int mIntLimit_My = 5;
+    private int mIntOffSet_My = 0;
+    private int mIntLimit_My = 10;
 
     //LIST의 결과값 총 갯수
     private int mIntTotal_Full = 0;
@@ -214,8 +215,10 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //            mStrSpinValue = adapterView.getItemAtPosition(i).toString();
+
+
             if(i == 0) {
-                Log.d("where", "설마");
+                Log.d("where", "설마1111111111111111111111111");
                 mIntOffSet_Full = 0;
                 mStrSpinValue = "reg_desc";
                 mAdapterFullCar.removeAllData();
@@ -224,6 +227,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
 
             }
             else if(i == 1) {
+                Log.d("where", " 222222222222222222222222222222222222222");
                 mIntOffSet_Full = 0;
                 mStrSpinValue = "bid_desc";
                 mAdapterFullCar.removeAllData();
@@ -271,9 +275,6 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            Log.d("where", "오프셋 : " + mIntOffSet_Full);
-
-
             HashMap<String, String> map = new HashMap<>();
             map.put("token", SharedPreUtil.getTokenID(getActivity()));
             map.put("mybid", "N");
@@ -288,6 +289,10 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
 //                    Log.d("where",response.body().getStatus_code());
+                    if(!"200".equals(response.body().getStatus_code())){
+                        Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 //                    Log.d("where",""+response.body().getResult().getTotal_count());
                     mIntTotal_Full = response.body().getResult().getTotal_count();
                     mDataCar_Full = response.body().getResult().getAuctions();
@@ -336,8 +341,11 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
                 public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
-//                    Log.d("where",response.body().getStatus_code());
-//                    Log.d("where",""+response.body().getResult().getTotal_count());
+                    if(!"200".equals(response.body().getStatus_code())){
+                        Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mDataCar_Full = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
                     mIntTotal_Full = response.body().getResult().getTotal_count();
                     mDataCar_Full = response.body().getResult().getAuctions();
                     mAdapterFullCar.changeItem(mDataCar_Full);
@@ -361,6 +369,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
     private class MyAuctionsAsyncTask extends AsyncTask<Void, Void, Void>{
 
         public MyAuctionsAsyncTask() {
+            Log.d("where", "요청 : ");
         }
 
         @Override
@@ -373,16 +382,19 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
             map.put("limit", ""+mIntLimit_My);
     //            map.put("limit", "10");
             map.put("offset", ""+mIntOffSet_My);
-            map.put("status_min", "100");
-            map.put("status_max", "399");
+            map.put("status_min", "200");
+            map.put("status_max", "299");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
                 public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
-    //                    Log.d("where",response.body().getStatus_code());
-    //                    Log.d("where",""+response.body().getResult().getTotal_count());
+                    if(!"200".equals(response.body().getStatus_code())){
+                        Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     mIntTotal_My = response.body().getResult().getTotal_count();
                     mDataCar_My = response.body().getResult().getAuctions();
+                    Log.d("where", "SIZE : "+mDataCar_My.size());
                     mAdapterMyCar.addItems(mDataCar_My);
                     DecimalFormat df = new DecimalFormat("###,###");
     //                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
@@ -419,18 +431,21 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
 
             HashMap<String, String> map = new HashMap<>();
             map.put("token", SharedPreUtil.getTokenID(getActivity()));
-            map.put("mybid", "N");
+            map.put("mybid", "Y");
             map.put("order", mStrSpinValue);
             map.put("limit", ""+refreshOffset);//+mIntLimit_My);
             map.put("offset", "0");
-            map.put("status_min", "100");
-            map.put("status_max", "399");
+            map.put("status_min", "200");
+            map.put("status_max", "299");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
                 public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
-//                    Log.d("where",response.body().getStatus_code());
-//                    Log.d("where",""+response.body().getResult().getTotal_count());
+                    if(!"200".equals(response.body().getStatus_code())){
+                        Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mDataCar_My = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
                     mIntTotal_My = response.body().getResult().getTotal_count();
                     mDataCar_My = response.body().getResult().getAuctions();
                     mAdapterMyCar.changeItem(mDataCar_My);
