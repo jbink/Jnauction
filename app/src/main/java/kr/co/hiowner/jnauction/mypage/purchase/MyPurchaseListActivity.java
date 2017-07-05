@@ -51,9 +51,6 @@ public class MyPurchaseListActivity extends AppCompatActivity{
     ListView mListViewMyCar;
     MyPurchaseListAdapter mAdapterMyCar;
 
-    //list의 Index 관리 - MY
-    private int mIntOffSet_My = 0;
-    private int mIntLimit_My = 10;
 
     //LIST의 결과값 총 갯수
     private int mIntTotal_My = 0;

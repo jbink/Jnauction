@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="310dp"
-        android:layout_height="520dp"
+        android:layout_height="530dp"
         android:background="@drawable/round_rectangle1">
 
         <Button

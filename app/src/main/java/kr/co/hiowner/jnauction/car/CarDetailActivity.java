@@ -452,7 +452,7 @@ public class CarDetailActivity extends AppCompatActivity {
         if("Y".equals(mCarData.getResult().getB_mybid())){
             mRLayoutMyPrice.setVisibility(View.VISIBLE);
             mTvMyPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getB_price()) +"만원");
-            mTvMyPriceDate.setText("최종입찰일 XXXX.XX.XX (XX:XX)");
+            mTvMyPriceDate.setText("최종입찰일 " + mCarData.getResult().getB_upd_date());
         }else{
             mRLayoutMyPrice.setVisibility(View.GONE);
 

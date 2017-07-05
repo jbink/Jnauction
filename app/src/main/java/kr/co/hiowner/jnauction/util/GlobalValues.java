@@ -52,6 +52,7 @@ public class GlobalValues {
 	public final static String SERVER = "http://joongna.hiowner.co.kr/api";
 	public final static String SERVER1 = "http://joongna.hiowner.co.kr/api/";
 	public final static String SERVER_SUCCESS = "200";
+	public final static int LIMIT= 100;
 
 
 	static Typeface mFont = null;

@@ -68,11 +68,11 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
     //list의 Index 관리 - FULL
     TextView mTvTotalCount_Full, mTvTotalCount_My ;
     private int mIntOffSet_Full = 0;
-    private int mIntLimit_Full = 10;
+    private int mIntLimit_Full = 0;
 
     //list의 Index 관리 - MY
     private int mIntOffSet_My = 0;
-    private int mIntLimit_My = 10;
+    private int mIntLimit_My = 0;
 
     //LIST의 결과값 총 갯수
     private int mIntTotal_Full = 0;
@@ -93,6 +93,9 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mIntLimit_Full = GlobalValues.LIMIT;
+        mIntLimit_My = GlobalValues.LIMIT;
     }
 
     @Nullable
@@ -198,7 +201,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
             //OnScrollListener.SCROLL_STATE_IDLE은 스크롤이 이동하다가 멈추었을때 발생되는 스크롤 상태입니다.
             //즉 스크롤이 바닦에 닿아 멈춘 상태에 처리를 하겠다는 뜻
             if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && mLastItemMyVisibleFlag) {
-                Log.d("where", " 내 입찰 바닥");
+                Log.d("where", "  바닥 ");
                 if(mIntOffSet_My < mIntTotal_My) {
                     new MyAuctionsAsyncTask().execute();
                     mIntOffSet_My += mIntLimit_My;
@@ -218,19 +221,21 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
 
 
             if(i == 0) {
-                Log.d("where", "설마1111111111111111111111111");
                 mIntOffSet_Full = 0;
+                mIntOffSet_My = 0;
                 mStrSpinValue = "reg_desc";
                 mAdapterFullCar.removeAllData();
+                mAdapterMyCar.removeAllData();
                 new AuctionsAsyncTask().execute();
                 new MyAuctionsAsyncTask().execute();
 
             }
             else if(i == 1) {
-                Log.d("where", " 222222222222222222222222222222222222222");
                 mIntOffSet_Full = 0;
+                mIntOffSet_My = 0;
                 mStrSpinValue = "bid_desc";
                 mAdapterFullCar.removeAllData();
+                mAdapterMyCar.removeAllData();
                 new AuctionsAsyncTask().execute();
                 new MyAuctionsAsyncTask().execute();
             }

@@ -455,7 +455,7 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
 
         mTvMemberName.setText(mCarData.getResult().getU_name());
         mTvMemberPhone.setText(mCarData.getResult().getU_phone());
-        mTvMemberAddr.setText("XXX XXX");
+        mTvMemberAddr.setText(mCarData.getResult().getC_loc_addr());
 //        mTvMemberName.setText(mCarData.getResult().getU_addr);
 
 

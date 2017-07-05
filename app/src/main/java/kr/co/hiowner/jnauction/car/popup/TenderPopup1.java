@@ -21,6 +21,7 @@ import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.api.API_Adapter;
 import kr.co.hiowner.jnauction.api.ResponseBaseData;
 import kr.co.hiowner.jnauction.api.data.AuctionData;
+import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,13 +50,17 @@ public class TenderPopup1 extends AppCompatActivity{
         mTvBrandName = (TextView)findViewById(R.id.tender_popup1_txt_brand_name);
         mTvBrandName.setText(getIntent().getStringExtra("car_brand")+"/"+getIntent().getStringExtra("car_name"));
         mTvYear = (TextView)findViewById(R.id.tender_popup1_txt_year);
-        mTvYear.setText(getIntent().getStringExtra("car_year"));
+        mTvYear.setText(getIntent().getStringExtra("car_year")+"년");
         mTvKms = (TextView)findViewById(R.id.tender_popup1_txt_kms);
-        mTvKms.setText(makeStringWithComma(getIntent().getStringExtra("car_kms"), true));
+        mTvKms.setText(GlobalValues.getWonFormat(getIntent().getStringExtra("car_kms"))+"Km");
         mTvAddr = (TextView)findViewById(R.id.tender_popup1_txt_addr);
         mTvAddr.setText(getIntent().getStringExtra("car_addr"));
         mTvPrice = (TextView)findViewById(R.id.tender_popup1_txt_price);
-        mTvPrice.setText(getIntent().getStringExtra("car_price"));
+        if("0".equals(getIntent().getStringExtra("car_price"))){
+            mTvPrice.setText("3명 이상 입찰 시 노출");
+        }else{
+            mTvPrice.setText(GlobalValues.getWonFormat(getIntent().getStringExtra("car_price")));
+        }
         mStrAuctionIdx = getIntent().getStringExtra("car_auction_idx");
 
 

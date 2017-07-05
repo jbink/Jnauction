@@ -16,6 +16,7 @@ import android.widget.TextView;
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.fragment.AuctionFragment;
 import kr.co.hiowner.jnauction.fragment.MyPageFragment;
+import kr.co.hiowner.jnauction.mypage.bid.fragment.TodayFragment;
 
 /**
  * Created by user on 2017-07-05.
@@ -112,11 +113,11 @@ public class MyBidActivity extends AppCompatActivity{
         public Fragment getItem(int position) {
             switch (position){
                 case 0:
-                    return new AuctionFragment().newInstance();
+                    return new TodayFragment().newInstance();
                 case 1:
-                    return new MyPageFragment().newInstance();
+                    return new TodayFragment().newInstance();
                 case 3:
-                    return new MyPageFragment().newInstance();
+                    return new TodayFragment().newInstance();
             }
             return null;
         }
@@ -133,6 +134,8 @@ public class MyBidActivity extends AppCompatActivity{
                     return "SECTION 1";
                 case 1:
                     return "SECTION 2";
+                case 2:
+                    return "SECTION 3";
             }
             return null;
         }

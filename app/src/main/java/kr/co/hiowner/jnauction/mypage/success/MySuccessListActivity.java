@@ -28,6 +28,7 @@ import kr.co.hiowner.jnauction.api.API_Adapter;
 import kr.co.hiowner.jnauction.api.data.AuctionsData;
 import kr.co.hiowner.jnauction.car.CarDetailActivity;
 import kr.co.hiowner.jnauction.car.CarListAdapter;
+import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
 import kr.co.hiowner.jnauction.util.TermSelectPopup;
 import retrofit2.Call;
@@ -52,7 +53,7 @@ public class MySuccessListActivity extends AppCompatActivity{
 
     //list의 Index 관리 - MY
     private int mIntOffSet_My = 0;
-    private int mIntLimit_My = 10;
+    private int mIntLimit_My = 0;
 
     //LIST의 결과값 총 갯수
     private int mIntTotal_My = 0;
@@ -69,6 +70,8 @@ public class MySuccessListActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage_success_list);
+
+        mIntLimit_My = GlobalValues.LIMIT;
 
         mContext = MySuccessListActivity.this;//
         mTvTerm = (TextView)findViewById(R.id.my_success_txt_term);
@@ -112,7 +115,7 @@ public class MySuccessListActivity extends AppCompatActivity{
             if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && mLastItemMyVisibleFlag) {
                 Log.d("where", " 내 입찰 바닥");
                 if(mIntOffSet_My < mIntTotal_My) {
-                    new MyAuctionsAsyncTask().execute();
+                    new AddMyAuctionsAsyncTask().execute();
                     mIntOffSet_My += mIntLimit_My;
                 }
                 else{
@@ -140,6 +143,7 @@ public class MySuccessListActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQUST_CODE_DATE){
             if(resultCode == RESULT_OK){
+                mIntOffSet_My = 0;
                 mStrStartDay = data.getStringExtra("start_day");
                 mStrEndDay = data.getStringExtra("end_day");
                 Toast.makeText(MySuccessListActivity.this, data.getStringExtra("start_day")+" - "+data.getStringExtra("end_day"), Toast.LENGTH_SHORT).show();
@@ -194,6 +198,53 @@ public class MySuccessListActivity extends AppCompatActivity{
                     mDataCar_My = response.body().getResult().getAuctions();
 //                    mAdapterMyCar.addItems(mDataCar_My);
                     mAdapterMyCar.refreshItems(mDataCar_My);
+                    DecimalFormat df = new DecimalFormat("###,###");
+                    //                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
+                    mTvTotalCount.setText(""+df.format(mIntTotal_My)+"대");
+                }
+
+                @Override
+                public void onFailure(Call<AuctionsData> call, Throwable t) {
+
+                }
+            });
+            return null;
+        }
+    }
+    //내입찰상품관련 AsyncTask
+    private class AddMyAuctionsAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        public AddMyAuctionsAsyncTask() {
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            HashMap<String, String> map = new HashMap<>();
+            map.put("token", SharedPreUtil.getTokenID(mContext));
+            map.put("mybid", "Y");
+            map.put("order", "reg_desc");
+            map.put("limit", ""+mIntLimit_My);
+            //            map.put("limit", "10");
+            map.put("offset", ""+mIntOffSet_My);
+            map.put("status_min", "300");
+            map.put("status_max", "399");
+            map.put("reg_date_min", mStrStartDay);
+            map.put("reg_date_max", mStrEndDay);
+            map.put("mybid_rank_min", "1");
+            map.put("mybid_rank_max", "1");
+            Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
+            auctions.enqueue(new Callback<AuctionsData>() {
+                @Override
+                public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
+                    if(!"200".equals(response.body().getStatus_code())){
+                        Toast.makeText(mContext, response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mDataCar_My = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+                    mIntTotal_My = response.body().getResult().getTotal_count();
+                    mDataCar_My = response.body().getResult().getAuctions();
+                    mAdapterMyCar.addItems(mDataCar_My);
                     DecimalFormat df = new DecimalFormat("###,###");
                     //                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
                     mTvTotalCount.setText(""+df.format(mIntTotal_My)+"대");
