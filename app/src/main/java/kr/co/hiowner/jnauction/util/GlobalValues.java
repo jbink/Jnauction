@@ -280,9 +280,9 @@ public class GlobalValues {
 	}
 	
 	public static String getWonFormat(String value){
-		DecimalFormat df = new DecimalFormat("#,###");
+		DecimalFormat df = new DecimalFormat("#,###,###");
 		try{
-			return df.format(value);
+			return df.format(Double.parseDouble(value));
 		}catch(Exception e){
 			return value;
 		}

@@ -10,12 +10,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -515,7 +517,6 @@ public class CarDetailActivity extends AppCompatActivity {
             mTvMyPriceDate.setText("최종입찰일 " + mCarData.getResult().getB_upd_date());
         }else{
             mRLayoutMyPrice.setVisibility(View.GONE);
-
         }
 
 
@@ -540,6 +541,23 @@ public class CarDetailActivity extends AppCompatActivity {
             mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
             mBtnTender.setEnabled(false);
         }else if (status >= 400 && status < 500){//매입완료
+        }
+
+        //재입찰 막기
+        try {
+            int b_count;
+            if(TextUtils.isEmpty(mCarData.getResult().getB_count())){
+                b_count = 0;
+            }else{
+                b_count = Integer.parseInt(mCarData.getResult().getB_count());
+            }
+            if(b_count >= 2){
+                ((ImageButton)findViewById(R.id.car_detail_btn_car_my_retry)).setVisibility(View.GONE);
+            }else{
+                ((ImageButton)findViewById(R.id.car_detail_btn_car_my_retry)).setVisibility(View.VISIBLE);
+            }
+        }catch (Exception e){
+            Toast.makeText(CarDetailActivity.this, "잘못된 b_count : " + mCarData.getResult().getB_count(), Toast.LENGTH_SHORT).show();
         }
 
 

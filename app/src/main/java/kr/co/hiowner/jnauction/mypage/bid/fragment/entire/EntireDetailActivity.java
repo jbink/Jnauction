@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -529,6 +530,19 @@ public class EntireDetailActivity extends AppCompatActivity {
             mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
             mBtnTender.setEnabled(false);
         }else if (status >= 400 && status < 500){//매입완료
+        }
+
+
+        //재입찰 막기
+        try {
+            int bid_count = Integer.parseInt(mCarData.getResult().getB_count());
+            if(bid_count >= 2){
+                ((ImageButton)findViewById(R.id.entire_detail_btn_car_my_retry)).setVisibility(View.GONE);
+            }else{
+                ((ImageButton)findViewById(R.id.entire_detail_btn_car_my_retry)).setVisibility(View.VISIBLE);
+            }
+        }catch (Exception e){
+            Toast.makeText(mContext, "잘못된 bid_count : " + mCarData.getResult().getB_count(), Toast.LENGTH_SHORT).show();
         }
 
 

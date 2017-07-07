@@ -52,14 +52,14 @@ public class TenderPopup1 extends AppCompatActivity{
         mTvYear = (TextView)findViewById(R.id.tender_popup1_txt_year);
         mTvYear.setText(getIntent().getStringExtra("car_year")+"년");
         mTvKms = (TextView)findViewById(R.id.tender_popup1_txt_kms);
-            mTvKms.setText(GlobalValues.getWonFormat(getIntent().getStringExtra("car_kms"))+"Km");
+        mTvKms.setText(GlobalValues.getWonFormat(getIntent().getStringExtra("car_kms"))+"Km");
         mTvAddr = (TextView)findViewById(R.id.tender_popup1_txt_addr);
         mTvAddr.setText(getIntent().getStringExtra("car_addr"));
         mTvPrice = (TextView)findViewById(R.id.tender_popup1_txt_price);
         if("0".equals(getIntent().getStringExtra("car_price"))){
             mTvPrice.setText("3명 이상 입찰 시 노출");
         }else{
-            mTvPrice.setText(GlobalValues.getWonFormat(getIntent().getStringExtra("car_price")));
+            mTvPrice.setText(GlobalValues.getWonFormat(getIntent().getStringExtra("car_price"))+"만원");
         }
         mStrAuctionIdx = getIntent().getStringExtra("car_auction_idx");
 
