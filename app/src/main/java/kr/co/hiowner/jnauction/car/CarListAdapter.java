@@ -119,6 +119,7 @@ public class CarListAdapter extends BaseAdapter {
         holder.car_name.setText(""+data.getAuction_idx()+"  "+data.getC_brand() +" "+ data.getC_mname());
         holder.car_status_200_person.setText(data.getA_bid_count()+"명 입찰중");
         holder.car_status_300_person.setText(""+data.getA_bid_count()+"명과 경쟁중");
+        holder.car_loc_addr.setText(data.getC_loc_addr());
 
 //        DecimalFormat df = new DecimalFormat("###,###");
             holder.car_kms.setText(GlobalValues.getWonFormat(data.getC_kms()) + "km");
