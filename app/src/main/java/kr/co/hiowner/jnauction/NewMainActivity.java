@@ -22,12 +22,14 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.fragment.AuctionFragment;
 import kr.co.hiowner.jnauction.fragment.AutionFragment;
 import kr.co.hiowner.jnauction.fragment.MyPageFragment;
+import kr.co.hiowner.jnauction.util.SharedPreUtil;
 
 /**
  * Created by user on 2017-06-26.
@@ -68,6 +70,7 @@ public class NewMainActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(mChangeListener);
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
+
 
     ViewPager.OnPageChangeListener mChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
@@ -112,6 +115,8 @@ public class NewMainActivity extends AppCompatActivity {
         Log.d("where", "ACTIVITY   onActivityResult");
     }
 
+
+    MyPageFragment myPageFragment = new MyPageFragment().newInstance();
     class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -124,7 +129,7 @@ public class NewMainActivity extends AppCompatActivity {
                 case 0:
                     return new AuctionFragment().newInstance();
                 case 1:
-                    return new MyPageFragment().newInstance();
+                    return myPageFragment;
             }
             return null;
         }
@@ -146,4 +151,9 @@ public class NewMainActivity extends AppCompatActivity {
             return null;
         }
     }
+
+    public void refreshMyPageData(){
+        myPageFragment.refreshData();
+    }
+
 }

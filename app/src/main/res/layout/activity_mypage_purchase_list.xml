@@ -9,6 +9,22 @@
         android:layout_height="56dp"
         android:background="@color/colorPrimary">
 
+        <RelativeLayout
+            android:id="@+id/my_purchase_list_layout_back"
+            android:onClick="onClick"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true">
+            <Button
+                android:id="@+id/my_purchase_list_btn_back"
+                android:onClick="onClick"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_back"/>
+
+        </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -159,6 +159,7 @@ public class TermSelectPopup extends AppCompatActivity {
                 setTermTvBack(1);
                 mStrTermValue = "전체";
                 mCalendar.setTime(new Date());
+                mCalendar.add(Calendar.DAY_OF_YEAR, 1); // 하루를 더한다
                 mStrEndDay = mFormatter.format(mCalendar.getTime());
                 mStrStartDay = "2000-01-01";
                 break;
@@ -166,6 +167,7 @@ public class TermSelectPopup extends AppCompatActivity {
                 setTermTvBack(2);
                 mStrTermValue = "1주";
                 mCalendar.setTime(new Date());
+                mCalendar.add(Calendar.DAY_OF_YEAR, 1); // 하루를 더한다
                 mStrEndDay = mFormatter.format(mCalendar.getTime());
                 mCalendar.add(Calendar.DAY_OF_YEAR, -7); // 하루를 더한다.
                 mStrStartDay = mFormatter.format(mCalendar.getTime());
@@ -175,6 +177,7 @@ public class TermSelectPopup extends AppCompatActivity {
                 setTermTvBack(3);
                 mStrTermValue = "2주";
                 mCalendar.setTime(new Date());
+                mCalendar.add(Calendar.DAY_OF_YEAR, 1); // 하루를 더한다
                 mStrEndDay = mFormatter.format(mCalendar.getTime());
                 mCalendar.add(Calendar.DAY_OF_YEAR, -14); // 하루를 더한다.
                 mStrStartDay = mFormatter.format(mCalendar.getTime());
@@ -184,6 +187,7 @@ public class TermSelectPopup extends AppCompatActivity {
                 setTermTvBack(4);
                 mStrTermValue = "1개월";
                 mCalendar.setTime(new Date());
+                mCalendar.add(Calendar.DAY_OF_YEAR, 1); // 하루를 더한다
                 mStrEndDay = mFormatter.format(mCalendar.getTime());
                 mCalendar.add(Calendar.MONTH, -1); // 한달 전
                 mStrStartDay = mFormatter.format(mCalendar.getTime());

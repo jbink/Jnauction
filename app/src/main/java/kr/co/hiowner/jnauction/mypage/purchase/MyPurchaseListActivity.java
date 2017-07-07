@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,6 +28,7 @@ import kr.co.hiowner.jnauction.api.data.AuctionsData;
 import kr.co.hiowner.jnauction.api.data.SalesData;
 import kr.co.hiowner.jnauction.mypage.success.MySuccessDetailActivity;
 import kr.co.hiowner.jnauction.mypage.success.MySuccessListAdapter;
+import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
 import kr.co.hiowner.jnauction.util.TermSelectPopup;
 import retrofit2.Call;
@@ -124,6 +124,10 @@ public class MyPurchaseListActivity extends AppCompatActivity{
     public void onClick(View v){
         Intent intent;
         switch (v.getId()){
+            case R.id.my_purchase_list_btn_back :
+            case R.id.my_purchase_list_layout_back :
+                finish();
+                break;
             case R.id.my_purchase_btn_term :
             case R.id.my_purchase_layout_btn_term :
                 intent = new Intent(mContext, TermSelectPopup.class);
@@ -183,7 +187,7 @@ public class MyPurchaseListActivity extends AppCompatActivity{
             sales.enqueue(new Callback<SalesData>() {
                 @Override
                 public void onResponse(Call<SalesData> call, Response<SalesData> response) {
-                    if(!"200".equals(response.body().getStatus_code())){
+                    if(!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
                         Toast.makeText(mContext, response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -192,8 +196,7 @@ public class MyPurchaseListActivity extends AppCompatActivity{
                     mDataCar_My = response.body().getResult().getSales();
 //                    mAdapterMyCar.addItems(mDataCar_My);
                     mAdapterMyCar.refreshItems(mDataCar_My);
-                    DecimalFormat df = new DecimalFormat("###,###");
-                    mTvTotalCount.setText(""+df.format(mIntTotal_My)+"대");
+                    mTvTotalCount.setText(""+ GlobalValues.getWonFormat(String.valueOf(mIntTotal_My))+"대");
                 }
 
                 @Override

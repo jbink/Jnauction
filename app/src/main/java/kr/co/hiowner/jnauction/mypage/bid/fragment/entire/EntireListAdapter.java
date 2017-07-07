@@ -1,9 +1,6 @@
-package kr.co.hiowner.jnauction.car;
+package kr.co.hiowner.jnauction.mypage.bid.fragment.entire;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +22,12 @@ import kr.co.hiowner.jnauction.util.GlobalValues;
 /**
  * Created by user on 2017-06-24.
  */
-public class CarListAdapter extends BaseAdapter {
+public class EntireListAdapter extends BaseAdapter {
     LayoutInflater mInflater;
     List<AuctionsData.ResultObject.AuctionsObject> mRowList;
     Context mContext;
 
-    public CarListAdapter(Context context) {
+    public EntireListAdapter(Context context) {
 //    public CarListAdapter(Context context, List<CarData> mRowList) {
         super();
         mContext = context;
@@ -94,18 +90,18 @@ public class CarListAdapter extends BaseAdapter {
 
         if(convertView == null){
 
-            convertView = mInflater.inflate(R.layout.row_main_buy_list, parent, false);
+            convertView = mInflater.inflate(R.layout.row_frag_my_bid_entire, parent, false);
             holder = new ViewHolder();
 
-            holder.car_image = (ImageView)convertView.findViewById(R.id.row_main_img_thumbnail);
-            holder.car_name = (TextView)convertView.findViewById(R.id.row_main_txt_name);
-            holder.car_loc_addr = (TextView)convertView.findViewById(R.id.row_main_txt_name);
-            holder.car_year = (TextView)convertView.findViewById(R.id.row_main_txt_year);
-            holder.car_kms = (TextView)convertView.findViewById(R.id.row_main_txt_kms);
-            holder.car_status_200 = (LinearLayout)convertView.findViewById(R.id.row_main_layout_status_200);
-            holder.car_status_200_person = (TextView)convertView.findViewById(R.id.row_main_layout_status_200_person);
-            holder.car_status_300 = (LinearLayout)convertView.findViewById(R.id.row_main_layout_status_300);
-            holder.car_status_300_person = (TextView)convertView.findViewById(R.id.row_main_layout_status_300_person);
+            holder.car_image = (ImageView)convertView.findViewById(R.id.row_bid_entire_img_thumbnail);
+            holder.car_name = (TextView)convertView.findViewById(R.id.row_bid_entire_txt_name);
+            holder.car_loc_addr = (TextView)convertView.findViewById(R.id.row_bid_entire_txt_name);
+            holder.car_year = (TextView)convertView.findViewById(R.id.row_bid_entire_txt_year);
+            holder.car_kms = (TextView)convertView.findViewById(R.id.row_bid_entire_txt_kms);
+            holder.car_status = (LinearLayout)convertView.findViewById(R.id.row_frag_my_bid_layout_status);
+            holder.car_status_person = (TextView)convertView.findViewById(R.id.row_frag_my_bid_layout_status_person);
+            holder.car_price = (TextView)convertView.findViewById(R.id.row_bid_entire_txt_price);
+            holder.car_txt_price = (TextView)convertView.findViewById(R.id.row_bid_entire_txt_price_);
 
             convertView.setTag(holder);
         }
@@ -117,36 +113,25 @@ public class CarListAdapter extends BaseAdapter {
         holder.car_loc_addr.setText(data.getC_loc_addr());
         holder.car_year.setText(data.getC_myear()+"년식");
         holder.car_name.setText(""+data.getAuction_idx()+"  "+data.getC_brand() +" "+ data.getC_mname());
-        holder.car_status_200_person.setText(data.getA_bid_count()+"명 입찰중");
-        holder.car_status_300_person.setText(""+data.getA_bid_count()+"명과 경쟁중");
+        holder.car_status_person.setText("["+data.getA_bid_count()+"명 입찰중]");
 
-//        DecimalFormat df = new DecimalFormat("###,###");
-            holder.car_kms.setText(GlobalValues.getWonFormat(data.getC_kms()) + "km");
-
+        holder.car_kms.setText(GlobalValues.getWonFormat(data.getC_kms()) + "km");
         try{
             int status = Integer.parseInt(data.getA_status());
-            if(status >= 100 && status < 200){//입찰대기
-                holder.car_status_200.setVisibility(View.GONE);
-                holder.car_status_300.setVisibility(View.GONE);
-            }else if (status >= 200 && status < 300){//입찰중
-                if ("Y".equals(data.getB_mybid())){
-                    holder.car_status_300.setVisibility(View.VISIBLE);
-                    holder.car_status_200.setVisibility(View.GONE);
+            if(status >= 300 && status < 400){
+                holder.car_price.setText(GlobalValues.getWonFormat(data.getA_max_price()));
+                holder.car_txt_price.setText("최고 입찰가 ");
+            }else{
+                if("0".equals(data.getA_avg_price())){
+                    holder.car_price.setText("미공개");
                 }else{
-                    holder.car_status_300.setVisibility(View.GONE);
-                    holder.car_status_200.setVisibility(View.VISIBLE);
+                    holder.car_price.setText(GlobalValues.getWonFormat(data.getA_avg_price()));
                 }
-            }else if (status >= 300 && status < 400){//입찰완료
-                holder.car_status_200.setVisibility(View.GONE);
-                holder.car_status_300.setVisibility(View.VISIBLE);
-            }else if (status >= 400 && status < 500){//매입완료
-                holder.car_status_200.setVisibility(View.VISIBLE);
-                holder.car_status_300.setVisibility(View.VISIBLE);
+                holder.car_txt_price.setText("평균 입찰가 ");
             }
-        }catch (Exception e){
-            Toast.makeText(mContext, "STATUS 오류", Toast.LENGTH_SHORT).show();
+        }catch (Exception e) {
+            holder.car_price.setText(data.getB_price());
         }
-
 
 
 
@@ -159,10 +144,10 @@ public class CarListAdapter extends BaseAdapter {
         TextView car_loc_addr;
         TextView car_year;
         TextView car_kms;
-        LinearLayout car_status_300;
-        TextView car_status_300_person;
-        LinearLayout car_status_200;
-        TextView car_status_200_person;
+        LinearLayout car_status;
+        TextView car_status_person;
+        TextView car_txt_price;
+        TextView car_price;
 
     }
 }

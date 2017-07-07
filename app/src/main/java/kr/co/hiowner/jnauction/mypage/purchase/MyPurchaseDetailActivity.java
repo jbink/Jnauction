@@ -20,12 +20,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.api.API_Adapter;
 import kr.co.hiowner.jnauction.api.data.AuctionData;
+import kr.co.hiowner.jnauction.car.CarPictureActivity;
 import kr.co.hiowner.jnauction.car.popup.TenderPopup1;
 import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
@@ -63,18 +63,18 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_success_detail);
+        setContentView(R.layout.activity_my_purchase_detail);
 
         mContext = MyPurchaseDetailActivity.this;
 //        mCarData = getIntent().getParcelableExtra("car_data");
         mStrAuctionIdx = getIntent().getStringExtra("auction_idx");
 
-        mTvCarName = (TextView)findViewById(R.id.my_success_detail_txt_name);
-        mTvCarYear = (TextView)findViewById(R.id.my_success_detail_txt_car_year);
-        mTvCarKms = (TextView)findViewById(R.id.my_success_detail_txt_car_kms);
-        mTvCarLocAddr = (TextView)findViewById(R.id.my_success_detail_txt_car_loc_addr);
-        mTvCarNumber = (TextView)findViewById(R.id.my_success_detail_txt_car_number);
-        mTvBidTime = (TextView)findViewById(R.id.my_success_detail_txt_bid_time);
+        mTvCarName = (TextView)findViewById(R.id.my_purchase_detail_txt_name);
+        mTvCarYear = (TextView)findViewById(R.id.my_purchase_detail_txt_car_year);
+        mTvCarKms = (TextView)findViewById(R.id.my_purchase_detail_txt_car_kms);
+        mTvCarLocAddr = (TextView)findViewById(R.id.my_purchase_detail_txt_car_loc_addr);
+        mTvCarNumber = (TextView)findViewById(R.id.my_purchase_detail_txt_car_number);
+        mTvBidTime = (TextView)findViewById(R.id.my_purchase_detail_txt_bid_time);
         mTvCarOpsTrans = (TextView)findViewById(R.id.cas_ops_trans);
         mTvCarOpsRsensor = (TextView)findViewById(R.id.cas_ops_rsensor);
         mTvCarOpsRcam = (TextView)findViewById(R.id.cas_ops_rcam);
@@ -94,14 +94,14 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
         mTvMemberPhone = (TextView)findViewById(R.id.member_info_phone);
         mTvMemberAddr = (TextView)findViewById(R.id.member_info_addr);
 
-        mBtnTender = (Button) findViewById(R.id.my_success_detail_btn_buy);
-        mTvMaxPrice = (TextView) findViewById(R.id.my_success_detail_txt_car_max_price);
+        mBtnTender = (Button) findViewById(R.id.my_purchase_detail_btn_buy);
+        mTvMaxPrice = (TextView) findViewById(R.id.my_purchase_detail_txt_car_max_price);
 //        mTvCarOpsMemo = (TextView)findViewById(R.id.cas_ops_memo);
 
 
 
-        mPager = (ViewPager)findViewById(R.id.my_success_detail_pager);
-        mLayoutPagerIndex = (LinearLayout)findViewById(R.id.my_success_detail_layout_index);
+        mPager = (ViewPager)findViewById(R.id.my_purchase_detail_pager);
+        mLayoutPagerIndex = (LinearLayout)findViewById(R.id.my_purchase_detail_layout_index);
 
         mIvIndex = new ImageView[PAGER_COUNT];
         for(int i=0 ; i<PAGER_COUNT ; i++){
@@ -154,7 +154,11 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
     public void onClick(View v){
         Intent intent;
         switch (v.getId()){
-            case R.id.my_success_detail_btn_buy:
+            case R.id.my_purchase_btn_back :
+            case R.id.my_purchase_layout_back :
+                finish();
+                break;
+            case R.id.my_purchase_detail_btn_buy:
                 intent = new Intent(mContext, TenderPopup1.class);
                 intent.putExtra("car_brand", mCarData.getResult().getC_brand());
                 intent.putExtra("car_name", mCarData.getResult().getC_mname());
@@ -214,21 +218,35 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
             //만들어진 View안에 있는 ImageView 객체 참조
             //위에서 inflated 되어 만들어진 view로부터 findViewById()를 해야 하는 것에 주의.
             ImageView img = (ImageView) view.findViewById(R.id.row_img_view_pager);
-            img.setScaleType(ImageView.ScaleType.FIT_XY);
+            img.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
             //ImageView에 현재 position 번째에 해당하는 이미지를 보여주기 위한 작업
             //현재 position에 해당하는 이미지를 setting
 //            int id = getResources().getIdentifier("pager_img_"+ position, "mipmap", "jbink.jbinsoft.joonggonara_dealer");
 //            img.setBackgroundResource(id);
 
-            if(position == 0)
+            if(position == 0) {
                 Glide.with(mContext).load(mCarData.getResult().getC_img_1()).into(img);
-            else if(position == 1)
+            }else if(position == 1){
                 Glide.with(mContext).load(mCarData.getResult().getC_img_2()).into(img);
-            else if(position == 2)
+            } else if (position == 2) {
                 Glide.with(mContext).load(mCarData.getResult().getC_img_3()).into(img);
-            else if(position == 3)
+            } else if (position == 3) {
                 Glide.with(mContext).load(mCarData.getResult().getC_img_4()).into(img);
+            }
+
+
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, CarPictureActivity.class);
+                    intent.putExtra("pic1", mCarData.getResult().getC_img_1());
+                    intent.putExtra("pic2", mCarData.getResult().getC_img_2());
+                    intent.putExtra("pic3", mCarData.getResult().getC_img_3());
+                    intent.putExtra("pic4", mCarData.getResult().getC_img_4());
+                    startActivity(intent);
+                }
+            });
 
 //            int color = ContextCompat.getColor(mContext, R.color.border_line);
 //            if(position == 0)
@@ -287,6 +305,7 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call<AuctionData> call, Response<AuctionData> response) {
+
                     mCarData = new AuctionData();
 
                     mCarData.setStatus_code(response.body().getStatus_code());
@@ -307,8 +326,7 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
     public void setDetailView(){
         mTvCarName.setText(mCarData.getResult().getC_brand() + " "+ mCarData.getResult().getC_mname());
         mTvCarYear.setText(mCarData.getResult().getC_myear()+"년");
-        DecimalFormat df = new DecimalFormat("###,###");
-        mTvCarKms.setText(df.format(Double.parseDouble(mCarData.getResult().getC_kms())) + "km");
+        mTvCarKms.setText(GlobalValues.getWonFormat(mCarData.getResult().getC_kms()) + "km");
         mTvCarLocAddr.setText(mCarData.getResult().getC_loc_addr());
         mTvCarNumber.setText(mCarData.getResult().getC_num());
         mTvBidTime.setText("입찰완료 : XXXX.XX.XX" );
@@ -343,84 +361,88 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
             mTvCarOpsFuel.setText(mCarData.getResult().getC_fuel());
 
         if("Y".equals(mCarData.getResult().getC_opt_rsensor()))
-            mTvCarOpsRsensor.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_333333));
+            mTvCarOpsRsensor.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         else if ("N".equals(mCarData.getResult().getC_opt_rsensor()))
             mTvCarOpsRsensor.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
         else
             mTvCarOpsRsensor.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
         if("Y".equals(mCarData.getResult().getC_opt_rcam()))
-            mTvCarOpsRcam.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_333333));
+            mTvCarOpsRcam.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         else if ("N".equals(mCarData.getResult().getC_opt_rcam()))
             mTvCarOpsRcam.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
         else
             mTvCarOpsRcam.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
         if("Y".equals(mCarData.getResult().getC_opt_sroof()))
-            mTvCarOpsSroof.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_333333));
+            mTvCarOpsSroof.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         else if ("N".equals(mCarData.getResult().getC_opt_sroof()))
             mTvCarOpsSroof.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
         else
             mTvCarOpsSroof.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
         if("Y".equals(mCarData.getResult().getC_opt_skey()))
-            mTvCarOpsSkey.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_333333));
+            mTvCarOpsSkey.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         else if ("N".equals(mCarData.getResult().getC_opt_skey()))
             mTvCarOpsSkey.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
         else
             mTvCarOpsSkey.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
         if("Y".equals(mCarData.getResult().getC_opt_heat()))
-            mTvCarOpsHeat.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_333333));
+            mTvCarOpsHeat.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         else if ("N".equals(mCarData.getResult().getC_opt_heat()))
             mTvCarOpsHeat.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
         else
             mTvCarOpsHeat.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
         if("Y".equals(mCarData.getResult().getC_opt_fan()))
-            mTvCarOpsFan.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_333333));
+            mTvCarOpsFan.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         else if ("N".equals(mCarData.getResult().getC_opt_fan()))
             mTvCarOpsFan.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
         else
             mTvCarOpsFan.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
         if("Y".equals(mCarData.getResult().getC_opt_bbox()))
-            mTvCarOpsBbox.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_333333));
+            mTvCarOpsBbox.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         else if ("N".equals(mCarData.getResult().getC_opt_bbox()))
             mTvCarOpsBbox.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
         else
             mTvCarOpsBbox.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
         if("Y".equals(mCarData.getResult().getC_opt_alu()))
-            mTvCarOpsAlu.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_333333));
+            mTvCarOpsAlu.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         else if ("N".equals(mCarData.getResult().getC_opt_alu()))
             mTvCarOpsAlu.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
         else
             mTvCarOpsAlu.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
         if("Y".equals(mCarData.getResult().getC_opt_as()))
-            mTvCarOpsAs.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_333333));
+            mTvCarOpsAs.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         else if ("N".equals(mCarData.getResult().getC_opt_as()))
             mTvCarOpsAs.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
         else
             mTvCarOpsAs.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
         if("Y".equals(mCarData.getResult().getC_opt_navi()))
-            mTvCarOpsNavi.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_333333));
+            mTvCarOpsNavi.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         else if ("N".equals(mCarData.getResult().getC_opt_navi()))
             mTvCarOpsNavi.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
         else
             mTvCarOpsNavi.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
         if("Y".equals(mCarData.getResult().getC_opt_4wd()))
-            mTvCarOps4wd.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_333333));
+            mTvCarOps4wd.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         else if ("N".equals(mCarData.getResult().getC_opt_4wd()))
             mTvCarOps4wd.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
         else
             mTvCarOps4wd.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
 
-        mTvMaxPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getA_max_price()) + "만원");
+        try{
+            mTvMaxPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getA_max_price()) + "만원");
+        }catch (Exception e){
+            mTvMaxPrice.setText(mCarData.getResult().getB_price() + "만원");
+        }
 
         //입찰여부
         int status = Integer.parseInt(mCarData.getResult().getA_status());
@@ -439,7 +461,7 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
             }
         }else if (status >= 300 && status < 400){//입찰완료
             mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
-            mBtnTender.setText("입찰 완료된 차량입니다.");
+            mBtnTender.setText("매입 완료된 차량입니다.");
             mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
             mBtnTender.setEnabled(false);
         }else if (status >= 400 && status < 500){//매입완료

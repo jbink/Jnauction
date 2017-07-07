@@ -111,6 +111,11 @@ public class MyPurchaseListAdapter extends BaseAdapter {
         holder.car_name.setText(""+data.getC_brand() +" "+ data.getC_mname());
         holder.car_date.setText("[XX.XX XX:XX]");
 
+        //결과값 안 내려줌
+//        String date = data.getB_upd_date().substring(5, 16);
+//        holder.car_date.setText("["+date+"]");
+
+
         holder.car_kms.setText(GlobalValues.getWonFormat(data.getC_kms()) + "km");
 
 //        try{

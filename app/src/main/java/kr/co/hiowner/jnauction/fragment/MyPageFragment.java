@@ -1,5 +1,6 @@
 package kr.co.hiowner.jnauction.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 
+import kr.co.hiowner.jnauction.NewMainActivity;
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.api.API_Adapter;
 import kr.co.hiowner.jnauction.api.data.AuctionsData;
@@ -25,6 +27,7 @@ import kr.co.hiowner.jnauction.mypage.MyPagePopup;
 import kr.co.hiowner.jnauction.mypage.bid.MyBidActivity;
 import kr.co.hiowner.jnauction.mypage.purchase.MyPurchaseListActivity;
 import kr.co.hiowner.jnauction.mypage.success.MySuccessListActivity;
+import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,10 +70,11 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
         mTvUserBidCompleteEntire = (TextView)rootView.findViewById(R.id.main_user_txt_bid_complete_entire);
         mTvExtraPoint = (TextView)rootView.findViewById(R.id.main_user_txt_extra_point);
         mTvMonthlyPoint = (TextView)rootView.findViewById(R.id.main_user_txt_monthly_point);
-        ((ImageButton)rootView.findViewById(R.id.main_user_btn_bid_info)).setOnClickListener(this);
+        ((ImageButton)rootView.findViewById(R.id.main_user_btn_info)).setOnClickListener(this);
         ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_seccess)).setOnClickListener(this);
         ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_purchase)).setOnClickListener(this);
-        ((LinearLayout)rootView.findViewById(R.id.main_user_layout_bid_info)).setOnClickListener(this);
+        ((LinearLayout)rootView.findViewById(R.id.main_user_layout_info)).setOnClickListener(this);
+        ((RelativeLayout)rootView.findViewById(R.id.main_user_layout_bid)).setOnClickListener(this);
 
 //        mTvUserName.setText(UserData.getInstance().getName());
 //        mTvUSerPhone.setText(UserData.getInstance().getPhone());
@@ -84,8 +88,8 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v){
         Intent intent;
         switch (v.getId()){
-            case R.id.main_user_layout_bid_info :
-            case R.id.main_user_btn_bid_info :
+            case R.id.main_user_layout_info :
+            case R.id.main_user_btn_info :
                 intent = new Intent(getActivity(), MyPagePopup.class);
                 startActivity(intent);
                 break;
@@ -93,16 +97,19 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), MySuccessListActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.main_user_btn_bid :
-                Toast.makeText(getActivity(), "작업중입니다.", Toast.LENGTH_SHORT).show();
-//                intent = new Intent(getActivity(), MyBidActivity.class);
-//                startActivity(intent);
+            case R.id.main_user_layout_bid :
+                intent = new Intent(getActivity(), MyBidActivity.class);
+                startActivity(intent);
                 break;
             case R.id.main_user_btn_purchase :
                 intent = new Intent(getActivity(), MyPurchaseListActivity.class);
                 startActivity(intent);
                 break;
         }
+    }
+
+    public void refreshData(){
+        new MyPageAsyncTask().execute();
     }
 
 
@@ -124,7 +131,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onResponse(Call<UserData> call, Response<UserData> response) {
 
-                    if(!"200".equals(response.body().getStatus_code())){
+                    if(!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
                         Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }

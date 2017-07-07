@@ -94,6 +94,7 @@
                         android:textSize="17dp" />
 
                     <Button
+                        android:visibility="gone"
                         android:layout_width="37dp"
                         android:layout_height="21dp"
                         android:layout_marginLeft="7dp"
@@ -111,7 +112,7 @@
 
             <!-- 나의 입찰 정보 -->
             <LinearLayout
-                android:id="@+id/main_user_layout_bid_info"
+                android:id="@+id/main_user_layout_info"
                 android:onClick="onClick"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -132,7 +133,7 @@
                     android:textSize="17dp" />
 
                 <ImageButton
-                    android:id="@+id/main_user_btn_bid_info"
+                    android:id="@+id/main_user_btn_info"
                     android:layout_marginLeft="7dp"
                     android:layout_width="13dp"
                     android:layout_height="13dp"
@@ -210,7 +211,7 @@
             <!-- END : 입찰 성공 -->
             <!-- 나의 입찰차량 -->
             <RelativeLayout
-                android:id="@+id/main_user_btn_bid"
+                android:id="@+id/main_user_layout_bid"
                 android:onClick="onClick"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"

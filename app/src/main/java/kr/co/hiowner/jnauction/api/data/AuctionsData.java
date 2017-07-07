@@ -161,9 +161,9 @@ public class AuctionsData {
                 this.a_max_price = a_max_price;
             }
 
-            private Object b_price;
-            private Object b_rank;
-            private Object b_count;
+            private String b_price;
+            private String b_rank;
+            private String b_count;
 
             public String getB_upd_date() {
                 return b_upd_date;
@@ -429,27 +429,27 @@ public class AuctionsData {
                 this.a_bid_count = a_bid_count;
             }
 
-            public Object getB_price() {
+            public String getB_price() {
                 return b_price;
             }
 
-            public void setB_price(Object b_price) {
+            public void setB_price(String b_price) {
                 this.b_price = b_price;
             }
 
-            public Object getB_rank() {
+            public String getB_rank() {
                 return b_rank;
             }
 
-            public void setB_rank(Object b_rank) {
+            public void setB_rank(String b_rank) {
                 this.b_rank = b_rank;
             }
 
-            public Object getB_count() {
+            public String getB_count() {
                 return b_count;
             }
 
-            public void setB_count(Object b_count) {
+            public void setB_count(String b_count) {
                 this.b_count = b_count;
             }
         }

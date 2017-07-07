@@ -52,6 +52,11 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".mypage.bid.MyBidActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".mypage.bid.fragment.entire.EntireDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mypage.bid.fragment.top.TopDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".car.CarPictureActivity"/>
         <activity android:name=".util.TermSelectPopup"
             android:theme="@style/AppTheme.NoActionBar.Transparent"
             android:screenOrientation="portrait"/>
@@ -74,6 +79,9 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="a6e5e30164138aa8ed70131b11e652496aec35ef" />
     </application>
 
 </manifest>

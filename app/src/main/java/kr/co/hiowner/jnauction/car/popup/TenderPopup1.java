@@ -52,7 +52,7 @@ public class TenderPopup1 extends AppCompatActivity{
         mTvYear = (TextView)findViewById(R.id.tender_popup1_txt_year);
         mTvYear.setText(getIntent().getStringExtra("car_year")+"년");
         mTvKms = (TextView)findViewById(R.id.tender_popup1_txt_kms);
-        mTvKms.setText(GlobalValues.getWonFormat(getIntent().getStringExtra("car_kms"))+"Km");
+            mTvKms.setText(GlobalValues.getWonFormat(getIntent().getStringExtra("car_kms"))+"Km");
         mTvAddr = (TextView)findViewById(R.id.tender_popup1_txt_addr);
         mTvAddr.setText(getIntent().getStringExtra("car_addr"));
         mTvPrice = (TextView)findViewById(R.id.tender_popup1_txt_price);
@@ -75,11 +75,13 @@ public class TenderPopup1 extends AppCompatActivity{
                 // 숫자가 추가되었을때에 Comma를 추가해준다.
                 if (!s.toString().equals(strCollectAmount)) {
                     // 숫자에 Comma를 추가해주는 메소드 호출
-                    strCollectAmount = makeStringWithComma(s.toString().replace(",", ""), true);
+                    String input = s.toString().replace(",","");
+                    input = input.replace("만원","");
+                    strCollectAmount = makeStringWithComma(input, true)+"만원";
                     mEdtCost.setText(strCollectAmount);
                     Editable e = mEdtCost.getText();
                     // 커서의 위치가 현재 입력된 위치의 끝쪽에 가게 해야 한다.
-                    Selection.setSelection(e, strCollectAmount.length());
+                    Selection.setSelection(e, strCollectAmount.length()-2);
                 }
             }
             @Override
@@ -142,7 +144,7 @@ public class TenderPopup1 extends AppCompatActivity{
         String strPrice = "";
 
         public BidAsyncTask() {
-            strPrice = mEdtCost.getText().toString().replace(",", "");
+            strPrice = mEdtCost.getText().toString().replace(",", "").replace("만원", "");
         }
 
         @Override
@@ -159,7 +161,7 @@ public class TenderPopup1 extends AppCompatActivity{
                 @Override
                 public void onResponse(Call<ResponseBaseData> call, Response<ResponseBaseData> response) {
 
-                    if ("200".equals(response.body().getStatus_code())){
+                    if (GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
                         //완료팝업호출
                         Intent intent = new Intent(mContext, TenderPopup2.class);
                         startActivityForResult(intent, 7878);

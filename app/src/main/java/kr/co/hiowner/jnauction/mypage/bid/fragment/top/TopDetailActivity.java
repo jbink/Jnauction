@@ -1,4 +1,4 @@
-package kr.co.hiowner.jnauction.mypage.success;
+package kr.co.hiowner.jnauction.mypage.bid.fragment.top;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,7 +42,7 @@ import retrofit2.Response;
 /**
  * Created by user on 2017-06-21.
  */
-public class MySuccessDetailActivity extends AppCompatActivity {
+public class TopDetailActivity extends AppCompatActivity {
 
     private final int PAGER_COUNT = 4;
 
@@ -59,28 +59,33 @@ public class MySuccessDetailActivity extends AppCompatActivity {
             mTvCarOpsRsensor, mTvCarOpsRcam, mTvCarOpsHeat, mTvCarOpsFan,
             mTvCarOpsAlu, mTvCarOpsAs, mTvCarOpsNavi, mTvCarOps4wd, mTvCarOpsMemo;
 
-    TextView mTvMemberName, mTvMemberPhone, mTvMemberAddr;
+    TextView mTvBidCount, mTvRemainTime, mTvAvgPrice;
 
-    TextView mTvBidTime, mTvMaxPrice;
-
+    //나의 입찰가
+    RelativeLayout mRLayoutMyPrice;
+    TextView mTvMyPrice, mTvMyPriceDate;
 
     Button mBtnTender;
+
+    //결과값 리턴을 위해서
+    boolean mBoolResult = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_success_detail);
+        setContentView(R.layout.activity_top_detail);
 
-        mContext = MySuccessDetailActivity.this;
+        mContext = TopDetailActivity.this;
 //        mCarData = getIntent().getParcelableExtra("car_data");
         mStrAuctionIdx = getIntent().getStringExtra("auction_idx");
 
-        mTvCarName = (TextView)findViewById(R.id.my_success_detail_txt_name);
-        mTvCarYear = (TextView)findViewById(R.id.my_success_detail_txt_car_year);
-        mTvCarKms = (TextView)findViewById(R.id.my_success_detail_txt_car_kms);
-        mTvCarLocAddr = (TextView)findViewById(R.id.my_success_detail_txt_car_loc_addr);
-        mTvCarNumber = (TextView)findViewById(R.id.my_success_detail_txt_car_number);
-        mTvBidTime = (TextView)findViewById(R.id.my_success_detail_txt_bid_time);
+        mTvCarName = (TextView)findViewById(R.id.top_detail_txt_name);
+        mTvCarYear = (TextView)findViewById(R.id.top_detail_txt_car_year);
+        mTvCarKms = (TextView)findViewById(R.id.top_detail_txt_car_kms);
+        mTvCarLocAddr = (TextView)findViewById(R.id.top_detail_txt_car_loc_addr);
+        mTvCarNumber = (TextView)findViewById(R.id.top_detail_txt_car_number);
+        mTvBidCount = (TextView)findViewById(R.id.top_detail_txt_bid_count);
+        mTvRemainTime = (TextView)findViewById(R.id.top_detail_txt_remain_time);
         mTvCarOpsTrans = (TextView)findViewById(R.id.cas_ops_trans);
         mTvCarOpsRsensor = (TextView)findViewById(R.id.cas_ops_rsensor);
         mTvCarOpsRcam = (TextView)findViewById(R.id.cas_ops_rcam);
@@ -95,19 +100,17 @@ public class MySuccessDetailActivity extends AppCompatActivity {
         mTvCarOpsAs = (TextView)findViewById(R.id.cas_ops_as);
         mTvCarOpsNavi = (TextView)findViewById(R.id.cas_ops_navi);
         mTvCarOps4wd = (TextView)findViewById(R.id.cas_ops_4wd);
-
-        mTvMemberName = (TextView)findViewById(R.id.member_info_name);
-        mTvMemberPhone = (TextView)findViewById(R.id.member_info_phone);
-        mTvMemberAddr = (TextView)findViewById(R.id.member_info_addr);
-
-        mBtnTender = (Button) findViewById(R.id.my_success_detail_btn_buy);
-        mTvMaxPrice = (TextView) findViewById(R.id.my_success_detail_txt_car_max_price);
+        mBtnTender = (Button) findViewById(R.id.top_detail_btn_buy);
+        mTvAvgPrice = (TextView) findViewById(R.id.top_detail_txt_car_avg_price);
+        mRLayoutMyPrice = (RelativeLayout) findViewById(R.id.top_detail_layout_car_my);
+        mTvMyPrice = (TextView) findViewById(R.id.top_detail_txt_car_my_price);
+        mTvMyPriceDate = (TextView) findViewById(R.id.top_detail_txt_car_my_date);
 //        mTvCarOpsMemo = (TextView)findViewById(R.id.cas_ops_memo);
 
 
 
-        mPager = (ViewPager)findViewById(R.id.my_success_detail_pager);
-        mLayoutPagerIndex = (LinearLayout)findViewById(R.id.my_success_detail_layout_index);
+        mPager = (ViewPager)findViewById(R.id.top_detail_pager);
+        mLayoutPagerIndex = (LinearLayout)findViewById(R.id.top_detail_layout_index);
 
         mIvIndex = new ImageView[PAGER_COUNT];
         for(int i=0 ; i<PAGER_COUNT ; i++){
@@ -154,17 +157,24 @@ public class MySuccessDetailActivity extends AppCompatActivity {
         });
 
         new AuctionIdxAsyncTask().execute();
+        new TimeAsyncTask().execute();
     }
 
 
     public void onClick(View v){
         Intent intent;
         switch (v.getId()){
-            case R.id.my_success_layout_back :
-            case R.id.my_success_btn_back :
-                finish();
+            case R.id.top_detail_btn_back :
+            case R.id.top_detail_layout_back :
+                if(mBoolResult == true){
+                    setResult(RESULT_OK);
+                    finish();
+                }else{
+                    setResult(RESULT_CANCELED);
+                    finish();
+                }
                 break;
-            case R.id.my_success_detail_btn_buy:
+            case R.id.top_detail_btn_buy:
                 intent = new Intent(mContext, TenderPopup1.class);
                 intent.putExtra("car_brand", mCarData.getResult().getC_brand());
                 intent.putExtra("car_name", mCarData.getResult().getC_mname());
@@ -173,19 +183,49 @@ public class MySuccessDetailActivity extends AppCompatActivity {
                 intent.putExtra("car_addr", mCarData.getResult().getC_loc_addr());
                 intent.putExtra("car_price", mCarData.getResult().getA_avg_price());
                 intent.putExtra("car_auction_idx", mCarData.getResult().getAuction_idx());
+                startActivityForResult(intent, 4454);
+                break;
+            case R.id.top_detail_btn_car_my_retry ://재입찰
+                intent = new Intent(mContext, TenderPopupRe.class);
+                intent.putExtra("car_brand", mCarData.getResult().getC_brand());
+                intent.putExtra("car_name", mCarData.getResult().getC_mname());
+                intent.putExtra("car_year", mCarData.getResult().getC_myear());
+                intent.putExtra("car_kms", mCarData.getResult().getC_kms());
+                intent.putExtra("car_addr", mCarData.getResult().getC_loc_addr());
+                intent.putExtra("car_price", mCarData.getResult().getA_avg_price());
+                intent.putExtra("car_my_price", mCarData.getResult().getB_price());
+                intent.putExtra("car_auction_idx", mCarData.getResult().getAuction_idx());
                 startActivityForResult(intent, 4455);
                 break;
         }
     }
 
     @Override
+    public void onBackPressed() {
+        if(mBoolResult == true){
+            setResult(RESULT_OK);
+            finish();
+        }else{
+            setResult(RESULT_CANCELED);
+            finish();
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 4454) {
+            if (resultCode == RESULT_OK) {
+                mBoolResult = true;
+                new AuctionIdxAsyncTask().execute();
+//                setResult(RESULT_OK);
+//                finish();
+            } else if (resultCode == RESULT_CANCELED) {
+            }
+        }
         if(requestCode == 4455) {
             if (resultCode == RESULT_OK) {
-                Log.d("where", "OKOKOKOK");
                 new AuctionIdxAsyncTask().execute();
             } else if (resultCode == RESULT_CANCELED) {
-                Log.d("where", "CANCELCANCELCANCEL");
             }
         }
     }
@@ -226,12 +266,10 @@ public class MySuccessDetailActivity extends AppCompatActivity {
             ImageView img = (ImageView) view.findViewById(R.id.row_img_view_pager);
             img.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-
             //ImageView에 현재 position 번째에 해당하는 이미지를 보여주기 위한 작업
             //현재 position에 해당하는 이미지를 setting
 //            int id = getResources().getIdentifier("pager_img_"+ position, "mipmap", "jbink.jbinsoft.joonggonara_dealer");
 //            img.setBackgroundResource(id);
-
 
             if(position == 0) {
                 Glide.with(mContext).load(mCarData.getResult().getC_img_1()).into(img);
@@ -340,8 +378,7 @@ public class MySuccessDetailActivity extends AppCompatActivity {
         mTvCarKms.setText(GlobalValues.getWonFormat(mCarData.getResult().getC_kms()) + "km");
         mTvCarLocAddr.setText(mCarData.getResult().getC_loc_addr());
         mTvCarNumber.setText(mCarData.getResult().getC_num());
-        mTvBidTime.setText("입찰완료 : XXXX.XX.XX" );
-//        mTvBidTime.setText(mCarData.getResult().getA_bid_count()+"명 입찰중");
+        mTvBidCount.setText(mCarData.getResult().getA_bid_count()+"명 입찰중");
         if("A".equals(mCarData.getResult().getC_trans()))
             mTvCarOpsTrans.setText("자동");
         else if ("M".equals(mCarData.getResult().getC_trans())){
@@ -448,8 +485,32 @@ public class MySuccessDetailActivity extends AppCompatActivity {
         else
             mTvCarOps4wd.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
+        //평균가격표시
+//        int price = Integer.parseInt(mCarData.getResult().getA_avg_price());
+//        if(price == 0) {
+//            mTvAvgPrice.setTextSize(getDP(6));
+//            mTvAvgPrice.setText("평균가는 입찰인이 3명 이상일 경우에 공개됩니다.");
+//        }
+//        else {
+//            mTvAvgPrice.setTextSize(getDP(12));
+//            mTvAvgPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getA_avg_price()) + "만원");
+//        }
 
-        mTvMaxPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getB_price()) + "만원");
+        try{
+            mTvAvgPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getA_max_price()) + "만원");
+        }catch (Exception e){
+            mTvAvgPrice.setText(mCarData.getResult().getA_max_price() + "만원");
+        }
+
+        //나의 입찰가격
+//        if("Y".equals(mCarData.getResult().getB_mybid())){
+//            mRLayoutMyPrice.setVisibility(View.VISIBLE);
+//            mTvMyPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getB_price()) +"만원");
+//            mTvMyPriceDate.setText("최종입찰일 " + mCarData.getResult().getB_upd_date());
+//        }else{
+//            mRLayoutMyPrice.setVisibility(View.GONE);
+//        }
+
 
         //입찰여부
         int status = Integer.parseInt(mCarData.getResult().getA_status());
@@ -468,25 +529,11 @@ public class MySuccessDetailActivity extends AppCompatActivity {
             }
         }else if (status >= 300 && status < 400){//입찰완료
             mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
-            mBtnTender.setText("입찰 완료된 차량입니다.");
+            mBtnTender.setText("경매 종료된 차량입니다.");
             mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
             mBtnTender.setEnabled(false);
         }else if (status >= 400 && status < 500){//매입완료
         }
-
-        String date = mCarData.getResult().getB_upd_date();
-        try {
-            date = date.substring(0,10);
-        }catch (Exception e){
-
-        }
-        mTvBidTime.setText("입찰완료 : "+ date);
-
-        mTvMemberName.setText(mCarData.getResult().getU_name());
-        mTvMemberPhone.setText(mCarData.getResult().getU_phone());
-        mTvMemberAddr.setText(mCarData.getResult().getC_loc_addr());
-//        mTvMemberName.setText(mCarData.getResult().getU_addr);
-
 
 
         mPager.setAdapter(new pagerAdapter(getLayoutInflater()));
@@ -496,7 +543,84 @@ public class MySuccessDetailActivity extends AppCompatActivity {
 
 
 
+    /*************************************************************************************************************************************************/
+    //시간 관련 AsyncTask
+    private class TimeAsyncTask extends AsyncTask<Void, Void, Void>{
+        ServerTimeData TimeData;
 
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Call<ServerTimeData> time = API_Adapter.getInstance().ServerTime();
+
+            time.enqueue(new Callback<ServerTimeData>() {
+                @Override
+                public void onResponse(Call<ServerTimeData> call, Response<ServerTimeData> response) {
+                    if (!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
+                        Toast.makeText(mContext, response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    TimeData = new ServerTimeData();
+                    TimeData.setStatus_code(response.body().getStatus_code());
+                    TimeData.setStatus_msg(response.body().getStatus_msg());
+                    TimeData.setResult(response.body().getResult());
+
+                    //경매 상태 (O:열림, C:닫힘)
+                    if ("C".equals(TimeData.getResult().getAuction_status())){
+                        mTvRemainTime.setText("금일 입찰 종료");
+                    }else if("O".equals(TimeData.getResult().getAuction_status())){
+                        setTimeLayout();
+                    }else{
+                        Toast.makeText(mContext, TimeData.getStatus_msg(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ServerTimeData> call, Throwable t) {
+                    Log.d("where","ERROR : "+t.getMessage());
+                }
+            });
+            return null;
+        }
+
+        private void setTimeLayout(){
+            if (!GlobalValues.SERVER_SUCCESS.equals(TimeData.getStatus_code())){
+                Toast.makeText(mContext, TimeData.getStatus_msg(), Toast.LENGTH_SHORT).show();
+                return;
+            }
+//            long server_time = Long.parseLong(TimeData.getResult().getAuction_close_seconds());
+
+            Message msg = new Message();
+            msg.arg1 = TimeData.getResult().getAuction_close_seconds();
+
+            timeHandler.sendMessageDelayed(msg, 1000);
+        }
+    }
+
+    Handler timeHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            int server_time = msg.arg1;
+            int remain_time = server_time-1;
+
+            long sec = (server_time >= 60 ? server_time % 60 : server_time);
+            long min = (server_time = (server_time / 60)) >= 60 ? server_time % 60 : server_time;
+            long hrs = (server_time = (server_time / 60)) >= 24 ? server_time % 24 : server_time;
+
+            mTvRemainTime.setText(""+GlobalValues.setTextAdd_0(hrs)+":"+GlobalValues.setTextAdd_0(min)+":"+GlobalValues.setTextAdd_0(sec));
+
+
+            Message send_msg = new Message();
+            send_msg.arg1 = remain_time;
+            if(remain_time == 0){
+                new TimeAsyncTask().execute();
+            }else{
+                if(timeHandler != null)
+                    timeHandler.sendMessageDelayed(send_msg, 1000);
+            }
+        }
+    };
 
 
 

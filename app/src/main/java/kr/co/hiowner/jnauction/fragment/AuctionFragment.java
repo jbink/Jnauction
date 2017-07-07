@@ -1,5 +1,6 @@
 package kr.co.hiowner.jnauction.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,17 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import kr.co.hiowner.jnauction.NewMainActivity;
 import kr.co.hiowner.jnauction.car.CarDetailActivity;
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.api.API_Adapter;
@@ -43,7 +46,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
 
     private final int LISTVIEW_CUR_FULL = 1100;
     private final int LISTVIEW_CUR_MY = 2200;
-//    Context mContext;
+
+    NewMainActivity mActivity;
 
     Spinner mSpinSort;
     String mStrSpinValue;
@@ -82,6 +86,10 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
     boolean mLastItemFullVisibleFlag = false;
     boolean mLastItemMyVisibleFlag = false;
 
+    //다음 겸매오픈 시간 알림
+    LinearLayout mLayoutNext;
+    TextView mTvNext;
+
     public AuctionFragment() {
     }
 
@@ -98,6 +106,18 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
         mIntLimit_My = GlobalValues.LIMIT;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = (NewMainActivity)context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -105,6 +125,9 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
 
 
         mSpinSort = (Spinner)rootView.findViewById(R.id.main_spinner_sort);
+
+        mLayoutNext = (LinearLayout)rootView.findViewById(R.id.main_auction_layout_next);
+        mTvNext = (TextView)rootView.findViewById(R.id.main_auction_txt_next);
 
         mTvRemainTime = (TextView)rootView.findViewById(R.id.main_txt_remain_time);
         mTvEndDate = (TextView)rootView.findViewById(R.id.main_txt_end_date);
@@ -140,7 +163,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
         mSpinSort.setOnItemSelectedListener(mSpinSelect);
         mStrSpinValue = "reg_desc";
 
-        new TimeAsyncTask().execute();
+       mSpinSort.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.spinner_text, getResources().getStringArray(R.array.spinner_item)));
 
         return rootView;
     }
@@ -151,7 +174,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
             AuctionsData.ResultObject.AuctionsObject data = (AuctionsData.ResultObject.AuctionsObject) adapterView.getAdapter().getItem(i);
             Intent intent = new Intent(getActivity(), CarDetailActivity.class);
             intent.putExtra("auction_idx",  data.getAuction_idx());
-            startActivityForResult(intent, 7777);
+            startActivityForResult(intent, 4444);
         }
     };
 
@@ -221,23 +244,12 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
 
 
             if(i == 0) {
-                mIntOffSet_Full = 0;
-                mIntOffSet_My = 0;
                 mStrSpinValue = "reg_desc";
-                mAdapterFullCar.removeAllData();
-                mAdapterMyCar.removeAllData();
-                new AuctionsAsyncTask().execute();
-                new MyAuctionsAsyncTask().execute();
-
+                listInIt();
             }
             else if(i == 1) {
-                mIntOffSet_Full = 0;
-                mIntOffSet_My = 0;
                 mStrSpinValue = "bid_desc";
-                mAdapterFullCar.removeAllData();
-                mAdapterMyCar.removeAllData();
-                new AuctionsAsyncTask().execute();
-                new MyAuctionsAsyncTask().execute();
+                listInIt();
             }
         }
 
@@ -251,6 +263,12 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         new AuctionsRefreshAsyncTask().execute();
+        if (requestCode == 4444){
+            if (resultCode == getActivity().RESULT_OK){
+                mAdapterMyCar.addOneItem(new AuctionsData.ResultObject.AuctionsObject());
+                mActivity.refreshMyPageData();
+            }
+        }
         new MyAuctionsRefreshAsyncTask().execute();
     }
 
@@ -278,7 +296,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        public Void doInBackground(Void... voids) {
 
             HashMap<String, String> map = new HashMap<>();
             map.put("token", SharedPreUtil.getTokenID(getActivity()));
@@ -294,7 +312,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
 //                    Log.d("where",response.body().getStatus_code());
-                    if(!"200".equals(response.body().getStatus_code())){
+                    if(!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
                         Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -302,9 +320,11 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
                     mIntTotal_Full = response.body().getResult().getTotal_count();
                     mDataCar_Full = response.body().getResult().getAuctions();
                     mAdapterFullCar.addItems(mDataCar_Full);
-                    DecimalFormat df = new DecimalFormat("###,###");
-//                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
-                    mTvTotalCount_Full.setText("매물수 "+df.format(mIntTotal_Full)+"대");
+
+
+                    mTvTotalCount_Full.setText("매물수 "+GlobalValues.getWonFormat(String.valueOf(mIntTotal_Full))+"대");
+
+
                 }
 
                 @Override
@@ -325,7 +345,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        public Void doInBackground(Void... voids) {
             int refreshOffset = 0;
 
             //리스트를 한번도 더 받아온 경우가 없을때
@@ -346,7 +366,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
                 public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
-                    if(!"200".equals(response.body().getStatus_code())){
+                    if(!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
                         Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -354,9 +374,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
                     mIntTotal_Full = response.body().getResult().getTotal_count();
                     mDataCar_Full = response.body().getResult().getAuctions();
                     mAdapterFullCar.changeItem(mDataCar_Full);
-                    DecimalFormat df = new DecimalFormat("###,###");
 //                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
-                    mTvTotalCount_Full.setText("매물수 "+df.format(mIntTotal_Full)+"대");
+                    mTvTotalCount_Full.setText("매물수 "+GlobalValues.getWonFormat(String.valueOf(mIntTotal_Full))+"대");
 
                     mListViewFullCar.setSelection(mIntListViewCurPosition);
                 }
@@ -378,7 +397,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        public Void doInBackground(Void... voids) {
 
             HashMap<String, String> map = new HashMap<>();
             map.put("token", SharedPreUtil.getTokenID(getActivity()));
@@ -393,7 +412,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
                 public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
-                    if(!"200".equals(response.body().getStatus_code())){
+                    if(!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
                         Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -401,9 +420,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
                     mDataCar_My = response.body().getResult().getAuctions();
                     Log.d("where", "SIZE : "+mDataCar_My.size());
                     mAdapterMyCar.addItems(mDataCar_My);
-                    DecimalFormat df = new DecimalFormat("###,###");
     //                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
-                    mTvTotalCount_My.setText(""+df.format(mIntTotal_My)+"대");
+                    mTvTotalCount_My.setText(""+GlobalValues.getWonFormat(String.valueOf(mIntTotal_My))+"대");
                 }
 
                 @Override
@@ -425,7 +443,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        public Void doInBackground(Void... voids) {
             int refreshOffset = 0;
 
             //리스트를 한번도 더 받아온 경우가 없을때
@@ -446,7 +464,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
                 public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
-                    if(!"200".equals(response.body().getStatus_code())){
+                    if(!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
                         Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -454,9 +472,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
                     mIntTotal_My = response.body().getResult().getTotal_count();
                     mDataCar_My = response.body().getResult().getAuctions();
                     mAdapterMyCar.changeItem(mDataCar_My);
-                    DecimalFormat df = new DecimalFormat("###,###");
 //                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
-                    mTvTotalCount_My.setText(""+df.format(mIntTotal_My)+"대");
+                    mTvTotalCount_My.setText(""+GlobalValues.getWonFormat(String.valueOf(mIntTotal_My))+"대");
 
                     mListViewMyCar.setSelection(mIntListViewCurPosition);
                 }
@@ -475,12 +492,16 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
         ServerTimeData TimeData;
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        public Void doInBackground(Void... voids) {
             Call<ServerTimeData> time = API_Adapter.getInstance().ServerTime();
 
             time.enqueue(new Callback<ServerTimeData>() {
                 @Override
                 public void onResponse(Call<ServerTimeData> call, Response<ServerTimeData> response) {
+                    if (!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
+                        Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     TimeData = new ServerTimeData();
                     TimeData.setStatus_code(response.body().getStatus_code());
                     TimeData.setStatus_msg(response.body().getStatus_msg());
@@ -495,9 +516,16 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
                         day = (TimeData.getResult().getAuction_close_date()).substring(8, 10);
                         mTvEndDate.setText(month + "월 "+day+"일 입찰마감");
 
+                        mLayoutNext.setVisibility(View.VISIBLE);
+                        mTvNext.setText(TimeData.getResult().getAuction_next_open_date());
+
+                        if(startHandler == null){
+                            startHandler = new StartTimerHandler();
+                        }
                         startHandler.sendEmptyMessageDelayed(0, (TimeData.getResult().getAuction_next_open_seconds()*1000));
 
                     }else if("O".equals(TimeData.getResult().getAuction_status())){
+                        mLayoutNext.setVisibility(View.GONE);
                         setTimeLayout();
                     }else{
                         Toast.makeText(getActivity(), TimeData.getStatus_msg(), Toast.LENGTH_SHORT).show();
@@ -529,13 +557,18 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
             Message msg = new Message();
             msg.arg1 = TimeData.getResult().getAuction_close_seconds();
 
+            if(timeHandler == null){
+                timeHandler = new TimerHandler();
+            }
+
             timeHandler.sendMessageDelayed(msg, 1000);
 
 
         }
     }
 
-    Handler timeHandler = new Handler(){
+    TimerHandler timeHandler = new TimerHandler();
+    class TimerHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -552,22 +585,50 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
 
             Message send_msg = new Message();
             send_msg.arg1 = remain_time;
-            if(remain_time == 0){
+            if(remain_time <= 0){
                 new TimeAsyncTask().execute();
             }else{
                 if(timeHandler != null)
                     timeHandler.sendMessageDelayed(send_msg, 1000);
             }
         }
-    };
+    }
 
-    Handler startHandler = new Handler(){
+//    Handler timeHandler = new Handler(){
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//
+//
+//        }
+//    };
+
+//    Handler startHandler = new Handler(){
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            new TimeAsyncTask().execute();
+//        }
+//    };
+
+    StartTimerHandler startHandler = new StartTimerHandler();
+    class StartTimerHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             new TimeAsyncTask().execute();
+            listInIt();
         }
-    };
+    }
+
+    private void listInIt(){
+        mIntOffSet_Full = 0;
+        mIntOffSet_My = 0;
+        mAdapterFullCar.removeAllData();
+        mAdapterMyCar.removeAllData();
+        new AuctionsAsyncTask().execute();
+        new MyAuctionsAsyncTask().execute();
+    }
 
     private String setTimeAdd_0(long value){
         String returnValue = null;
@@ -591,13 +652,43 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroy() {
+        Log.d("value" , "onPause");
         super.onDestroy();
 
+
+    }
+
+    Handler testHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mTvRemainTime.setText("00:00:00");
+        }
+    };
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        testHandler.sendEmptyMessageDelayed(0, 1000);
+//        mTvRemainTime.setText("00:00:00");
+    }
+
+    @Override
+    public void onResume() {
+        new TimeAsyncTask().execute();
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
         if (startHandler != null)
             startHandler.removeMessages(0);
         if (timeHandler != null) {
             timeHandler.removeMessages(0);
             timeHandler = null;
         }
+
+        super.onStop();
     }
+
 }

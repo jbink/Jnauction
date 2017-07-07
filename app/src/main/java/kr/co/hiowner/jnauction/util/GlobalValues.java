@@ -280,14 +280,12 @@ public class GlobalValues {
 	}
 	
 	public static String getWonFormat(String value){
-		DecimalFormat df = null;
+		DecimalFormat df = new DecimalFormat("#,###");
 		try{
-			df = new DecimalFormat("#,###");
-		}catch(IllegalArgumentException e){
-			return null;
+			return df.format(value);
+		}catch(Exception e){
+			return value;
 		}
-		return df.format(Integer.parseInt(value));
-		
 	}
 	
 	public static String toSHA256(String plain) {
