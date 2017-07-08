@@ -67,6 +67,8 @@ public class MySuccessListActivity extends AppCompatActivity{
     SimpleDateFormat mFormatter;
     Calendar mCalendar;
 
+    TextView mTvEmpty;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +79,7 @@ public class MySuccessListActivity extends AppCompatActivity{
         mContext = MySuccessListActivity.this;//
         mTvTerm = (TextView)findViewById(R.id.my_success_txt_term);
         mTvTotalCount = (TextView)findViewById(R.id.my_success_txt_total);
+        mTvEmpty = (TextView)findViewById(R.id.my_success_txt_empty);
         mListViewMyCar = (ListView) findViewById(R.id.my_success_listview);
         mAdapterMyCar = new MySuccessListAdapter(mContext);
         mListViewMyCar.setAdapter(mAdapterMyCar);
@@ -208,6 +211,11 @@ public class MySuccessListActivity extends AppCompatActivity{
                     mAdapterMyCar.refreshItems(mDataCar_My);
                     //                    holder.car_kms.setText(df.format(Double.parseDouble(data.getC_kms())) + "km");
                     mTvTotalCount.setText(GlobalValues.getWonFormat(String.valueOf(mIntTotal_My))+"대");
+                    if(mIntTotal_My == 0){
+                        mTvEmpty.setVisibility(View.VISIBLE);
+                    }else{
+                        mTvEmpty.setVisibility(View.GONE);
+                    }
                 }
 
                 @Override

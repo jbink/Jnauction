@@ -42,6 +42,7 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
 
     Context mContext;
     ViewPager mPager;
+    TextView mTvPagerIndex;
     LinearLayout mLayoutPagerIndex;
     ImageView[] mIvIndex;
 
@@ -69,6 +70,7 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
 //        mCarData = getIntent().getParcelableExtra("car_data");
         mStrAuctionIdx = getIntent().getStringExtra("auction_idx");
 
+        mTvPagerIndex = (TextView)findViewById(R.id.my_purchase_detail_txt_pager_index);
         mTvCarName = (TextView)findViewById(R.id.my_purchase_detail_txt_name);
         mTvCarYear = (TextView)findViewById(R.id.my_purchase_detail_txt_car_year);
         mTvCarKms = (TextView)findViewById(R.id.my_purchase_detail_txt_car_kms);
@@ -103,6 +105,8 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
         mPager = (ViewPager)findViewById(R.id.my_purchase_detail_pager);
         mLayoutPagerIndex = (LinearLayout)findViewById(R.id.my_purchase_detail_layout_index);
 
+        //Pager Index Setting
+        mTvPagerIndex.setText("1");
         mIvIndex = new ImageView[PAGER_COUNT];
         for(int i=0 ; i<PAGER_COUNT ; i++){
 
@@ -135,6 +139,7 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+                mTvPagerIndex.setText(""+(position+1));
                 for(int i=0 ; i<mIvIndex.length ; i++){
                     mIvIndex[i].setBackgroundResource(R.drawable.pager_index);
                 }

@@ -116,9 +116,20 @@ public class CarListAdapter extends BaseAdapter {
         Glide.with(mContext).load(data.getC_img_1()).into(holder.car_image);
         holder.car_loc_addr.setText(data.getC_loc_addr());
         holder.car_year.setText(data.getC_myear()+"년식");
-        holder.car_name.setText(""+data.getAuction_idx()+"  "+data.getC_brand() +" "+ data.getC_mname());
-        holder.car_status_200_person.setText(data.getA_bid_count()+"명 입찰중");
-        holder.car_status_300_person.setText(""+data.getA_bid_count()+"명과 경쟁중");
+        holder.car_name.setText(data.getC_brand() +" "+ data.getC_mname());
+        holder.car_status_200_person.setText("입찰 참여자 "+data.getA_bid_count()+"명");
+
+
+        try{
+            int count = Integer.parseInt(data.getA_bid_count());
+            if (count == 1)
+                holder.car_status_300_person.setText("단독 입찰중");
+            else{
+                holder.car_status_300_person.setText(""+(count-1)+"명과 경쟁중");
+            }
+        }catch (Exception e){
+            holder.car_status_300_person.setText(""+data.getA_bid_count());
+        }
 
 //        DecimalFormat df = new DecimalFormat("###,###");
             holder.car_kms.setText(GlobalValues.getWonFormat(data.getC_kms()) + "km");

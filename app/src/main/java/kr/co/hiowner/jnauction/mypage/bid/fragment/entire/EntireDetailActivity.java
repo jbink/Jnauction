@@ -49,6 +49,7 @@ public class EntireDetailActivity extends AppCompatActivity {
 
     Context mContext;
     ViewPager mPager;
+    TextView mTvPagerIndex;
     LinearLayout mLayoutPagerIndex;
     ImageView[] mIvIndex;
 
@@ -60,11 +61,20 @@ public class EntireDetailActivity extends AppCompatActivity {
             mTvCarOpsRsensor, mTvCarOpsRcam, mTvCarOpsHeat, mTvCarOpsFan,
             mTvCarOpsAlu, mTvCarOpsAs, mTvCarOpsNavi, mTvCarOps4wd, mTvCarOpsMemo;
 
-    TextView mTvBidCount, mTvRemainTime, mTvAvgPrice;
+    TextView mTvBidCount, mTvRemainTime, mTvAvgPrice, mTvPriceTxt;
 
     //나의 입찰가
     RelativeLayout mRLayoutMyPrice;
     TextView mTvMyPrice, mTvMyPriceDate;
+
+    //재입찰 버튼과 마감
+    ImageButton mIbRetryBid;
+    TextView mTvEnd;
+
+    //경매 종료와 입찰중에 따른 레이아웃 변화
+    RelativeLayout mLayoutPerson;
+    LinearLayout mLayoutTime;
+    TextView mTvTxtTime;
 
     Button mBtnTender;
 
@@ -80,6 +90,7 @@ public class EntireDetailActivity extends AppCompatActivity {
 //        mCarData = getIntent().getParcelableExtra("car_data");
         mStrAuctionIdx = getIntent().getStringExtra("auction_idx");
 
+        mTvPagerIndex = (TextView)findViewById(R.id.entire_detail_txt_pager_index);
         mTvCarName = (TextView)findViewById(R.id.entire_detail_txt_name);
         mTvCarYear = (TextView)findViewById(R.id.entire_detail_txt_car_year);
         mTvCarKms = (TextView)findViewById(R.id.entire_detail_txt_car_kms);
@@ -103,17 +114,25 @@ public class EntireDetailActivity extends AppCompatActivity {
         mTvCarOps4wd = (TextView)findViewById(R.id.cas_ops_4wd);
         mBtnTender = (Button) findViewById(R.id.entire_detail_btn_buy);
         mTvAvgPrice = (TextView) findViewById(R.id.entire_detail_txt_car_avg_price);
+        mTvPriceTxt = (TextView) findViewById(R.id.entire_detail_txt_car_price_txt);
         mRLayoutMyPrice = (RelativeLayout) findViewById(R.id.entire_detail_layout_car_my);
         mTvMyPrice = (TextView) findViewById(R.id.entire_detail_txt_car_my_price);
         mTvMyPriceDate = (TextView) findViewById(R.id.entire_detail_txt_car_my_date);
 //        mTvCarOpsMemo = (TextView)findViewById(R.id.cas_ops_memo);
 
 
-
         mPager = (ViewPager)findViewById(R.id.entire_detail_pager);
         mLayoutPagerIndex = (LinearLayout)findViewById(R.id.entire_detail_layout_index);
+        mIbRetryBid = (ImageButton)findViewById(R.id.entire_detail_btn_car_my_retry);
+        mTvEnd = (TextView)findViewById(R.id.entire_detail_txt_end);
 
-        mIvIndex = new ImageView[PAGER_COUNT];
+        mLayoutPerson = (RelativeLayout)findViewById(R.id.entire_detail_layout_person);
+        mLayoutTime = (LinearLayout)findViewById(R.id.entire_detail_layout_time);
+        mTvTxtTime = (TextView)findViewById(R.id.entire_detail_layout_time_txt_1);
+
+
+        mIvIndex = new ImageView[PAGER_COUNT];//Pager Index Setting
+        mTvPagerIndex.setText("1");
         for(int i=0 ; i<PAGER_COUNT ; i++){
 
             ImageView iv = new ImageView(this);
@@ -145,6 +164,7 @@ public class EntireDetailActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+                mTvPagerIndex.setText(""+(position+1));
                 for(int i=0 ; i<mIvIndex.length ; i++){
                     mIvIndex[i].setBackgroundResource(R.drawable.pager_index);
                 }
@@ -158,7 +178,7 @@ public class EntireDetailActivity extends AppCompatActivity {
         });
 
         new AuctionIdxAsyncTask().execute();
-        new TimeAsyncTask().execute();
+//        new TimeAsyncTask().execute();
     }
 
 
@@ -187,6 +207,17 @@ public class EntireDetailActivity extends AppCompatActivity {
                 startActivityForResult(intent, 4454);
                 break;
             case R.id.entire_detail_btn_car_my_retry ://재입찰
+
+                //재입찰 막기
+                try {
+                    int bid_count = Integer.parseInt(mCarData.getResult().getB_count());
+                    if(bid_count >= 2){
+                        Toast.makeText(mContext, "재입찰의 횟수가 초과되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }catch (Exception e){
+                    Toast.makeText(mContext, "잘못된 bid_count : " + mCarData.getResult().getB_count(), Toast.LENGTH_SHORT).show();
+                }
                 intent = new Intent(mContext, TenderPopupRe.class);
                 intent.putExtra("car_brand", mCarData.getResult().getC_brand());
                 intent.putExtra("car_name", mCarData.getResult().getC_mname());
@@ -487,22 +518,13 @@ public class EntireDetailActivity extends AppCompatActivity {
         else
             mTvCarOps4wd.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
 
-        //평균가격표시
-        int price = Integer.parseInt(mCarData.getResult().getA_avg_price());
-        if(price == 0) {
-            mTvAvgPrice.setTextSize(getDP(6));
-            mTvAvgPrice.setText("평균가는 입찰인이 3명 이상일 경우에 공개됩니다.");
-        }
-        else {
-            mTvAvgPrice.setTextSize(getDP(12));
-            mTvAvgPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getA_avg_price()) + "만원");
-        }
+
 
         //나의 입찰가격
         if("Y".equals(mCarData.getResult().getB_mybid())){
             mRLayoutMyPrice.setVisibility(View.VISIBLE);
             mTvMyPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getB_price()) +"만원");
-            mTvMyPriceDate.setText("최종입찰일 " + mCarData.getResult().getB_upd_date());
+            mTvMyPriceDate.setText("최종입찰일 " +GlobalValues.getDetailDay("yyyy-MM-dd hh:mm:ss",mCarData.getResult().getB_upd_date(), 0) );
         }else{
             mRLayoutMyPrice.setVisibility(View.GONE);
 
@@ -513,37 +535,66 @@ public class EntireDetailActivity extends AppCompatActivity {
         int status = Integer.parseInt(mCarData.getResult().getA_status());
 
         if(status >= 100 && status < 200){//입찰대기
+
         }else if (status >= 200 && status < 300){//입찰중
+
+            //평균가격표시
+            mTvPriceTxt.setText("평균 입찰가");
+            int price = Integer.parseInt(mCarData.getResult().getA_avg_price());
+            if(price == 0) {
+                mTvAvgPrice.setTextSize(getDP(6));
+                mTvAvgPrice.setText("평균가는 입찰인이 3명 이상일 경우에 공개됩니다.");
+            }
+            else {
+                mTvAvgPrice.setTextSize(getDP(12));
+                mTvAvgPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getA_avg_price()) + "만원");
+            }
+
+            //여기서 시간을 받아와라
+            new TimeAsyncTask().execute();
             if ("Y".equals(mCarData.getResult().getB_mybid())){
                 mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
                 mBtnTender.setText("입찰 완료된 차량입니다.");
                 mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
                 mBtnTender.setEnabled(false);
+
+                mIbRetryBid.setVisibility(View.VISIBLE);
+                mTvEnd.setVisibility(View.GONE);
+
+
             }else{
 //                mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
 //                mBtnTender.setText("입찰 완료된 차량입니다.");
 //                mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
             }
         }else if (status >= 300 && status < 400){//입찰완료
+
+            mTvPriceTxt.setText("최고 입찰가");
+            //최고가격표시
+            mTvAvgPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getA_max_price()) + "만원");
+
             mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
             mBtnTender.setText("경매 종료된 차량입니다.");
             mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
             mBtnTender.setEnabled(false);
+
+            mIbRetryBid.setVisibility(View.GONE);
+            mTvEnd.setVisibility(View.VISIBLE);
+
+            String date = mCarData.getResult().getB_upd_date();
+            try {
+                date = date.substring(0,10);
+            }catch (Exception e){
+            }
+            mLayoutPerson.setVisibility(View.GONE);
+            mTvTxtTime.setText("입찰완료 : ");
+            mTvRemainTime.setText(date);
         }else if (status >= 400 && status < 500){//매입완료
         }
 
 
-        //재입찰 막기
-        try {
-            int bid_count = Integer.parseInt(mCarData.getResult().getB_count());
-            if(bid_count >= 2){
-                ((ImageButton)findViewById(R.id.entire_detail_btn_car_my_retry)).setVisibility(View.GONE);
-            }else{
-                ((ImageButton)findViewById(R.id.entire_detail_btn_car_my_retry)).setVisibility(View.VISIBLE);
-            }
-        }catch (Exception e){
-            Toast.makeText(mContext, "잘못된 bid_count : " + mCarData.getResult().getB_count(), Toast.LENGTH_SHORT).show();
-        }
+
+
 
 
         mPager.setAdapter(new pagerAdapter(getLayoutInflater()));
@@ -573,6 +624,7 @@ public class EntireDetailActivity extends AppCompatActivity {
                     TimeData.setStatus_code(response.body().getStatus_code());
                     TimeData.setStatus_msg(response.body().getStatus_msg());
                     TimeData.setResult(response.body().getResult());
+
 
                     //경매 상태 (O:열림, C:닫힘)
                     if ("C".equals(TimeData.getResult().getAuction_status())){

@@ -49,6 +49,7 @@ public class TopDetailActivity extends AppCompatActivity {
 
     Context mContext;
     ViewPager mPager;
+    TextView mTvPagerIndex;
     LinearLayout mLayoutPagerIndex;
     ImageView[] mIvIndex;
 
@@ -71,6 +72,11 @@ public class TopDetailActivity extends AppCompatActivity {
     //결과값 리턴을 위해서
     boolean mBoolResult = false;
 
+    //경매 종료와 입찰중에 따른 레이아웃 변화
+    RelativeLayout mLayoutPerson;
+    TextView mTvTxtTime;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +86,7 @@ public class TopDetailActivity extends AppCompatActivity {
 //        mCarData = getIntent().getParcelableExtra("car_data");
         mStrAuctionIdx = getIntent().getStringExtra("auction_idx");
 
+        mTvPagerIndex = (TextView)findViewById(R.id.top_detail_txt_pager_index);
         mTvCarName = (TextView)findViewById(R.id.top_detail_txt_name);
         mTvCarYear = (TextView)findViewById(R.id.top_detail_txt_car_year);
         mTvCarKms = (TextView)findViewById(R.id.top_detail_txt_car_kms);
@@ -113,6 +120,11 @@ public class TopDetailActivity extends AppCompatActivity {
         mPager = (ViewPager)findViewById(R.id.top_detail_pager);
         mLayoutPagerIndex = (LinearLayout)findViewById(R.id.top_detail_layout_index);
 
+        mLayoutPerson = (RelativeLayout)findViewById(R.id.top_detail_layout_person);
+        mTvTxtTime = (TextView)findViewById(R.id.top_detail_layout_time_txt_1);
+
+        //Pager Index Setting
+        mTvPagerIndex.setText("1");
         mIvIndex = new ImageView[PAGER_COUNT];
         for(int i=0 ; i<PAGER_COUNT ; i++){
 
@@ -145,6 +157,7 @@ public class TopDetailActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+                mTvPagerIndex.setText(""+(position+1));
                 for(int i=0 ; i<mIvIndex.length ; i++){
                     mIvIndex[i].setBackgroundResource(R.drawable.pager_index);
                 }
@@ -158,7 +171,7 @@ public class TopDetailActivity extends AppCompatActivity {
         });
 
         new AuctionIdxAsyncTask().execute();
-        new TimeAsyncTask().execute();
+//        new TimeAsyncTask().execute();
     }
 
 
@@ -533,6 +546,16 @@ public class TopDetailActivity extends AppCompatActivity {
             mBtnTender.setText("경매 종료된 차량입니다.");
             mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
             mBtnTender.setEnabled(false);
+
+            String date = mCarData.getResult().getB_upd_date();
+            try {
+                date = date.substring(0,10);
+            }catch (Exception e){
+            }
+            mLayoutPerson.setVisibility(View.GONE);
+            mTvTxtTime.setText("입찰완료 : ");
+            mTvRemainTime.setText(date);
+
         }else if (status >= 400 && status < 500){//매입완료
         }
 

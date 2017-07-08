@@ -12,17 +12,18 @@
 
         <RelativeLayout
             android:id="@+id/entire_detail_layout_back"
-            android:onClick="onClick"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:onClick="onClick">
+
             <Button
                 android:id="@+id/entire_detail_btn_back"
-                android:onClick="onClick"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerInParent="true"
-                android:background="@drawable/ic_back"/>
+                android:background="@drawable/ic_back"
+                android:onClick="onClick" />
 
         </RelativeLayout>
 
@@ -72,8 +73,35 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
+                    <!-- 넘버링 -->
+                    <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="11dp"
+                        android:layout_alignParentRight="true">
+                        <TextView
+                            android:id="@+id/entire_detail_txt_pager_index"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="X"
+                            android:textColor="#80ffffff"
+                            android:textSize="18dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="/4"
+                            android:textColor="#80ffffff"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <!-- END : 넘버링 -->
+
                     <!-- 인덱스 -->
                     <LinearLayout
+                        android:visibility="gone"
                         android:id="@+id/entire_detail_layout_index"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -86,15 +114,18 @@
 
                     <!-- 사진설명 -->
                     <LinearLayout
+                        android:layout_alignParentBottom="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="20dp"
+                        android:gravity="center_horizontal"
                         android:orientation="horizontal">
 
                         <RelativeLayout
+                            android:id="@+id/entire_detail_layout_person"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="#a0f36430"
+                            android:background="@color/colorPrimary"
                             android:padding="6dp">
 
                             <TextView
@@ -109,21 +140,22 @@
                         </RelativeLayout>
 
                         <LinearLayout
-                            android:id="@+id/time"
+                            android:id="@+id/entire_detail_layout_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_marginLeft="7dp"
-                            android:background="#a0ffffff"
+                            android:background="@color/HALF_TRANSPARENT_A0"
                             android:orientation="horizontal"
                             android:padding="6dp">
 
                             <TextView
+                                android:id="@+id/entire_detail_layout_time_txt_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:text="입찰마감 시간 "
-                                android:textColor="@color/BLACK"
+                                android:textColor="@color/colorPrimary"
                                 android:textSize="18dp" />
 
                             <TextView
@@ -132,7 +164,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:text="00:00:00"
-                                android:textColor="@color/BLACK"
+                                android:textColor="@color/colorPrimary"
                                 android:textSize="18dp" />
 
                         </LinearLayout>
@@ -175,10 +207,10 @@
 
                         <Button
                             android:visibility="gone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
                             android:layout_marginLeft="10dp"
-                            android:text="사고이력조회" />
+                            android:background="@drawable/sel_btn_history"/>
                     </LinearLayout>
                 </LinearLayout>
                 <!-- END : 차이름, 차넘버 -->
@@ -245,6 +277,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/entire_detail_txt_car_price_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -255,12 +288,12 @@
                         android:textSize="16dp" />
 
                     <TextView
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
                         android:id="@+id/entire_detail_txt_car_avg_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:gravity="center"
                         android:text="XXXX만원"
                         android:textColor="#fc622a"
@@ -306,25 +339,41 @@
                             android:textColor="@color/text_color_blue"
                             android:textSize="36dp" />
 
-                        <ImageButton
-                            android:id="@+id/entire_detail_btn_car_my_retry"
-                            android:onClick="onClick"
+                        <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10.5dp"
-                            android:background="@drawable/sel_btn_re_tender" />
+                            android:layout_marginLeft="10.5dp">
+
+                            <ImageButton
+                                android:id="@+id/entire_detail_btn_car_my_retry"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/sel_btn_re_tender"
+                                android:onClick="onClick" />
+
+                            <TextView
+                                android:visibility="gone"
+                                android:id="@+id/entire_detail_txt_end"
+                                android:layout_width="50.5dp"
+                                android:layout_height="35.5dp"
+                                android:background="@color/text_color_999999"
+                                android:gravity="center"
+                                android:text="마감"
+                                android:textColor="@color/WHITE"
+                                android:textSize="16dp" />
+                        </RelativeLayout>
 
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/entire_detail_txt_car_my_date"
-                        android:layout_marginTop="10dp"
-                        android:layout_below="@+id/detail_layout_my"
-                        android:layout_centerHorizontal="true"
-                        android:text="최종 입찰일 2017.06.14 (12:11)"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/detail_layout_my"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
                         android:gravity="center_horizontal"
+                        android:text="최종 입찰일 2017.06.14 (12:11)"
                         android:textColor="#999999"
                         android:textSize="16sp" />
 

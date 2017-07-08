@@ -100,6 +100,8 @@ public class MyBidActivity extends AppCompatActivity{
                 finish();
                 break;
             case R.id.mysuccess_layout_btn_term :
+            case R.id.mysuccess_btn_term :
+            case R.id.my_success_layout_term :
                 intent = new Intent(mContext, TermSelectPopup.class);
                 Log.d("where", mTvTerm.getText().toString());
                 intent.putExtra("cur_term", mTvTerm.getText().toString());
@@ -118,7 +120,7 @@ public class MyBidActivity extends AppCompatActivity{
                 mStrEndDay = data.getStringExtra("end_day");
                 Toast.makeText(MyBidActivity.this, data.getStringExtra("start_day")+" - "+data.getStringExtra("end_day"), Toast.LENGTH_SHORT).show();
                 mTvTerm.setText(data.getStringExtra("date"));
-
+                setTabNane(data.getStringExtra("date"));
                 entireFragment.dataReload();
                 topFragment.dataReload();
 
@@ -165,6 +167,21 @@ public class MyBidActivity extends AppCompatActivity{
     public void setEntireCount(String value){
         mTvEntireCount.setText(value);
     }
+    public void setTabNane(String name) {
+        switch (name) {
+            case "오늘":
+            case "전체":
+            case "1주":
+            case "2주":
+            case "1개월":
+                mTvMainTxt_1.setText(name);
+                break;
+            default:
+                mTvMainTxt_1.setText("선택기간");
+                break;
+        }
+    }
+
     public void setTopCount(String value){
         mTvTop3Count.setText(value);
     }

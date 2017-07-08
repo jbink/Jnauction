@@ -86,8 +86,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="매물수 1,042대"
-                    android:textColor="#1775df"
+                    android:text="매물수  대"
+                    android:textColor="@color/text_color_blue1"
                     android:textSize="15dp" />
             </LinearLayout>
 

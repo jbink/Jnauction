@@ -95,7 +95,7 @@ public class MySuccessListAdapter extends BaseAdapter {
 
             holder.car_image = (ImageView)convertView.findViewById(R.id.row_success_img_thumbnail);
             holder.car_name = (TextView)convertView.findViewById(R.id.row_success_txt_name);
-            holder.car_loc_addr = (TextView)convertView.findViewById(R.id.row_success_txt_name);
+            holder.car_loc_addr = (TextView)convertView.findViewById(R.id.row_success_txt_loc_addr);
             holder.car_year = (TextView)convertView.findViewById(R.id.row_success_txt_year);
             holder.car_kms = (TextView)convertView.findViewById(R.id.row_success_txt_kms);
             holder.car_date = (TextView)convertView.findViewById(R.id.row_success_txt_date);
@@ -109,7 +109,7 @@ public class MySuccessListAdapter extends BaseAdapter {
         Glide.with(mContext).load(data.getC_img_1()).into(holder.car_image);
         holder.car_loc_addr.setText(data.getC_loc_addr());
         holder.car_year.setText(data.getC_myear()+"년식");
-        holder.car_name.setText(""+data.getAuction_idx()+"  "+data.getC_brand() +" "+ data.getC_mname());
+        holder.car_name.setText(data.getC_brand() +" "+ data.getC_mname());
         String date = data.getB_upd_date().substring(5, 16);
         holder.car_date.setText("["+date+"]");
 

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 
+import kr.co.hiowner.jnauction.LoginActivity;
 import kr.co.hiowner.jnauction.NewMainActivity;
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.api.API_Adapter;
@@ -43,7 +45,8 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
     TextView mTvUserBidSuccessToday, mTvUserBidSuccessEntire;
     TextView mTvUserBidMyToday, mTvUserBidMyEntire;
     TextView mTvUserBidCompleteToday, mTvUserBidCompleteEntire;
-    TextView mTvMonthlyPoint, mTvExtraPoint;
+    TextView mTvMonthlyPoint, mTvExtraPoint, mTvExtraAddPoint, mTvExtraAddPointBase;
+
 
     public MyPageFragment newInstance(){
         MyPageFragment fragment = new MyPageFragment();
@@ -69,8 +72,11 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
         mTvUserBidCompleteToday = (TextView)rootView.findViewById(R.id.main_user_txt_bid_complete_today);
         mTvUserBidCompleteEntire = (TextView)rootView.findViewById(R.id.main_user_txt_bid_complete_entire);
         mTvExtraPoint = (TextView)rootView.findViewById(R.id.main_user_txt_extra_point);
+        mTvExtraAddPoint = (TextView)rootView.findViewById(R.id.main_user_txt_monthly_addpoint);
+        mTvExtraAddPointBase = (TextView)rootView.findViewById(R.id.main_user_txt_monthly_addpoint_base);
         mTvMonthlyPoint = (TextView)rootView.findViewById(R.id.main_user_txt_monthly_point);
         ((ImageButton)rootView.findViewById(R.id.main_user_btn_info)).setOnClickListener(this);
+        ((Button)rootView.findViewById(R.id.main_user_btn_logout)).setOnClickListener(this);
         ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_seccess)).setOnClickListener(this);
         ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_purchase)).setOnClickListener(this);
         ((LinearLayout)rootView.findViewById(R.id.main_user_layout_info)).setOnClickListener(this);
@@ -104,6 +110,12 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
             case R.id.main_user_btn_purchase :
                 intent = new Intent(getActivity(), MyPurchaseListActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.main_user_btn_logout :
+                SharedPreUtil.setTokenID(getActivity(), "");
+                intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
                 break;
         }
     }
@@ -148,6 +160,8 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                     mTvUserBidCompleteEntire.setText(""+data.getResult().getCnt_sale_total());
                     mTvMonthlyPoint.setText(""+data.getResult().getMonthly_points());
                     mTvExtraPoint.setText(""+data.getResult().getExtra_points());
+                    mTvExtraAddPoint.setText("/"+data.getResult().getMonthly_add_points());
+                    mTvExtraAddPointBase.setText("기본 건수 매월 "+data.getResult().getMonthly_add_points()+"건 제공");
 
 //        mTvUserName.setText(UserData.getInstance().getName());
 //        mTvUSerPhone.setText(UserData.getInstance().getPhone());

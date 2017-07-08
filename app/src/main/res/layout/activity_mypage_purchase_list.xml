@@ -11,17 +11,18 @@
 
         <RelativeLayout
             android:id="@+id/my_purchase_list_layout_back"
-            android:onClick="onClick"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:onClick="onClick">
+
             <Button
                 android:id="@+id/my_purchase_list_btn_back"
-                android:onClick="onClick"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerInParent="true"
-                android:background="@drawable/ic_back"/>
+                android:background="@drawable/ic_back"
+                android:onClick="onClick" />
 
         </RelativeLayout>
 
@@ -29,13 +30,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="매입 완료"
+            android:text="매입 확정"
             android:textColor="@color/WHITE"
             android:textSize="19dp"
             android:textStyle="bold" />
 
     </RelativeLayout>
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -47,61 +48,78 @@
             android:id="@+id/my_purchase_txt_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="#f36430"
             android:layout_centerVertical="true"
             android:lineSpacingExtra="8.5sp"
-            android:text="X대"/>
+            android:text="X대"
+            android:textColor="#f36430"
+            android:textSize="15sp" />
 
         <RelativeLayout
             android:id="@+id/my_purchase_layout_btn_term"
-            android:onClick="onClick"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:onClick="onClick">
+
             <LinearLayout
                 android:id="@+id/my_purchase_layout_term"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
                 <TextView
                     android:id="@+id/my_purchase_txt_term"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="15dp"
                     android:layout_height="wrap_content"
-                    android:text="오늘"/>
+                    android:text="오늘"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15dp" />
+
                 <Button
                     android:id="@+id/my_purchase_btn_term"
-                    android:onClick="onClick"
-                    android:layout_marginLeft="6.5dp"
                     android:layout_width="13.5dp"
                     android:layout_height="13.5dp"
-                    android:background="@drawable/ic_date_arrow_r"/>
+                    android:layout_marginLeft="6.5dp"
+                    android:background="@drawable/ic_date_arrow_r"
+                    android:onClick="onClick" />
             </LinearLayout>
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="1.5dp"
-                android:background="@color/colorPrimary"
+                android:layout_alignEnd="@id/my_purchase_layout_term"
+                android:layout_alignStart="@id/my_purchase_layout_term"
                 android:layout_below="@id/my_purchase_layout_term"
                 android:layout_marginTop="5dp"
-                android:layout_alignStart="@id/my_purchase_layout_term"
-                android:layout_alignEnd="@id/my_purchase_layout_term"/>
+                android:background="@color/colorPrimary" />
         </RelativeLayout>
-        
+
     </RelativeLayout>
 
-    <ListView
-        android:layout_marginTop="6dp"
-        android:id="@+id/my_purchase_listview"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:dividerHeight="6dp"
-        android:divider="@color/default_background"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
+        <ListView
+            android:id="@+id/my_purchase_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:divider="@color/default_background"
+            android:dividerHeight="6dp" />
 
+        <TextView
+            android:id="@+id/my_purchase_txt_empty"
+            android:layout_width="match_parent"
+            android:background="@color/default_background"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="선택된 기간에 매입 확정된 차량이 없습니다.\n기간을 확인해 주세요."
+            android:textSize="16dp"/>
+
+    </RelativeLayout>
 </LinearLayout>

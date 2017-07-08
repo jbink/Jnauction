@@ -17,6 +17,7 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -503,11 +504,12 @@ public class GlobalValues {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy.MM.dd (hh:mm)");
 		long temp = dDate.getTime();
 		dDate = new Date(temp+(1000*60*60*24*+index)); //어제
 		
-		return sdf.format(dDate);
+		return sdf1.format(dDate);
 	}
 	public static String getWeekOfDay(int day){
 		switch (day){
@@ -549,5 +551,13 @@ public class GlobalValues {
 		if(returnValue.length() < 2)
 			returnValue = "0"+returnValue;
 		return returnValue;
+	}
+
+	public static Spanned fromHtml(String source) {
+		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+			// noinspection deprecation
+			return Html.fromHtml(source);
+		}
+		return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
 	}
 }

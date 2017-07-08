@@ -82,10 +82,10 @@ public class TopFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.frag_my_bid_entire, container, false);
+        View rootView = inflater.inflate(R.layout.frag_my_bid_top, container, false);
 
-        mListViewMyCar = (ListView)rootView.findViewById(R.id.frag_bid_listview);
-        mLayoutNext = (LinearLayout)rootView.findViewById(R.id.frag_bid_layout_next);
+        mListViewMyCar = (ListView)rootView.findViewById(R.id.frag_bid_top_listview);
+        mLayoutNext = (LinearLayout)rootView.findViewById(R.id.frag_bid_top_layout_next);
         mAdapterMyCar = new TopListAdapter(getActivity());
         mListViewMyCar.setAdapter(mAdapterMyCar);
         mListViewMyCar.setOnItemClickListener(mItemClickMyListener);

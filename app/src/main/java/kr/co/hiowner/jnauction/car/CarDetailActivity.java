@@ -51,6 +51,7 @@ public class CarDetailActivity extends AppCompatActivity {
 
     Context mContext;
     ViewPager mPager;
+    TextView mTvPagerIndex;
     LinearLayout mLayoutPagerIndex;
     ImageView[] mIvIndex;
 
@@ -82,6 +83,7 @@ public class CarDetailActivity extends AppCompatActivity {
 //        mCarData = getIntent().getParcelableExtra("car_data");
         mStrAuctionIdx = getIntent().getStringExtra("auction_idx");
 
+        mTvPagerIndex = (TextView)findViewById(R.id.car_detail_txt_pager_index);
         mTvCarName = (TextView)findViewById(R.id.car_detail_txt_name);
         mTvCarYear = (TextView)findViewById(R.id.car_detail_txt_car_year);
         mTvCarKms = (TextView)findViewById(R.id.car_detail_txt_car_kms);
@@ -115,6 +117,8 @@ public class CarDetailActivity extends AppCompatActivity {
         mPager = (ViewPager)findViewById(R.id.car_detail_pager);
         mLayoutPagerIndex = (LinearLayout)findViewById(R.id.car_detail_layout_index);
 
+        //Pager Index Setting
+        mTvPagerIndex.setText("1");
         mIvIndex = new ImageView[PAGER_COUNT];
         for(int i=0 ; i<PAGER_COUNT ; i++){
 
@@ -155,6 +159,7 @@ public class CarDetailActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+                mTvPagerIndex.setText(""+(position+1));
                 for(int i=0 ; i<mIvIndex.length ; i++){
                     mIvIndex[i].setBackgroundResource(R.drawable.pager_index);
                 }
@@ -514,7 +519,7 @@ public class CarDetailActivity extends AppCompatActivity {
         if("Y".equals(mCarData.getResult().getB_mybid())){
             mRLayoutMyPrice.setVisibility(View.VISIBLE);
             mTvMyPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getB_price()) +"만원");
-            mTvMyPriceDate.setText("최종입찰일 " + mCarData.getResult().getB_upd_date());
+            mTvMyPriceDate.setText("최종입찰일 " + GlobalValues.getDetailDay("yyyy-MM-dd hh:mm:ss",mCarData.getResult().getB_upd_date(), 0));
         }else{
             mRLayoutMyPrice.setVisibility(View.GONE);
         }

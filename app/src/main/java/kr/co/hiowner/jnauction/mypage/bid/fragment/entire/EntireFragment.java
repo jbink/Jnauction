@@ -177,7 +177,7 @@ public class EntireFragment extends Fragment {
             //            map.put("limit", "10");
             map.put("offset", ""+mIntOffSet_My);
             map.put("status_min", "200");
-            map.put("status_max", "299");
+            map.put("status_max", "399");
             map.put("reg_date_min", mActivity.getStrStartDay());
             map.put("reg_date_max", mActivity.getStrEndDay());
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
@@ -242,7 +242,7 @@ public class EntireFragment extends Fragment {
             map.put("limit", ""+refreshOffset);//+mIntLimit_My);
             map.put("offset", "0");
             map.put("status_min", "200");
-            map.put("status_max", "299");
+            map.put("status_max", "399");
             map.put("reg_date_min", mActivity.getStrStartDay());
             map.put("reg_date_max", mActivity.getStrEndDay());
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);

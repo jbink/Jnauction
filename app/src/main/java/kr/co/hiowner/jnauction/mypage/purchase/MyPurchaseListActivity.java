@@ -63,6 +63,8 @@ public class MyPurchaseListActivity extends AppCompatActivity{
     SimpleDateFormat mFormatter;
     Calendar mCalendar;
 
+    TextView mTvEmpty;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +73,7 @@ public class MyPurchaseListActivity extends AppCompatActivity{
         mContext = MyPurchaseListActivity.this;//
         mTvTerm = (TextView)findViewById(R.id.my_purchase_txt_term);
         mTvTotalCount = (TextView)findViewById(R.id.my_purchase_txt_total);
+        mTvEmpty = (TextView)findViewById(R.id.my_purchase_txt_empty);
         mListViewMyCar = (ListView) findViewById(R.id.my_purchase_listview);
         mAdapterMyCar = new MyPurchaseListAdapter(mContext);
         mListViewMyCar.setAdapter(mAdapterMyCar);
@@ -197,6 +200,12 @@ public class MyPurchaseListActivity extends AppCompatActivity{
 //                    mAdapterMyCar.addItems(mDataCar_My);
                     mAdapterMyCar.refreshItems(mDataCar_My);
                     mTvTotalCount.setText(""+ GlobalValues.getWonFormat(String.valueOf(mIntTotal_My))+"대");
+
+                    if(mIntTotal_My == 0){
+                        mTvEmpty.setVisibility(View.VISIBLE);
+                    }else{
+                        mTvEmpty.setVisibility(View.GONE);
+                    }
                 }
 
                 @Override

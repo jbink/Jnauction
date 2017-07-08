@@ -11,6 +11,7 @@
     <color name="BLACK">#000000</color>
     <color name="RED">#FF0000</color>
     <color name="HALF_TRANSPARENT">#80000000</color>
+    <color name="HALF_TRANSPARENT_A0">#a0000000</color>
     <color name="border_line">#cccccc</color>
     <color name="default_background">#f0f0f0</color>
     <color name="background_color_e0e0e0">#e0e0e0</color>

@@ -2,15 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/default_background">
+    android:background="@color/default_background"
+    android:orientation="vertical">
 
-    <ListView
-        android:layout_marginTop="6dp"
-        android:id="@+id/frag_bid_listview"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:dividerHeight="6dp"
-        android:divider="@color/default_background"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/frag_bid_top_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/default_background"
+            android:dividerHeight="6dp" />
+
+        <LinearLayout
+            android:id="@+id/frag_bid_top_layout_next"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/WHITE"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="선택된 기간에 입찰에 참여한 차량이 없습니다.\n기간을 확인해 주세요."
+                android:textSize="16dp" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

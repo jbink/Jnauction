@@ -87,6 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:onClick="onClick"
                 android:id="@+id/my_success_layout_term"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -143,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="기간"
+                android:text="오늘"
                 android:textColor="@color/text_color_333333"
                 android:textSize="17dp"
                 android:textStyle="bold" />
@@ -156,7 +157,7 @@
                 android:layout_height="16.5dp"
                 android:includeFontPadding="false"
                 android:text="0"
-                android:background="@drawable/bg_noti_b"
+                android:background="@drawable/bg_noti_r"
                 android:textColor="@color/WHITE"
                 android:textSize="13dp"/>
 

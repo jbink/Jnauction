@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.Html;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.view.View;
@@ -63,6 +64,8 @@ public class TenderPopup1 extends AppCompatActivity{
         }
         mStrAuctionIdx = getIntent().getStringExtra("car_auction_idx");
 
+        ((TextView)findViewById(R.id.tender_popup1_txt_txt_1)).setText(GlobalValues.fromHtml((getResources().getString(R.string.str_popup_tender_1_1))));
+        ((TextView)findViewById(R.id.tender_popup1_txt_txt_2)).setText(GlobalValues.fromHtml((getResources().getString(R.string.str_popup_tender_1_2))));
 
         mEdtCost = (EditText)findViewById(R.id.tender_popup1_edit_cost);
         mEdtCost.addTextChangedListener(new TextWatcher() {

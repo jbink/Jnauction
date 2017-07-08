@@ -5,10 +5,11 @@ package kr.co.hiowner.jnauction.api.data;
  */
 public class UserData {
 
+
     /**
      * status_code : 200
      * status_msg : SUCCESS
-     * result : {"name":"앱앤앱스1","phone":"01090379408","license_start_date":"2017-05-29 00:00:00","license_end_date":"2018-06-29 00:00:00","monthly_points":"50","extra_points":"0","cnt_success_today":0,"cnt_success_total":3,"cnt_bid_today":0,"cnt_bid_total":6,"cnt_sale_today":0,"cnt_sale_total":3}
+     * result : {"name":"앱앤앱스1","phone":"01090379408","profile_img":"http://image.theowner.co.kr/joongna/user_profile/default.jpg","license_start_date":"2017-05-29 00:00:00","license_end_date":"2018-06-29 00:00:00","monthly_add_points":"50","monthly_points":"33","extra_points":"0","cnt_success_today":0,"cnt_success_total":6,"cnt_bid_today":0,"cnt_bid_total":12,"cnt_sale_today":0,"cnt_sale_total":3}
      */
 
     private String status_code;
@@ -16,14 +17,16 @@ public class UserData {
     /**
      * name : 앱앤앱스1
      * phone : 01090379408
+     * profile_img : http://image.theowner.co.kr/joongna/user_profile/default.jpg
      * license_start_date : 2017-05-29 00:00:00
      * license_end_date : 2018-06-29 00:00:00
-     * monthly_points : 50
+     * monthly_add_points : 50
+     * monthly_points : 33
      * extra_points : 0
      * cnt_success_today : 0
-     * cnt_success_total : 3
+     * cnt_success_total : 6
      * cnt_bid_today : 0
-     * cnt_bid_total : 6
+     * cnt_bid_total : 12
      * cnt_sale_today : 0
      * cnt_sale_total : 3
      */
@@ -57,8 +60,10 @@ public class UserData {
     public static class ResultObject {
         private String name;
         private String phone;
+        private String profile_img;
         private String license_start_date;
         private String license_end_date;
+        private String monthly_add_points;
         private String monthly_points;
         private String extra_points;
         private int cnt_success_today;
@@ -84,6 +89,14 @@ public class UserData {
             this.phone = phone;
         }
 
+        public String getProfile_img() {
+            return profile_img;
+        }
+
+        public void setProfile_img(String profile_img) {
+            this.profile_img = profile_img;
+        }
+
         public String getLicense_start_date() {
             return license_start_date;
         }
@@ -98,6 +111,14 @@ public class UserData {
 
         public void setLicense_end_date(String license_end_date) {
             this.license_end_date = license_end_date;
+        }
+
+        public String getMonthly_add_points() {
+            return monthly_add_points;
+        }
+
+        public void setMonthly_add_points(String monthly_add_points) {
+            this.monthly_add_points = monthly_add_points;
         }
 
         public String getMonthly_points() {

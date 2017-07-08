@@ -150,7 +150,7 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="#999999"
                     android:textSize="15dp"
-                    android:text="입찰 최고 가격" />
+                    android:text="평균 입찰 가격" />
 
                 <TextView
                     android:id="@+id/tender_popup1_txt_price"
@@ -174,7 +174,7 @@
                 android:layout_marginTop="15dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15dp"
-                android:text="입찰 가격" />
+                android:text="신규 입찰 가격" />
 
             <EditText
                 android:id="@+id/tender_popup1_edit_cost"
@@ -195,9 +195,23 @@
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:textColor="#999999"
-                android:lineSpacingExtra="7dp"
-                android:text="- 입찰가격은 평균가보다 높아야합니다.\n- 입찰 호가는 최소 10만원 단위입니다.\n- 입찰 후 재입찰  1회 가능"
-                />
+                android:text="- 입찰가격은 평균가보다 높아야합니다."/>
+            <TextView
+                android:id="@+id/tender_popup1_txt_txt_1"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="#999999"/>
+            <TextView
+                android:id="@+id/tender_popup1_txt_txt_2"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="#999999"/>
 
         </LinearLayout>
 

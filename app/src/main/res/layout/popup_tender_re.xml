@@ -196,9 +196,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:textColor="@color/text_color_blue"
+                android:textColor="@color/colorPrimary"
                 android:textSize="15dp"
-                android:text="신규 입찰 가격" />
+                android:text="재 입찰 가격" />
 
             <EditText
                 android:id="@+id/tender_popup_re_edit_cost"
@@ -210,7 +210,7 @@
                 android:inputType="number"
                 android:maxLength="8"
                 android:hint="만원단위"
-                android:background="@drawable/border_blue"/>
+                android:background="@drawable/border_primary"/>
 
             <TextView
                 android:layout_marginLeft="6dp"
@@ -219,9 +219,23 @@
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:textColor="#999999"
-                android:lineSpacingExtra="7dp"
-                android:text="- 입찰가격은 평균가보다 높아야합니다.\n- 입찰 호가는 최소 10만원 단위입니다.\n- 매물당 1회 재입찰가능(건수 미차감)"
-                />
+                android:text="- 입찰가격은 평균가보다 높아야합니다."/>
+            <TextView
+                android:id="@+id/tender_popup_re_txt_txt"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="#999999"/>
+            <TextView
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="#999999"
+                android:text="- 매물당 2회 재입찰가능(건수 미차감)"/>
 
         </LinearLayout>
 
@@ -231,7 +245,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/sel_btn_blue"
+            android:background="@drawable/sel_btn_red"
             android:text="재 입찰 하기"
             android:textColor="@color/WHITE"
             android:textSize="17dp" />

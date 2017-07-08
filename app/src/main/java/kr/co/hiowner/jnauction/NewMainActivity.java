@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -156,4 +157,22 @@ public class NewMainActivity extends AppCompatActivity {
         myPageFragment.refreshData();
     }
 
+
+    long pressedTime = 0;
+    @Override
+    public void onBackPressed() {//웹에서 뒤로가기 처리
+        if (pressedTime == 0) {
+            Toast.makeText(mContext, " 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            pressedTime = System.currentTimeMillis();
+        } else {
+            int seconds = (int) (System.currentTimeMillis() - pressedTime);
+
+            if (seconds > 2000) {
+                Toast.makeText(mContext, " 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+                pressedTime = 0;
+            } else {
+                super.onBackPressed();
+            }
+        }
+    }
 }

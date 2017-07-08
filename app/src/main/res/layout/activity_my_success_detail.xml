@@ -72,8 +72,35 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
+                    <!-- 넘버링 -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="11dp"
+                        android:layout_alignParentRight="true">
+                        <TextView
+                            android:id="@+id/my_success_detail_txt_pager_index"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="X"
+                            android:textColor="#80ffffff"
+                            android:textSize="18dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="/4"
+                            android:textColor="#80ffffff"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <!-- END : 넘버링 -->
+
                     <!-- 인덱스 -->
                     <LinearLayout
+                        android:visibility="gone"
                         android:id="@+id/my_success_detail_layout_index"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -86,15 +113,17 @@
 
                     <!-- 사진설명 -->
                     <LinearLayout
+                        android:layout_alignParentBottom="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:layout_margin="20dp"
                         android:orientation="horizontal">
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="#a0f36430"
+                            android:background="@color/HALF_TRANSPARENT_A0"
                             android:padding="6dp">
 
                             <TextView
@@ -103,7 +132,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:text="입찰완료 : XXXX.XX.XX"
-                                android:textColor="@color/WHITE"
+                                android:textColor="@color/colorPrimary"
                                 android:textSize="18dp" />
 
                         </RelativeLayout>
@@ -134,22 +163,24 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical">
 
                         <TextView
                             android:id="@+id/my_success_detail_txt_car_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:text="경기 63다 7788"
                             android:textColor="@color/colorPrimary"
                             android:textSize="20dp" />
 
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <ImageButton
+                            android:visibility="gone"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
                             android:layout_marginLeft="10dp"
-                            android:text="사고이력조회" />
+                            android:background="@drawable/sel_btn_history"/>
                     </LinearLayout>
                 </LinearLayout>
                 <!-- END : 차이름, 차넘버 -->
@@ -225,17 +256,25 @@
                         android:textColor="#999999"
                         android:textSize="16dp" />
 
-                    <TextView
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:id="@+id/my_success_detail_txt_car_max_price"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/my_success_detail_txt_car_max_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="XXXX만원"
                         android:textColor="#fc622a"
                         android:textSize="36dp" />
+
+                    </LinearLayout>
 
                 </RelativeLayout>
                 <!-- END 평균입찰가 -->

@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="매입성공"
+            android:text="매입 확정"
             android:textColor="@color/WHITE"
             android:textSize="19dp"
             android:textStyle="bold" />
@@ -72,8 +72,35 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
+                    <!-- 넘버링 -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="11dp"
+                        android:layout_alignParentRight="true">
+                        <TextView
+                            android:id="@+id/my_purchase_detail_txt_pager_index"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="X"
+                            android:textColor="#80ffffff"
+                            android:textSize="18dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="/4"
+                            android:textColor="#80ffffff"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <!-- END : 넘버링 -->
+
                     <!-- 인덱스 -->
                     <LinearLayout
+                        android:visibility="gone"
                         android:id="@+id/my_purchase_detail_layout_index"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -86,15 +113,17 @@
 
                     <!-- 사진설명 -->
                     <LinearLayout
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center_horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="20dp"
                         android:orientation="horizontal">
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="#a0f36430"
+                            android:background="@color/HALF_TRANSPARENT_A0"
                             android:padding="6dp">
 
                             <TextView
@@ -103,7 +132,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:text="입찰완료 : XXXX.XX.XX"
-                                android:textColor="@color/WHITE"
+                                android:textColor="@color/colorPrimary"
                                 android:textSize="18dp" />
 
                         </RelativeLayout>

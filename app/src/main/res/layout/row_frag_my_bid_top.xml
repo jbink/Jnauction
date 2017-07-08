@@ -24,6 +24,7 @@
                 android:scaleType="centerCrop" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/row_bid_top_layout_status"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
@@ -46,6 +47,19 @@
 
         </RelativeLayout>
 
+        <ImageView
+            android:layout_alignStart="@id/row_bid_top_layout_thumbnail"
+            android:id="@+id/row_bid_top_img_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3rd"
+            android:textSize="11dp"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/WHITE"
+            android:gravity="center"
+            android:background="@drawable/ic_gold"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -59,18 +73,8 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/row_bid_top_txt_rank"
-                    android:layout_width="33dp"
-                    android:layout_height="19dp"
-                    android:text="3rd"
-                    android:textSize="11dp"
-                    android:textColor="@color/WHITE"
-                    android:gravity="center"
-                    android:background="@drawable/btn_blue_p"/>
 
                 <TextView
-                    android:layout_marginLeft="7.5dp"
                     android:id="@+id/row_bid_top_txt_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,6 +121,8 @@
                 android:id="@+id/row_bid_top_txt_loc_addr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:lines="1"
+                android:ellipsize="end"
                 android:layout_marginTop="5dp"
                 android:text="서울 마포구"
                 android:textColor="#999999"
@@ -130,9 +136,10 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/row_bid_top_txt_price_"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="최고 입찰가 "
+                    android:text="나의 입찰가 "
                     android:textColor="#999999"
                     android:textSize="17dp" />
 

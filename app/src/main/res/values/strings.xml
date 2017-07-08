@@ -2,6 +2,9 @@
     <string name="app_name">Jnauction</string>
     <string name="permission_msg">핸드폰 정보 활용을 위해 권한동의가 필요합니다.</string>
     <string name="permission_msg1">카메라 및 사진, 핸드폰 정보 활용을 위해 권한동의가 필요합니다.</string>
+    <string name="str_popup_tender_2">회원정보는 입찰시간 종료후 &lt;font color=#f36430>최고가 딜러에게 공개되며,  회원은 최고가 입찰딜러 TOP3 의 연락처를 확인&lt;/font>할 수 있습니다. 딜러 입찰내역은 &lt;font color=#333333>[마이페이지]&lt;/font>에서 확인할 수 있습니다.</string>
+    <string name="str_popup_tender_1_1">- 입찰 호가는 &lt;font color=#333333>최소 10만원 단위&lt;/font>입니다.</string>
+    <string name="str_popup_tender_1_2">- 입찰 후 &lt;font color=#f36430>재입찰  1회 가능&lt;/font></string>
 
     <string-array name="spinner_item">
         <item>최종등록 순</item>

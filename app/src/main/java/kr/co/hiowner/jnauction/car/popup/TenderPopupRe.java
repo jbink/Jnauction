@@ -75,6 +75,9 @@ public class TenderPopupRe extends AppCompatActivity{
         }
 
 
+        ((TextView)findViewById(R.id.tender_popup_re_txt_txt)).setText(GlobalValues.fromHtml((getResources().getString(R.string.str_popup_tender_1_1))));
+
+
         mEdtCost = (EditText)findViewById(R.id.tender_popup_re_edit_cost);
         mEdtCost.addTextChangedListener(new TextWatcher() {
             @Override

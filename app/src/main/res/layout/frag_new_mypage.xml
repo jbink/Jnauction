@@ -12,8 +12,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="35dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="35dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,9 +74,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
+                    android:text="서비스 시작일 [2017.06.21]"
                     android:textColor="#99333333"
-                    android:textSize="16dp"
-                    android:text="서비스 시작일 [2017.06.21]" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -94,14 +94,12 @@
                         android:textSize="17dp" />
 
                     <Button
-                        android:visibility="gone"
-                        android:layout_width="37dp"
-                        android:layout_height="21dp"
+                        android:id="@+id/main_user_btn_logout"
+                        android:onClick="onClick"
+                        android:layout_width="67dp"
+                        android:layout_height="22dp"
                         android:layout_marginLeft="7dp"
-                        android:background="#999999"
-                        android:text="변경"
-                        android:textColor="@color/WHITE"
-                        android:textSize="14dp" />
+                        android:background="@drawable/sel_btn_logout"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -113,7 +111,6 @@
             <!-- 나의 입찰 정보 -->
             <LinearLayout
                 android:id="@+id/main_user_layout_info"
-                android:onClick="onClick"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
@@ -121,6 +118,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
+                android:onClick="onClick"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp">
@@ -134,18 +132,17 @@
 
                 <ImageButton
                     android:id="@+id/main_user_btn_info"
-                    android:layout_marginLeft="7dp"
                     android:layout_width="13dp"
                     android:layout_height="13dp"
-                    android:onClick="onClick"
-                    android:background="@drawable/btn_info"/>
+                    android:layout_marginLeft="7dp"
+                    android:background="@drawable/btn_info"
+                    android:onClick="onClick" />
 
             </LinearLayout>
             <!-- END : 입찰 성공 -->
             <!-- 입찰 성공 -->
             <RelativeLayout
                 android:id="@+id/main_user_btn_seccess"
-                android:onClick="onClick"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="10dp"
@@ -153,22 +150,38 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
+                android:onClick="onClick"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="입찰 성공"
-                    android:textColor="#333333"
-                    android:textSize="16dp" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="입찰 성공"
+                        android:textColor="#333333"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="11dp"
+                        android:background="@drawable/menu_arrow" />
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:orientation="horizontal">
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -212,7 +225,6 @@
             <!-- 나의 입찰차량 -->
             <RelativeLayout
                 android:id="@+id/main_user_layout_bid"
-                android:onClick="onClick"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="10dp"
@@ -220,16 +232,30 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
+                android:onClick="onClick"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="나의 입찰차량"
-                    android:textColor="#333333"
-                    android:textSize="16dp" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="나의 입찰차량"
+                        android:textColor="#333333"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="11dp"
+                        android:background="@drawable/menu_arrow" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -279,7 +305,6 @@
             <!-- 매입 확정 -->
             <RelativeLayout
                 android:id="@+id/main_user_btn_purchase"
-                android:onClick="onClick"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="10dp"
@@ -287,16 +312,30 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
+                android:onClick="onClick"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="매입 확정"
-                    android:textColor="#333333"
-                    android:textSize="16dp" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="매입 확정"
+                        android:textColor="#333333"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="11dp"
+                        android:background="@drawable/menu_arrow" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -378,9 +417,10 @@
                         android:textSize="19dp" />
 
                     <TextView
+                        android:id="@+id/main_user_txt_monthly_addpoint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="/50"
+                        android:text="/X"
                         android:textColor="@color/text_color_999999"
                         android:textSize="19dp" />
                 </LinearLayout>
@@ -389,14 +429,15 @@
 
             <!--기본 건수 매월-->
             <TextView
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="13dp"
+                android:id="@+id/main_user_txt_monthly_addpoint_base"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:textColor="#999999"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="13dp"
                 android:lineSpacingExtra="9sp"
-                android:text="기본 건수 매월 50건 제공"/>
+                android:text="기본 건수 매월 50건 제공"
+                android:textColor="#999999"
+                android:textSize="14dp" />
             <!-- END :  기본 건수 매월 -->
 
             <!-- 매입 확정 보너스건수 -->
@@ -444,13 +485,13 @@
             </RelativeLayout>
 
             <TextView
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:textColor="#4d4d4d"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="35dp"
-                android:text="고객센터 1234-5678"/>
+                android:text="고객센터 1234-5678"
+                android:textColor="#4d4d4d"
+                android:textSize="15sp" />
             <!-- END : 매입 확정 보너스건수 -->
         </LinearLayout>
         <!-- END :  마이페이지 -->

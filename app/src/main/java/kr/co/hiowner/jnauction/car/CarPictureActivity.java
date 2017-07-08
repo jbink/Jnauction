@@ -15,8 +15,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import kr.co.hiowner.jnauction.R;
+import kr.co.hiowner.jnauction.util.PhotoCustomViewPager;
+import uk.co.senab.photoview.PhotoView;
 
 /**
  * Created by user on 2017-07-07.
@@ -26,7 +29,7 @@ public class CarPictureActivity extends AppCompatActivity {
     private final int PAGER_COUNT = 4;
 
     Context mContext;
-    ViewPager mPager;
+    PhotoCustomViewPager mPager;
     LinearLayout mLayoutPagerIndex;
     ImageView[] mIvIndex;
 
@@ -46,7 +49,7 @@ public class CarPictureActivity extends AppCompatActivity {
 //        Glide.with(mContext).load(getIntent().getStringExtra("pic1")).into(mIvPicture);
 
 
-        mPager = (ViewPager)findViewById(R.id.car_picture_pager);
+        mPager = (PhotoCustomViewPager)findViewById(R.id.car_picture_pager);
         mLayoutPagerIndex = (LinearLayout)findViewById(R.id.car_picture_layout_index);
 
         mIvIndex = new ImageView[PAGER_COUNT];
@@ -125,11 +128,11 @@ public class CarPictureActivity extends AppCompatActivity {
             View view = null;
             //새로운 View 객체를 Layoutinflater를 이용해서 생성
             //만들어질 View의 설계는 res폴더>>layout폴더>>viewpater_childview.xml 레이아웃 파일 사용
-            view = inflater.inflate(R.layout.row_viewpager, null);
+            view = inflater.inflate(R.layout.row_viewpager_pic_detail, null);
 
             //만들어진 View안에 있는 ImageView 객체 참조
             //위에서 inflated 되어 만들어진 view로부터 findViewById()를 해야 하는 것에 주의.
-            ImageView img = (ImageView) view.findViewById(R.id.row_img_view_pager);
+            PhotoView img = (PhotoView) view.findViewById(R.id.row_photoview_view_pager);
 //            img.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
@@ -140,13 +143,13 @@ public class CarPictureActivity extends AppCompatActivity {
 
 
             if(position == 0) {
-                Glide.with(mContext).load(mStrPic1).into(img);
+                Glide.with(mContext).load(mStrPic1).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
             }else if(position == 1){
-                Glide.with(mContext).load(mStrPic2).into(img);
+                Glide.with(mContext).load(mStrPic2).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
             } else if (position == 2) {
-                Glide.with(mContext).load(mStrPic3).into(img);
+                Glide.with(mContext).load(mStrPic3).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
             } else if (position == 3) {
-                Glide.with(mContext).load(mStrPic4).into(img);
+                Glide.with(mContext).load(mStrPic4).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
             }
 
 

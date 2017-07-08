@@ -94,7 +94,7 @@ public class MyPurchaseListAdapter extends BaseAdapter {
 
             holder.car_image = (ImageView)convertView.findViewById(R.id.row_success_img_thumbnail);
             holder.car_name = (TextView)convertView.findViewById(R.id.row_success_txt_name);
-            holder.car_loc_addr = (TextView)convertView.findViewById(R.id.row_success_txt_name);
+            holder.car_loc_addr = (TextView)convertView.findViewById(R.id.row_success_txt_loc_addr);
             holder.car_year = (TextView)convertView.findViewById(R.id.row_success_txt_year);
             holder.car_kms = (TextView)convertView.findViewById(R.id.row_success_txt_kms);
             holder.car_date = (TextView)convertView.findViewById(R.id.row_success_txt_date);

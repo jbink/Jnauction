@@ -95,7 +95,7 @@ public class EntireListAdapter extends BaseAdapter {
 
             holder.car_image = (ImageView)convertView.findViewById(R.id.row_bid_entire_img_thumbnail);
             holder.car_name = (TextView)convertView.findViewById(R.id.row_bid_entire_txt_name);
-            holder.car_loc_addr = (TextView)convertView.findViewById(R.id.row_bid_entire_txt_name);
+            holder.car_loc_addr = (TextView)convertView.findViewById(R.id.row_bid_entire_txt_loc_addr);
             holder.car_year = (TextView)convertView.findViewById(R.id.row_bid_entire_txt_year);
             holder.car_kms = (TextView)convertView.findViewById(R.id.row_bid_entire_txt_kms);
             holder.car_status = (LinearLayout)convertView.findViewById(R.id.row_frag_my_bid_layout_status);
@@ -112,22 +112,23 @@ public class EntireListAdapter extends BaseAdapter {
         Glide.with(mContext).load(data.getC_img_1()).into(holder.car_image);
         holder.car_loc_addr.setText(data.getC_loc_addr());
         holder.car_year.setText(data.getC_myear()+"년식");
-        holder.car_name.setText(""+data.getAuction_idx()+"  "+data.getC_brand() +" "+ data.getC_mname());
-        holder.car_status_person.setText("["+data.getA_bid_count()+"명 입찰중]");
+        holder.car_name.setText(data.getC_brand() +" "+ data.getC_mname());
+        holder.car_status_person.setText("입찰 참여자 "+data.getA_bid_count()+"명");
 
         holder.car_kms.setText(GlobalValues.getWonFormat(data.getC_kms()) + "km");
         try{
             int status = Integer.parseInt(data.getA_status());
             if(status >= 300 && status < 400){
-                holder.car_price.setText(GlobalValues.getWonFormat(data.getA_max_price()));
+                holder.car_price.setText(GlobalValues.getWonFormat(data.getA_max_price())+"만원");
                 holder.car_txt_price.setText("최고 입찰가 ");
             }else{
-                if("0".equals(data.getA_avg_price())){
-                    holder.car_price.setText("미공개");
-                }else{
-                    holder.car_price.setText(GlobalValues.getWonFormat(data.getA_avg_price()));
-                }
-                holder.car_txt_price.setText("평균 입찰가 ");
+//                if("0".equals(data.getA_avg_price())){
+//                    holder.car_price.setText("미공개");
+//                }else{
+//                    holder.car_price.setText(GlobalValues.getWonFormat(data.getA_avg_price()));
+//                }
+                holder.car_price.setText(GlobalValues.getWonFormat(data.getB_price())+"만원");
+                holder.car_txt_price.setText("나의 입찰가 ");
             }
         }catch (Exception e) {
             holder.car_price.setText(data.getB_price());

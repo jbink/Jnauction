@@ -101,6 +101,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
                 android:textColor="#999999"
+                android:lines="1"
+                android:ellipsize="end"
                 android:text="서울 마포구"/>
 
         </LinearLayout>
