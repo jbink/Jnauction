@@ -25,8 +25,9 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="선택된 기간에 입찰에 참여한 차량이 없습니다.\n기간을 확인해 주세요."
                 android:textSize="16dp" />
 
