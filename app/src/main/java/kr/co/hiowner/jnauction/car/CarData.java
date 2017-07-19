@@ -3,8 +3,6 @@ package kr.co.hiowner.jnauction.car;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 /**
  * Created by user on 2017-06-24.
  */
@@ -32,7 +30,7 @@ public class CarData implements Parcelable {
      * c_opt_heat : N
      * c_opt_fan : N
      * c_opt_alu : N
-     * c_loc_addr : 인천시 연수구
+     * c_loc_addr : 인천시 연수
      * c_img_1 : http://image.theowner.co.kr/joongna/mycarsale/00/0009/905_img_1_7083.jpg
      * c_img_2 : http://image.theowner.co.kr/joongna/mycarsale/00/0009/905_img_2_8778.jpg
      * c_img_3 : http://image.theowner.co.kr/joongna/mycarsale/00/0009/905_img_3_5039.jpg
