@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,7 @@ import retrofit2.Response;
 /**
  * Created by user on 2017-06-29.
  */
-public class AuctionFragment extends Fragment implements View.OnClickListener {
+public class AuctionFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private final int LISTVIEW_CUR_FULL = 1100;
     private final int LISTVIEW_CUR_MY = 2200;
@@ -89,6 +90,9 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
     //다음 겸매오픈 시간 알림
     LinearLayout mLayoutNext;
     TextView mTvNext;
+
+    //Pull to refresh
+    SwipeRefreshLayout mPulltoRefresh_full, mPulltoRefresh_My;
 
     public AuctionFragment() {
     }
@@ -153,6 +157,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
         mListViewFullCar.setAdapter(mAdapterFullCar);
         mListViewFullCar.setOnItemClickListener(mItemClickFullListener);
         mListViewFullCar.setOnScrollListener(mOnScrollFullListener);
+        mPulltoRefresh_full = (SwipeRefreshLayout)rootView.findViewById(R.id.main_car_full_pullto) ;
+        mPulltoRefresh_full.setOnRefreshListener(this);
 
         mListViewMyCar = (ListView)rootView.findViewById(R.id.main_car_my_listview);
         mAdapterMyCar = new CarListAdapter(getActivity());
@@ -285,6 +291,12 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        new MyAuctionsRefreshAsyncTask().execute();
+        new AuctionsRefreshAsyncTask().execute();
     }
 
     /*************************************************************************************************************************************************/
@@ -484,6 +496,11 @@ public class AuctionFragment extends Fragment implements View.OnClickListener {
                 }
             });
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            mPulltoRefresh_full.setRefreshing(false);
         }
     }
 /*************************************************************************************************************************************************/

@@ -51,6 +51,13 @@ public class CarListAdapter extends BaseAdapter {
     }
 
     public void changeItem(List<AuctionsData.ResultObject.AuctionsObject> items) {
+        if (items.size() > mRowList.size()){
+            int gap = items.size() - mRowList.size();
+            Toast.makeText(mContext, ""+gap+" 만큼 리스트가 추가", Toast.LENGTH_SHORT).show();
+            for (int i=0 ; i<gap ; i++){
+                mRowList.add(new AuctionsData.ResultObject.AuctionsObject());
+            }
+        }
         for (int i=0 ; i<items.size() ; i++){
             mRowList.set(i, items.get(i));
         }

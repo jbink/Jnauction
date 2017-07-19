@@ -109,12 +109,20 @@
             android:layout_height="match_parent"
             android:layout_marginTop="6dp">
 
-            <ListView
-                android:id="@+id/main_car_full_listview"
+            <android.support.v4.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="@color/default_background"
-                android:dividerHeight="6dp" />
+                android:id="@+id/main_car_full_pullto">
+                <ListView
+                    android:id="@+id/main_car_full_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@color/default_background"
+                    android:dividerHeight="6dp" />
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+
 
             <ListView
                 android:id="@+id/main_car_my_listview"

@@ -236,12 +236,18 @@ public class CarDetailActivity extends AppCompatActivity {
 //                setResult(RESULT_OK);
 //                finish();
             } else if (resultCode == RESULT_CANCELED) {
+                mBoolResult = false;
+            }else{
+                mBoolResult = false;
             }
         }
         if(requestCode == 4455) {
             if (resultCode == RESULT_OK) {
                 new AuctionIdxAsyncTask().execute();
             } else if (resultCode == RESULT_CANCELED) {
+                mBoolResult = false;
+            }else{
+                mBoolResult = false;
             }
         }
     }
