@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,10 +23,7 @@ import java.util.Locale;
 
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.api.API_Adapter;
-import kr.co.hiowner.jnauction.api.data.AuctionsData;
 import kr.co.hiowner.jnauction.api.data.SalesData;
-import kr.co.hiowner.jnauction.mypage.success.MySuccessDetailActivity;
-import kr.co.hiowner.jnauction.mypage.success.MySuccessListAdapter;
 import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
 import kr.co.hiowner.jnauction.util.TermSelectPopup;
@@ -82,7 +78,14 @@ public class MyPurchaseListActivity extends AppCompatActivity{
 
         mFormatter = new SimpleDateFormat( "yyyy-MM-dd", Locale.KOREA );
         mCalendar = new GregorianCalendar(Locale.KOREA);
-        mStrStartDay = mFormatter.format(mCalendar.getTime());
+
+        //jslee 0719++ 나의 입찰차량 default 날짜를 "오늘"에서 "전체"로 변경
+
+        //mStrStartDay = mFormatter.format(mCalendar.getTime());
+        //mCalendar.add(Calendar.DAY_OF_YEAR, 1); // 하루를 더한다
+        //mStrEndDay = mFormatter.format(mCalendar.getTime());
+
+        mStrStartDay = "2000-01-01";
         mCalendar.add(Calendar.DAY_OF_YEAR, 1); // 하루를 더한다
         mStrEndDay = mFormatter.format(mCalendar.getTime());
 
@@ -136,6 +139,12 @@ public class MyPurchaseListActivity extends AppCompatActivity{
                 intent = new Intent(mContext, TermSelectPopup.class);
                 Log.d("where", mTvTerm.getText().toString());
                 intent.putExtra("cur_term", mTvTerm.getText().toString());
+
+                //jslee++ 0719 시작일과 마지막일도 같이 넘겨준다. 팝업을 띄웠을 때, 아무것도 하지 않고 확인을 누르면
+                //기존 세팅대로 적용을 시키기 위해서입니다. ("날짜를 지정해주세요" 라고 뜨는게 이상해서입니다.)
+                intent.putExtra("start_term", mStrStartDay);
+                intent.putExtra("end_term", mStrEndDay);
+
                 startActivityForResult(intent, REQUST_CODE_DATE);
                 break;
         }
