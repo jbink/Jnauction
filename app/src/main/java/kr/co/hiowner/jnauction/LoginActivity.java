@@ -2,6 +2,7 @@ package kr.co.hiowner.jnauction;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,13 +18,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import jbink.appnapps.okhttplibrary.ApiCall;
 import kr.co.hiowner.jnauction.api.API_Adapter;
 import kr.co.hiowner.jnauction.api.ResponseBaseData;
-import kr.co.hiowner.jnauction.car.CarData;
-import kr.co.hiowner.jnauction.user.UserData;
 import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
 import okhttp3.FormBody;
@@ -97,6 +94,10 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 new LoginAsyncTask().execute(AUTH_URL, mEdtPhone.getText().toString());
+                break;
+            case R.id.login_txt_customer_service_phonenum :
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:070-4349-6021"));
+                startActivity(intent);
                 break;
         }
     }
