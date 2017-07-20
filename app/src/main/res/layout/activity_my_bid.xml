@@ -101,7 +101,7 @@
                     android:textColor="@color/text_color_ffdaad"
                     android:textSize="15dp"
                     android:layout_height="wrap_content"
-                    android:text="오늘"/>
+                    android:text="전체"/>
                 <Button
                     android:id="@+id/mysuccess_btn_term"
                     android:onClick="onClick"
@@ -144,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="오늘"
+                android:text="전체"
                 android:textColor="@color/text_color_333333"
                 android:textSize="17dp"
                 android:textStyle="bold" />

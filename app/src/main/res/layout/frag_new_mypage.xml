@@ -456,7 +456,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="매입확정 보너스 건수"
+                    android:text="매입확정 보너스"
                     android:textColor="#333333"
                     android:textSize="16dp" />
 
@@ -485,11 +485,13 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/main_user_txt_customer_service_phonenum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="35dp"
-                android:text="고객센터 1234-5678"
+                android:text="고객센터 070-4349-6021"
+                android:onClick="onClick"
                 android:textColor="#4d4d4d"
                 android:textSize="15sp" />
             <!-- END : 매입 확정 보너스건수 -->

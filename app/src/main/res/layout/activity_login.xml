@@ -96,10 +96,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
+            android:id="@+id/login_txt_customer_service_phonenum"
             android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="고객센터 1234-5678"
+            android:text="고객센터 070-4349-6021"
+            android:onClick="onClick"
             android:textSize="16dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"/>
