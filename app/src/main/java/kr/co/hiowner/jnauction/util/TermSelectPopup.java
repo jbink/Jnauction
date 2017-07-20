@@ -62,6 +62,12 @@ public class TermSelectPopup extends AppCompatActivity {
         mTvEndDay = (TextView)findViewById(R.id.date_sel_6_end_day);
 
         mStrTermValue = getIntent().getStringExtra("cur_term");
+
+        //jslee++ 0719 시작일과 마지막일도 우선 넘겨받은대로 지정한다. 팝업을 띄웠을 때, 아무것도 하지 않고 확인을 누르면
+        //기존 세팅대로 적용을 시키기 위해서입니다. ("날짜를 지정해주세요" 라고 뜨는게 이상해서입니다.)
+        mStrStartDay = getIntent().getStringExtra("start_term");
+        mStrEndDay = getIntent().getStringExtra("end_term");
+
         mFormatter = new SimpleDateFormat( "yyyy-MM-dd", Locale.KOREA );
         mCalendar = new GregorianCalendar(Locale.KOREA);
 
