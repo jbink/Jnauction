@@ -1,12 +1,11 @@
 package kr.co.hiowner.jnauction.fragment;
 
-import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
-import java.util.HashMap;
-
 import kr.co.hiowner.jnauction.LoginActivity;
-import kr.co.hiowner.jnauction.NewMainActivity;
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.api.API_Adapter;
-import kr.co.hiowner.jnauction.api.data.AuctionsData;
+import kr.co.hiowner.jnauction.api.data.UserData;
 import kr.co.hiowner.jnauction.mypage.MyPagePopup;
 import kr.co.hiowner.jnauction.mypage.bid.MyBidActivity;
 import kr.co.hiowner.jnauction.mypage.purchase.MyPurchaseListActivity;
@@ -34,8 +29,6 @@ import kr.co.hiowner.jnauction.util.SharedPreUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import kr.co.hiowner.jnauction.api.data.UserData;
 /**
  * Created by user on 2017-06-26.
  */
@@ -81,10 +74,7 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
         ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_purchase)).setOnClickListener(this);
         ((LinearLayout)rootView.findViewById(R.id.main_user_layout_info)).setOnClickListener(this);
         ((RelativeLayout)rootView.findViewById(R.id.main_user_layout_bid)).setOnClickListener(this);
-
-//        mTvUserName.setText(UserData.getInstance().getName());
-//        mTvUSerPhone.setText(UserData.getInstance().getPhone());
-//        mTvUserLicenseStart.setText("서비스 시작일 ["+UserData.getInstance().getLicense_start_date()+"]");
+        ((TextView)rootView.findViewById(R.id.main_user_txt_customer_service_phonenum)).setOnClickListener(this);
 
         new MyPageAsyncTask().execute();
 
@@ -116,6 +106,10 @@ public class MyPageFragment extends Fragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.main_user_txt_customer_service_phonenum :
+                intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:070-4349-6021"));
+                startActivity(intent);
                 break;
         }
     }
