@@ -132,6 +132,7 @@ public class TermSelectPopup extends AppCompatActivity {
         Intent intent;
         switch (v.getId()){
             case R.id.date_sel_btn_x :
+            case R.id.date_sel_btn_close :                  //jslee 0731++ 하단 닫기 버튼
                 setResult(RESULT_CANCELED);
                 finish();
                 break;

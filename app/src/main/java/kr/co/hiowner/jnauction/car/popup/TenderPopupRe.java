@@ -108,6 +108,7 @@ public class TenderPopupRe extends AppCompatActivity{
     public void onClick(View v){
         switch (v.getId()){
             case R.id.tender_popup_re_btn_x :
+            case R.id.tender_popup_re_btn_close :               //jslee 0731++ 닫기버튼 하단추가
                 finish();
                 break;
             case R.id.tender_popup_re_btn_ok :

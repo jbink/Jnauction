@@ -19,6 +19,7 @@
             android:layout_height="19dp"
             android:layout_alignParentRight="true"
             android:layout_margin="15dp"
+            android:visibility="gone"
             android:background="@drawable/ic_close" />
 
         <LinearLayout
@@ -185,7 +186,7 @@
                 android:layout_height="45dp"
                 android:inputType="number"
                 android:maxLength="8"
-                android:hint="만원단위"
+                android:hint="입찰가격을 입력해주세요."
                 android:background="@drawable/border_primary"/>
 
             <TextView
@@ -215,16 +216,34 @@
 
         </LinearLayout>
 
-        <Button
-            android:onClick="onClick"
-            android:id="@+id/tender_popup1_btn_ok"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/sel_btn_red"
-            android:text="입찰 하기"
-            android:textColor="@color/WHITE"
-            android:textSize="17dp" />
+            android:orientation="horizontal">
+            <Button
+                android:onClick="onClick"
+                android:id="@+id/tender_popup1_btn_close"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:background="#e6e6e6"
+                android:text="닫기"
+                android:textColor="#999999"
+                android:textSize="17dp" />
+
+            <Button
+                android:onClick="onClick"
+                android:id="@+id/tender_popup1_btn_ok"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:background="@drawable/sel_btn_red"
+                android:text="입찰 하기"
+                android:textColor="@color/WHITE"
+                android:textSize="17dp" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 

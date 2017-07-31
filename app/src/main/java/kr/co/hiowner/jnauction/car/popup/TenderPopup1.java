@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.Html;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.view.View;
@@ -21,7 +20,6 @@ import java.util.HashMap;
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.api.API_Adapter;
 import kr.co.hiowner.jnauction.api.ResponseBaseData;
-import kr.co.hiowner.jnauction.api.data.AuctionData;
 import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
 import retrofit2.Call;
@@ -97,6 +95,7 @@ public class TenderPopup1 extends AppCompatActivity{
     public void onClick(View v){
         switch (v.getId()){
             case R.id.tender_popup1_btn_x :
+            case R.id.tender_popup1_btn_close :                 //jslee 0731++ 닫기버튼 하단추가
                 finish();
                 break;
             case R.id.tender_popup1_btn_ok :

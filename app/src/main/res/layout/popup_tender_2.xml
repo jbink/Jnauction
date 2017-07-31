@@ -7,7 +7,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:padding="14dp"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="29.5dp"
             android:gravity="center_horizontal"
             android:text="입찰되었습니다"
             android:textColor="#000000"
@@ -28,6 +27,8 @@
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="13dp"
+            android:paddingRight="14dp"
             android:lineSpacingExtra="7dp"
             android:textColor="#999999"
             android:textSize="16dp"/>
@@ -40,7 +41,7 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/sel_btn_red"
             android:text="확인"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="27dp"
             android:textColor="@color/WHITE"
             android:textSize="17dp" />
 
