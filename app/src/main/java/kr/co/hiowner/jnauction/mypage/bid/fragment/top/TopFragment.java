@@ -48,7 +48,7 @@ public class TopFragment extends Fragment{
     private int mIntTotal_My = 0;
 
 
-    List<AuctionsData.ResultObject.AuctionsObject> mDataCar_My;
+    List<AuctionsData.Resultfdg.Auctionsfdg> mDataCar_My;
     ListView mListViewMyCar;
     TopListAdapter mAdapterMyCar;
 
@@ -100,7 +100,7 @@ public class TopFragment extends Fragment{
     AdapterView.OnItemClickListener mItemClickMyListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            AuctionsData.ResultObject.AuctionsObject data = (AuctionsData.ResultObject.AuctionsObject) adapterView.getAdapter().getItem(i);
+            AuctionsData.Resultfdg.Auctionsfdg data = (AuctionsData.Resultfdg.Auctionsfdg) adapterView.getAdapter().getItem(i);
             Intent intent = new Intent(getActivity(), TopDetailActivity.class);
             intent.putExtra("auction_idx",  data.getAuction_idx());
             startActivityForResult(intent, REQUST_CODE_DETAIL);
@@ -248,7 +248,7 @@ public class TopFragment extends Fragment{
                         Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    mDataCar_My = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+                    mDataCar_My = new ArrayList<AuctionsData.Resultfdg.Auctionsfdg>();
                     mIntTotal_My = response.body().getResult().getTotal_count();
                     mDataCar_My = response.body().getResult().getAuctions();
                     mAdapterMyCar.changeItem(mDataCar_My);

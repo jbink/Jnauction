@@ -91,7 +91,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="/4"
+                            android:text="@string/pager_total_count"
                             android:textColor="#80ffffff"
                             android:textSize="18dp" />
                     </LinearLayout>
@@ -121,6 +121,7 @@
                         android:orientation="horizontal">
 
                         <RelativeLayout
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/HALF_TRANSPARENT_A0"

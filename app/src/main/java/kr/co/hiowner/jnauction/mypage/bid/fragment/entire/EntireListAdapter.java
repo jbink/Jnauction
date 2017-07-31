@@ -24,7 +24,7 @@ import kr.co.hiowner.jnauction.util.GlobalValues;
  */
 public class EntireListAdapter extends BaseAdapter {
     LayoutInflater mInflater;
-    List<AuctionsData.ResultObject.AuctionsObject> mRowList;
+    List<AuctionsData.Resultfdg.Auctionsfdg> mRowList;
     Context mContext;
 
     public EntireListAdapter(Context context) {
@@ -32,33 +32,33 @@ public class EntireListAdapter extends BaseAdapter {
         super();
         mContext = context;
         this.mInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mRowList = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+        mRowList = new ArrayList<AuctionsData.Resultfdg.Auctionsfdg>();
 //        this.mRowList = mRowList;
     }
 
-    public void addItems(List<AuctionsData.ResultObject.AuctionsObject> items){
+    public void addItems(List<AuctionsData.Resultfdg.Auctionsfdg> items){
         mRowList.addAll(items);
         notifyDataSetChanged();
     }
-    public void refreshItems(List<AuctionsData.ResultObject.AuctionsObject> items){
-        mRowList = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+    public void refreshItems(List<AuctionsData.Resultfdg.Auctionsfdg> items){
+        mRowList = new ArrayList<AuctionsData.Resultfdg.Auctionsfdg>();
         mRowList.addAll(items);
         notifyDataSetChanged();
     }
 
-    public void changeItem(List<AuctionsData.ResultObject.AuctionsObject> items) {
+    public void changeItem(List<AuctionsData.Resultfdg.Auctionsfdg> items) {
         for (int i=0 ; i<items.size() ; i++){
             mRowList.set(i, items.get(i));
         }
         notifyDataSetChanged();
     }
 
-    public void addOneItem(AuctionsData.ResultObject.AuctionsObject item){
+    public void addOneItem(AuctionsData.Resultfdg.Auctionsfdg item){
         mRowList.add(item);
     }
 
     public void removeAllData(){
-        mRowList = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+        mRowList = new ArrayList<AuctionsData.Resultfdg.Auctionsfdg>();
         notifyDataSetChanged();
     }
 
@@ -70,7 +70,7 @@ public class EntireListAdapter extends BaseAdapter {
     }
 
     @Override
-    public AuctionsData.ResultObject.AuctionsObject getItem(int position) {
+    public AuctionsData.Resultfdg.Auctionsfdg getItem(int position) {
         if(position >= 0 && position < mRowList.size())
             return mRowList.get(position);
         return null;
@@ -86,7 +86,7 @@ public class EntireListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
 
-        final AuctionsData.ResultObject.AuctionsObject data = mRowList.get(position);
+        final AuctionsData.Resultfdg.Auctionsfdg data = mRowList.get(position);
 
         if(convertView == null){
 

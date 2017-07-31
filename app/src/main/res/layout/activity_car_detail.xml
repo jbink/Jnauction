@@ -91,7 +91,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="/4"
+                            android:text="@string/pager_total_count"
                             android:textColor="#80ffffff"
                             android:textSize="18dp" />
                     </LinearLayout>
@@ -171,6 +171,8 @@
 
 
                 </RelativeLayout>
+
+
 
                 <!-- 차이름, 차넘버 -->
                 <LinearLayout
@@ -361,6 +363,10 @@
                 </RelativeLayout>
                 <!-- END 나의입찰가 -->
                 <include layout="@layout/include_car_base_option" />
+
+
+
+
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

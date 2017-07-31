@@ -44,7 +44,7 @@ public class MySuccessListActivity extends AppCompatActivity{
 
     TextView mTvTerm, mTvTotalCount;
 
-    List<AuctionsData.ResultObject.AuctionsObject> mDataCar_My;
+    List<AuctionsData.Resultfdg.Auctionsfdg> mDataCar_My;
     ListView mListViewMyCar;
     MySuccessListAdapter mAdapterMyCar;
 
@@ -95,7 +95,7 @@ public class MySuccessListActivity extends AppCompatActivity{
     AdapterView.OnItemClickListener mItemClickMyListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            AuctionsData.ResultObject.AuctionsObject data = (AuctionsData.ResultObject.AuctionsObject) adapterView.getAdapter().getItem(i);
+            AuctionsData.Resultfdg.Auctionsfdg data = (AuctionsData.Resultfdg.Auctionsfdg) adapterView.getAdapter().getItem(i);
             Intent intent = new Intent(mContext, MySuccessDetailActivity.class);
             intent.putExtra("auction_idx",  data.getAuction_idx());
             startActivityForResult(intent, REQUST_CODE_DETAIL);
@@ -204,7 +204,7 @@ public class MySuccessListActivity extends AppCompatActivity{
                         Toast.makeText(mContext, response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    mDataCar_My = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+                    mDataCar_My = new ArrayList<AuctionsData.Resultfdg.Auctionsfdg>();
                     mIntTotal_My = response.body().getResult().getTotal_count();
                     mDataCar_My = response.body().getResult().getAuctions();
 //                    mAdapterMyCar.addItems(mDataCar_My);
@@ -256,7 +256,7 @@ public class MySuccessListActivity extends AppCompatActivity{
                         Toast.makeText(mContext, response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    mDataCar_My = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+                    mDataCar_My = new ArrayList<AuctionsData.Resultfdg.Auctionsfdg>();
                     mIntTotal_My = response.body().getResult().getTotal_count();
                     mDataCar_My = response.body().getResult().getAuctions();
                     mAdapterMyCar.addItems(mDataCar_My);

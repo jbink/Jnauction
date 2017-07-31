@@ -26,14 +26,14 @@ import uk.co.senab.photoview.PhotoView;
  */
 public class CarPictureActivity extends AppCompatActivity {
 
-    private final int PAGER_COUNT = 4;
+    private final int PAGER_COUNT = 8;
 
     Context mContext;
     PhotoCustomViewPager mPager;
     LinearLayout mLayoutPagerIndex;
     ImageView[] mIvIndex;
 
-    String mStrPic1, mStrPic2, mStrPic3, mStrPic4;
+    String mStrPic1, mStrPic2, mStrPic3, mStrPic4, mStrPic5, mStrPic6, mStrPic7, mStrPic8;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +46,10 @@ public class CarPictureActivity extends AppCompatActivity {
         mStrPic2 = getIntent().getStringExtra("pic2");
         mStrPic3 = getIntent().getStringExtra("pic3");
         mStrPic4 = getIntent().getStringExtra("pic4");
+        mStrPic5 = getIntent().getStringExtra("pic5");
+        mStrPic6 = getIntent().getStringExtra("pic6");
+        mStrPic7 = getIntent().getStringExtra("pic7");
+        mStrPic8 = getIntent().getStringExtra("pic8");
 //        Glide.with(mContext).load(getIntent().getStringExtra("pic1")).into(mIvPicture);
 
 
@@ -150,6 +154,14 @@ public class CarPictureActivity extends AppCompatActivity {
                 Glide.with(mContext).load(mStrPic3).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
             } else if (position == 3) {
                 Glide.with(mContext).load(mStrPic4).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
+            }else if (position == 4) {
+                Glide.with(mContext).load(mStrPic5).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
+            }else if (position == 5) {
+                Glide.with(mContext).load(mStrPic6).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
+            }else if (position == 6) {
+                Glide.with(mContext).load(mStrPic7).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
+            }else if (position == 7) {
+                Glide.with(mContext).load(mStrPic8).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
             }
 
 

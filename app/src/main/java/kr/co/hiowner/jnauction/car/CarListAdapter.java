@@ -28,7 +28,7 @@ import kr.co.hiowner.jnauction.util.GlobalValues;
  */
 public class CarListAdapter extends BaseAdapter {
     LayoutInflater mInflater;
-    List<AuctionsData.ResultObject.AuctionsObject> mRowList;
+    List<AuctionsData.Resultfdg.Auctionsfdg> mRowList;
     Context mContext;
 
     public CarListAdapter(Context context) {
@@ -36,26 +36,26 @@ public class CarListAdapter extends BaseAdapter {
         super();
         mContext = context;
         this.mInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mRowList = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+        mRowList = new ArrayList<AuctionsData.Resultfdg.Auctionsfdg>();
 //        this.mRowList = mRowList;
     }
 
-    public void addItems(List<AuctionsData.ResultObject.AuctionsObject> items){
+    public void addItems(List<AuctionsData.Resultfdg.Auctionsfdg> items){
         mRowList.addAll(items);
         notifyDataSetChanged();
     }
-    public void refreshItems(List<AuctionsData.ResultObject.AuctionsObject> items){
-        mRowList = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+    public void refreshItems(List<AuctionsData.Resultfdg.Auctionsfdg> items){
+        mRowList = new ArrayList<AuctionsData.Resultfdg.Auctionsfdg>();
         mRowList.addAll(items);
         notifyDataSetChanged();
     }
 
-    public void changeItem(List<AuctionsData.ResultObject.AuctionsObject> items) {
+    public void changeItem(List<AuctionsData.Resultfdg.Auctionsfdg> items) {
         if (items.size() > mRowList.size()){
             int gap = items.size() - mRowList.size();
             Toast.makeText(mContext, ""+gap+" 만큼 리스트가 추가", Toast.LENGTH_SHORT).show();
             for (int i=0 ; i<gap ; i++){
-                mRowList.add(new AuctionsData.ResultObject.AuctionsObject());
+                mRowList.add(new AuctionsData.Resultfdg.Auctionsfdg());
             }
         }
         for (int i=0 ; i<items.size() ; i++){
@@ -64,12 +64,12 @@ public class CarListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void addOneItem(AuctionsData.ResultObject.AuctionsObject item){
+    public void addOneItem(AuctionsData.Resultfdg.Auctionsfdg item){
         mRowList.add(item);
     }
 
     public void removeAllData(){
-        mRowList = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+        mRowList = new ArrayList<AuctionsData.Resultfdg.Auctionsfdg>();
         notifyDataSetChanged();
     }
 
@@ -81,7 +81,7 @@ public class CarListAdapter extends BaseAdapter {
     }
 
     @Override
-    public AuctionsData.ResultObject.AuctionsObject getItem(int position) {
+    public AuctionsData.Resultfdg.Auctionsfdg getItem(int position) {
         if(position >= 0 && position < mRowList.size())
             return mRowList.get(position);
         return null;
@@ -97,7 +97,7 @@ public class CarListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
 
-        final AuctionsData.ResultObject.AuctionsObject data = mRowList.get(position);
+        final AuctionsData.Resultfdg.Auctionsfdg data = mRowList.get(position);
 
         if(convertView == null){
 

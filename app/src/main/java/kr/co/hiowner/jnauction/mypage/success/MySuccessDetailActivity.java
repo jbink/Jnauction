@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +45,7 @@ import retrofit2.Response;
  */
 public class MySuccessDetailActivity extends AppCompatActivity {
 
-    private final int PAGER_COUNT = 4;
+    private final int PAGER_COUNT = 8;
 
     Context mContext;
     ViewPager mPager;
@@ -58,7 +59,11 @@ public class MySuccessDetailActivity extends AppCompatActivity {
     TextView mTvCarName, mTvCarYear, mTvCarKms, mTvCarLocAddr, mTvCarNumber,
             mTvCarOpsTrans, mTvCarOpsHistory, mTvCarOpsFuel, mTvCarOpsBbox, mTvCarOpsSroof, mTvCarOpsSkey,
             mTvCarOpsRsensor, mTvCarOpsRcam, mTvCarOpsHeat, mTvCarOpsFan,
-            mTvCarOpsAlu, mTvCarOpsAs, mTvCarOpsNavi, mTvCarOps4wd, mTvCarOpsMemo;
+            mTvCarOpsAlu, mTvCarOpsAs, mTvCarOpsNavi, mTvCarOps4wd, mTvCarOpsMemo, mTvCarOpsHipass;
+
+    ImageView mIvCarOpsBbox, mIvCarOpsSroof, mIvCarOpsSkey,
+            mIvCarOpsRsensor, mIvCarOpsRcam, mIvCarOpsHeat, mIvCarOpsFan,
+            mIvCarOpsAlu, mIvCarOpsAs, mIvCarOpsNavi, mIvCarOpsHipass, mIvCarOps4wd;
 
     TextView mTvMemberName, mTvMemberPhone, mTvMemberAddr;
 
@@ -97,6 +102,21 @@ public class MySuccessDetailActivity extends AppCompatActivity {
         mTvCarOpsAs = (TextView)findViewById(R.id.cas_ops_as);
         mTvCarOpsNavi = (TextView)findViewById(R.id.cas_ops_navi);
         mTvCarOps4wd = (TextView)findViewById(R.id.cas_ops_4wd);
+        mTvCarOpsHipass = (TextView)findViewById(R.id.cas_ops_hipass);
+        mTvCarOpsMemo = (TextView) findViewById(R.id.cas_ops_memo);
+
+        mIvCarOpsRsensor = (ImageView) findViewById(R.id.cas_ops_rsensor_img);
+        mIvCarOpsRcam = (ImageView)findViewById(R.id.cas_ops_rcam_img);
+        mIvCarOpsSroof = (ImageView)findViewById(R.id.cas_ops_sroof_img);
+        mIvCarOpsSkey = (ImageView)findViewById(R.id.cas_ops_skey_img);
+        mIvCarOpsHeat = (ImageView)findViewById(R.id.cas_ops_heat_img);
+        mIvCarOpsFan = (ImageView)findViewById(R.id.cas_ops_fan_img);
+        mIvCarOpsBbox = (ImageView)findViewById(R.id.cas_ops_bbox_img);
+        mIvCarOpsAlu = (ImageView)findViewById(R.id.cas_ops_alu_img);
+        mIvCarOpsAs = (ImageView)findViewById(R.id.cas_ops_as_img);
+        mIvCarOpsNavi = (ImageView)findViewById(R.id.cas_ops_navi_img);
+        mIvCarOps4wd = (ImageView)findViewById(R.id.cas_ops_4wd_img);
+        mIvCarOpsHipass = (ImageView)findViewById(R.id.cas_ops_hipass_img);
 
         mTvMemberName = (TextView)findViewById(R.id.member_info_name);
         mTvMemberPhone = (TextView)findViewById(R.id.member_info_phone);
@@ -246,6 +266,14 @@ public class MySuccessDetailActivity extends AppCompatActivity {
                 Glide.with(mContext).load(mCarData.getResult().getC_img_3()).into(img);
             } else if (position == 3) {
                 Glide.with(mContext).load(mCarData.getResult().getC_img_4()).into(img);
+            }else if (position == 4) {
+                Glide.with(mContext).load(mCarData.getResult().getC_img_5()).into(img);
+            }else if (position == 5) {
+                Glide.with(mContext).load(mCarData.getResult().getC_img_6()).into(img);
+            }else if (position == 6) {
+                Glide.with(mContext).load(mCarData.getResult().getC_img_7()).into(img);
+            }else if (position == 7) {
+                Glide.with(mContext).load(mCarData.getResult().getC_img_8()).into(img);
             }
 
 
@@ -257,6 +285,10 @@ public class MySuccessDetailActivity extends AppCompatActivity {
                     intent.putExtra("pic2", mCarData.getResult().getC_img_2());
                     intent.putExtra("pic3", mCarData.getResult().getC_img_3());
                     intent.putExtra("pic4", mCarData.getResult().getC_img_4());
+                    intent.putExtra("pic5", mCarData.getResult().getC_img_5());
+                    intent.putExtra("pic6", mCarData.getResult().getC_img_6());
+                    intent.putExtra("pic7", mCarData.getResult().getC_img_7());
+                    intent.putExtra("pic8", mCarData.getResult().getC_img_8());
                     startActivity(intent);
                 }
             });
@@ -376,82 +408,128 @@ public class MySuccessDetailActivity extends AppCompatActivity {
         else
             mTvCarOpsFuel.setText(mCarData.getResult().getC_fuel());
 
-        if("Y".equals(mCarData.getResult().getC_opt_rsensor()))
+        if("Y".equals(mCarData.getResult().getC_opt_rsensor())) {
             mTvCarOpsRsensor.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        else if ("N".equals(mCarData.getResult().getC_opt_rsensor()))
+            mIvCarOpsRsensor.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_on));
+        }else if ("N".equals(mCarData.getResult().getC_opt_rsensor())) {
             mTvCarOpsRsensor.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
-        else
+            mIvCarOpsRsensor.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor));
+        }else {
             mTvCarOpsRsensor.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
+            mIvCarOpsRsensor.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor));
+        }
 
-        if("Y".equals(mCarData.getResult().getC_opt_rcam()))
+        if("Y".equals(mCarData.getResult().getC_opt_rcam())) {
             mTvCarOpsRcam.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        else if ("N".equals(mCarData.getResult().getC_opt_rcam()))
+            mIvCarOpsRcam.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_camera_on));
+        }else if ("N".equals(mCarData.getResult().getC_opt_rcam())) {
             mTvCarOpsRcam.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
-        else
+            mIvCarOpsRcam.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_camera));
+        }else {
             mTvCarOpsRcam.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
-
-        if("Y".equals(mCarData.getResult().getC_opt_sroof()))
+            mIvCarOpsRcam.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_camera));
+        }
+        if("Y".equals(mCarData.getResult().getC_opt_sroof())) {
             mTvCarOpsSroof.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        else if ("N".equals(mCarData.getResult().getC_opt_sroof()))
+            mIvCarOpsSroof.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_sun_on));
+        }else if ("N".equals(mCarData.getResult().getC_opt_sroof())) {
             mTvCarOpsSroof.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
-        else
+            mIvCarOpsSroof.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_sun));
+        }else {
             mTvCarOpsSroof.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
-
-        if("Y".equals(mCarData.getResult().getC_opt_skey()))
+            mIvCarOpsSroof.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_sun));
+        }
+        if("Y".equals(mCarData.getResult().getC_opt_skey())) {
             mTvCarOpsSkey.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        else if ("N".equals(mCarData.getResult().getC_opt_skey()))
+            mIvCarOpsSkey.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_smartkey_on));
+        }else if ("N".equals(mCarData.getResult().getC_opt_skey())) {
             mTvCarOpsSkey.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
-        else
+            mIvCarOpsSkey.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_smartkey));
+        }else {
             mTvCarOpsSkey.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
-
-        if("Y".equals(mCarData.getResult().getC_opt_heat()))
+            mIvCarOpsSkey.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_smartkey));
+        }
+        if("Y".equals(mCarData.getResult().getC_opt_heat())) {
             mTvCarOpsHeat.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        else if ("N".equals(mCarData.getResult().getC_opt_heat()))
+            mIvCarOpsHeat.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_hotseat_on));
+        }else if ("N".equals(mCarData.getResult().getC_opt_heat())) {
             mTvCarOpsHeat.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
-        else
+            mIvCarOpsHeat.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_hotseat));
+        }else{
             mTvCarOpsHeat.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
-
-        if("Y".equals(mCarData.getResult().getC_opt_fan()))
+            mIvCarOpsHeat.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_hotseat));
+        }
+        if("Y".equals(mCarData.getResult().getC_opt_fan())) {
             mTvCarOpsFan.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        else if ("N".equals(mCarData.getResult().getC_opt_fan()))
+            mIvCarOpsFan.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_windseat_on));
+        }else if ("N".equals(mCarData.getResult().getC_opt_fan())) {
             mTvCarOpsFan.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
-        else
+            mIvCarOpsFan.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_windseat));
+        }else {
             mTvCarOpsFan.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
-
-        if("Y".equals(mCarData.getResult().getC_opt_bbox()))
+            mIvCarOpsFan.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_windseat));
+        }
+        if("Y".equals(mCarData.getResult().getC_opt_bbox())) {
             mTvCarOpsBbox.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        else if ("N".equals(mCarData.getResult().getC_opt_bbox()))
+            mIvCarOpsBbox.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_blackbox_on));
+        }else if ("N".equals(mCarData.getResult().getC_opt_bbox())) {
             mTvCarOpsBbox.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
-        else
+            mIvCarOpsBbox.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_blackbox));
+        }else {
             mTvCarOpsBbox.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
-
-        if("Y".equals(mCarData.getResult().getC_opt_alu()))
+            mIvCarOpsBbox.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_blackbox));
+        }
+        if("Y".equals(mCarData.getResult().getC_opt_alu())) {
             mTvCarOpsAlu.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        else if ("N".equals(mCarData.getResult().getC_opt_alu()))
+            mIvCarOpsAlu.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_wheel_on));
+        }else if ("N".equals(mCarData.getResult().getC_opt_alu())) {
             mTvCarOpsAlu.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
-        else
+            mIvCarOpsAlu.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_wheel));
+        }else {
             mTvCarOpsAlu.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
-
-        if("Y".equals(mCarData.getResult().getC_opt_as()))
+            mIvCarOpsAlu.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_wheel));
+        }
+        if("Y".equals(mCarData.getResult().getC_opt_as())) {
             mTvCarOpsAs.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        else if ("N".equals(mCarData.getResult().getC_opt_as()))
+            mIvCarOpsAs.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_as_on));
+        }else if ("N".equals(mCarData.getResult().getC_opt_as())) {
             mTvCarOpsAs.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
-        else
+            mIvCarOpsAs.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_as));
+        }else {
             mTvCarOpsAs.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
-
-        if("Y".equals(mCarData.getResult().getC_opt_navi()))
+            mIvCarOpsAs.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_as));
+        }
+        if("Y".equals(mCarData.getResult().getC_opt_navi())) {
             mTvCarOpsNavi.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        else if ("N".equals(mCarData.getResult().getC_opt_navi()))
+            mIvCarOpsNavi.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_navi_on));
+        } else if ("N".equals(mCarData.getResult().getC_opt_navi())) {
             mTvCarOpsNavi.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
-        else
+            mIvCarOpsNavi.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_navi));
+        } else {
             mTvCarOpsNavi.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
-
-        if("Y".equals(mCarData.getResult().getC_opt_4wd()))
+            mIvCarOpsNavi.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_navi));
+        }
+        if("Y".equals(mCarData.getResult().getC_opt_4wd())) {
             mTvCarOps4wd.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-        else if ("N".equals(mCarData.getResult().getC_opt_4wd()))
+            mIvCarOps4wd.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_4matic_on));
+        }else if ("N".equals(mCarData.getResult().getC_opt_4wd())) {
             mTvCarOps4wd.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
-        else
+            mIvCarOps4wd.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_4matic));
+        }else {
             mTvCarOps4wd.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
+            mIvCarOps4wd.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_4matic));
+        }
+        //하이패스
+        if("Y".equals(mCarData.getResult().getC_opt_hipass())) {
+            mTvCarOpsHipass.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            mIvCarOpsHipass.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_hipass_on));
+        }else if ("N".equals(mCarData.getResult().getC_opt_hipass())) {
+            mTvCarOpsHipass.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_999999));
+            mIvCarOpsHipass.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_hipass));
+        }else {
+            mTvCarOpsHipass.setTextColor(ContextCompat.getColor(mContext, R.color.RED));
+            mIvCarOpsHipass.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_hipass));
+        }
 
 
         mTvMaxPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getB_price()) + "만원");
@@ -491,6 +569,13 @@ public class MySuccessDetailActivity extends AppCompatActivity {
         mTvMemberPhone.setText(mCarData.getResult().getU_phone());
         mTvMemberAddr.setText(mCarData.getResult().getC_loc_addr());
 //        mTvMemberName.setText(mCarData.getResult().getU_addr);
+
+        //기타설명 - 메모
+        if(!TextUtils.isEmpty(mCarData.getResult().getC_memo())){
+            mTvCarOpsMemo.setText(mCarData.getResult().getC_memo());
+        }else{
+            mTvCarOpsMemo.setText("없음");
+        }
 
 
 

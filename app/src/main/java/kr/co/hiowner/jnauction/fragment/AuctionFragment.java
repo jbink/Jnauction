@@ -58,11 +58,11 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
 
     //차량 List
-    List<AuctionsData.ResultObject.AuctionsObject> mDataCar_Full;
+    List<AuctionsData.Resultfdg.Auctionsfdg> mDataCar_Full;
     ListView mListViewFullCar;
     CarListAdapter mAdapterFullCar;
 
-    List<AuctionsData.ResultObject.AuctionsObject> mDataCar_My;
+    List<AuctionsData.Resultfdg.Auctionsfdg> mDataCar_My;
     ListView mListViewMyCar;
     CarListAdapter mAdapterMyCar;
 
@@ -177,7 +177,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     AdapterView.OnItemClickListener mItemClickFullListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            AuctionsData.ResultObject.AuctionsObject data = (AuctionsData.ResultObject.AuctionsObject) adapterView.getAdapter().getItem(i);
+            AuctionsData.Resultfdg.Auctionsfdg data = (AuctionsData.Resultfdg.Auctionsfdg) adapterView.getAdapter().getItem(i);
             Intent intent = new Intent(getActivity(), CarDetailActivity.class);
             intent.putExtra("auction_idx",  data.getAuction_idx());
             startActivityForResult(intent, 4444);
@@ -196,13 +196,11 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             //OnScrollListener.SCROLL_STATE_IDLE은 스크롤이 이동하다가 멈추었을때 발생되는 스크롤 상태입니다.
             //즉 스크롤이 바닦에 닿아 멈춘 상태에 처리를 하겠다는 뜻
             if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && mLastItemFullVisibleFlag) {
-                Log.d("where", "바닥");
                 if(mIntOffSet_Full < mIntTotal_Full) {
                     new AuctionsAsyncTask().execute();
                     mIntOffSet_Full += mIntLimit_Full;
                 }
                 else{
-                    Log.d("where", "그만 받아와");
                 }
             }
         }
@@ -211,7 +209,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     AdapterView.OnItemClickListener mItemClickMyListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            AuctionsData.ResultObject.AuctionsObject data = (AuctionsData.ResultObject.AuctionsObject) adapterView.getAdapter().getItem(i);
+            AuctionsData.Resultfdg.Auctionsfdg data = (AuctionsData.Resultfdg.Auctionsfdg) adapterView.getAdapter().getItem(i);
             Intent intent = new Intent(getActivity(), CarDetailActivity.class);
             intent.putExtra("auction_idx",  data.getAuction_idx());
             startActivityForResult(intent, 7777);
@@ -271,7 +269,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
         new AuctionsRefreshAsyncTask().execute();
         if (requestCode == 4444){
             if (resultCode == getActivity().RESULT_OK){
-                mAdapterMyCar.addOneItem(new AuctionsData.ResultObject.AuctionsObject());
+                mAdapterMyCar.addOneItem(new AuctionsData.Resultfdg.Auctionsfdg());
                 mActivity.refreshMyPageData();
             }
         }
@@ -382,7 +380,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                         Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    mDataCar_Full = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+                    mDataCar_Full = new ArrayList<AuctionsData.Resultfdg.Auctionsfdg>();
                     mIntTotal_Full = response.body().getResult().getTotal_count();
                     mDataCar_Full = response.body().getResult().getAuctions();
                     mAdapterFullCar.changeItem(mDataCar_Full);
@@ -480,7 +478,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                         Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    mDataCar_My = new ArrayList<AuctionsData.ResultObject.AuctionsObject>();
+                    mDataCar_My = new ArrayList<AuctionsData.Resultfdg.Auctionsfdg>();
                     mIntTotal_My = response.body().getResult().getTotal_count();
                     mDataCar_My = response.body().getResult().getAuctions();
                     mAdapterMyCar.changeItem(mDataCar_My);
@@ -657,7 +655,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
 
 //    //내 입찰차량
-//    public void setMyBidCarData(ArrayList<AuctionsData.ResultObject.AuctionsObject> data){
+//    public void setMyBidCarData(ArrayList<AuctionsData.Resultfdg.Auctionsfdg> data){
 //        for(int i=0 ; i< data.size() ; i++){
 //            if("Y".equals(data.get(i).getB_mybid())){
 //                mDataCar_My.add(data.get(i));
