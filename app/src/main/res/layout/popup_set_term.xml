@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:layout_weight="1"
-                android:background="#e6e6e6"
+                android:background="@drawable/sel_btn_close"
                 android:text="닫기"
                 android:textColor="#999999"
                 android:textSize="17dp" />
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:layout_weight="1"
-                android:background="@drawable/sel_btn_red"
+                android:background="@drawable/sel_btn_ok"
                 android:text="확인"
                 android:textColor="@color/WHITE"
                 android:textSize="17dp" />
