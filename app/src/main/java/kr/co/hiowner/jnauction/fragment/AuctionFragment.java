@@ -28,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -134,6 +135,9 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
     //Free의 info 정보를 보여주기 위한 View
     TextView mTvFreeInfo;
+
+    //오늘 날짜를 저장하기 위한 변수
+    String mStrServerCurrentDate = null;
 
     public AuctionFragment() {
     }
@@ -470,6 +474,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", ""+mIntOffSet_Full);
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
+            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -523,6 +529,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", "0");
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
+            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -569,6 +577,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", ""+mIntOffSet_My);
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
+            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -621,6 +631,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", "0");
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
+            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -673,6 +685,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                     TimeData.setStatus_code(response.body().getStatus_code());
                     TimeData.setStatus_msg(response.body().getStatus_msg());
                     TimeData.setResult(response.body().getResult());
+                    mStrServerCurrentDate = (TimeData.getResult().getServer_current_date()).substring(0, 10);
 
                     //경매 상태 (O:열림, C:닫힘)
                     if ("C".equals(TimeData.getResult().getAuction_status())){
@@ -917,6 +930,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
             map.put("free", "Y");
+            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -958,6 +973,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
             map.put("free", "Y");
+            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
