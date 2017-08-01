@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <!-- 레이아웃 매입신청-->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/main_layout_lin_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,6 +15,7 @@
         android:visibility="visible">
 
         <LinearLayout
+            android:id="@+id/main_layout_number_1"
             android:layout_width="match_parent"
             android:layout_height="116dp"
             android:background="@color/colorPrimary"
@@ -58,7 +59,10 @@
 
         </LinearLayout>
 
+        <!-- Free 내입찰차량 Spinner -->
         <RelativeLayout
+            android:id="@+id/main_layout_number_2"
+            android:layout_below="@+id/main_layout_number_1"
             android:layout_width="match_parent"
             android:layout_height="47dp"
             android:layout_marginTop="6dp"
@@ -139,10 +143,12 @@
                 android:textColor="@color/text_color_4d4d4d" />
 
         </RelativeLayout>
+        <!-- END : Free 내입찰차량 Spinner -->
 
         <!-- 경매 2시간 전이나 종료 후 2시간만 나타나는 레이아웃 -->
         <LinearLayout
             android:id="@+id/main_2hour_layout"
+            android:layout_below="@+id/main_layout_number_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/WHITE"
@@ -191,6 +197,8 @@
         <!-- END : 경매 2시간 전이나 종료 후 2시간만 나타나는 레이아웃 -->
 
         <RelativeLayout
+            android:id="@+id/main_layout_number_3"
+            android:layout_below="@id/main_2hour_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="6dp">
@@ -230,7 +238,6 @@
                 android:id="@+id/main_car_free_full_pullto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#357532"
                 android:visibility="gone">
 
 
@@ -248,7 +255,6 @@
                 android:id="@+id/main_car_free_my_pullto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#e765a2"
                 android:visibility="gone">
 
 
@@ -327,7 +333,20 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/main_free_txt_info"
+            android:visibility="gone"
+            android:onClick="onClick"
+            android:layout_width="wrap_content"
+            android:padding="15dp"
+            android:layout_height="wrap_content"
+            android:background="@color/WHITE"
+            android:text="입찰권 차감없이 자유롭게\n 입찰 살 수 있는 차량"
+            android:layout_alignTop="@id/main_layout_number_2"
+            android:layout_marginTop="36dp"
+            android:textColor="#666666"
+            android:layout_marginLeft="60dp"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

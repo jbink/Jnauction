@@ -127,6 +127,14 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     LinearLayout m2hourLayout;//main_2hour_layout
     TextView mTv2HourTitle, mTv2HourTime,mTv2HourCount;
 
+    //서버에서 Time을 받은 후에 Data를 받기위해 한번만 쓰이는 변수
+    private boolean mBoolFirstCheck = true;
+    //초기에 한번 동작하는 Spinner의 리스너를 막기 위한 변수
+    private boolean mBoolSpinnerFirst = true;
+
+    //Free의 info 정보를 보여주기 위한 View
+    TextView mTvFreeInfo;
+
     public AuctionFragment() {
     }
 
@@ -228,6 +236,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
         mTv2HourTime = (TextView)rootView.findViewById(R.id.main_2hour_txt_time);
         mTv2HourCount = (TextView)rootView.findViewById(R.id.main_2hour_txt_count);
 
+        mTvFreeInfo = (TextView)rootView.findViewById(R.id.main_free_txt_info);
+        mTvFreeInfo.setOnClickListener(this);
 
         mSpinSort.setOnItemSelectedListener(mSpinSelect);
         mStrSpinValue = "reg_desc";
@@ -243,6 +253,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             AuctionsData.Resultfdg.Auctionsfdg data = (AuctionsData.Resultfdg.Auctionsfdg) adapterView.getAdapter().getItem(i);
             Intent intent = new Intent(getActivity(), CarDetailActivity.class);
             intent.putExtra("auction_idx",  data.getAuction_idx());
+            intent.putExtra("status",  mIntStatus_min);
             startActivityForResult(intent, 4444);
         }
     };
@@ -309,6 +320,10 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 //            mStrSpinValue = adapterView.getItemAtPosition(i).toString();
 
+            if(mBoolSpinnerFirst == true){
+                mBoolSpinnerFirst = false;
+                return;
+            }
 
             if(i == 0) {
                 mStrSpinValue = "reg_desc";
@@ -359,15 +374,23 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                 }
                 break;
             case R.id.main_btn_info :
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("입찰권 차감없이 자유롭게\n" +"입찰 할수  있는 차량")
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // FIRE ZE MISSILES!
-                            }
-                        });
-                builder.create();
-                builder.show();
+                if(mTvFreeInfo.getVisibility() == View.GONE){
+                    mTvFreeInfo.setVisibility(View.VISIBLE);
+                }else{
+                    mTvFreeInfo.setVisibility(View.GONE);
+                }
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                builder.setMessage("입찰권 차감없이 자유롭게\n" +"입찰 할수  있는 차량")
+//                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                // FIRE ZE MISSILES!
+//                            }
+//                        });
+//                builder.create();
+//                builder.show();
+                break;
+            case R.id.main_free_txt_info:
+                mTvFreeInfo.setVisibility(View.GONE);
                 break;
         }
     }
@@ -687,12 +710,18 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                             mTvNext.setText(GlobalValues.getDetailDay("yyyy-MM-dd hh:mm:ss", TimeData.getResult().getAuction_next_open_date(), 0) + " 금일 오픈 전입니다.");
                         }
 
+                        listInIt();
+
                         if(startHandler == null){
                             startHandler = new StartTimerHandler();
                         }
                         startHandler.sendEmptyMessageDelayed(0, (TimeData.getResult().getAuction_next_open_seconds()*1000));
 
                     }else if("O".equals(TimeData.getResult().getAuction_status())){
+                        if(mBoolFirstCheck == true){
+                            mBoolFirstCheck = false;
+                            listInIt();
+                        }
                         mIntStatus_min = 200;
                         mIntStatus_max = 299;
                         m2hourLayout.setVisibility(View.GONE);

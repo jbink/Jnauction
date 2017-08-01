@@ -79,6 +79,7 @@ public class CarDetailActivity extends AppCompatActivity {
     //결과값 리턴을 위해서
     boolean mBoolResult = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +132,24 @@ public class CarDetailActivity extends AppCompatActivity {
         mRLayoutMyPrice = (RelativeLayout) findViewById(R.id.car_detail_layout_car_my);
         mTvMyPrice = (TextView) findViewById(R.id.car_detail_txt_car_my_price);
         mTvMyPriceDate = (TextView) findViewById(R.id.car_detail_txt_car_my_date);
+
+        //status값을 getIntent로 받아서 입찰 신청하기 버튼 설정
+        switch (getIntent().getIntExtra("status", 0)){
+            case 0 : finish();
+            case 100 :
+                mBtnTender.setText("입찰 오픈 전 입니다.");
+                mBtnTender.setEnabled(false);
+                mBtnTender.setClickable(false);
+                break;
+            case 200 :
+                mBtnTender.setText("입찰 신청하기");
+                break;
+            case 300 :
+                mBtnTender.setText("입찰 종료");
+                mBtnTender.setEnabled(false);
+                mBtnTender.setClickable(false);
+                break;
+        }
 
 
 
