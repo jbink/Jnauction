@@ -491,7 +491,12 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                     mAdapterFullCar.addItems(mDataCar_Full);
 
                     mTvTotalCount_Full.setText("매물수 "+GlobalValues.getWonFormat(String.valueOf(mIntTotal_Full))+"대");
-                    mTv2HourCount.setText("금일 입찰 대기 매물" + mIntTotal_Full);
+                    if(mIntStatus_min == 100){
+                        mTv2HourCount.setText("금일 입찰 대기 매물 " + mIntTotal_Full);
+                    }else if(mIntStatus_min == 300){
+                        mTv2HourCount.setText("금일 입찰 종료 매물 " + mIntTotal_Full);
+                    }
+
                 }
 
                 @Override

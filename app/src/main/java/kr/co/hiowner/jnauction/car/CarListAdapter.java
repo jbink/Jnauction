@@ -155,8 +155,15 @@ public class CarListAdapter extends BaseAdapter {
                     holder.car_status_200.setVisibility(View.VISIBLE);
                 }
             }else if (status >= 300 && status < 400){//입찰완료
-                holder.car_status_200.setVisibility(View.GONE);
-                holder.car_status_300.setVisibility(View.VISIBLE);
+                if ("Y".equals(data.getB_mybid())){
+                    holder.car_status_300.setVisibility(View.VISIBLE);
+                    holder.car_status_200.setVisibility(View.GONE);
+                }else{
+                    holder.car_status_300.setVisibility(View.GONE);
+                    holder.car_status_200.setVisibility(View.VISIBLE);
+                }
+//                holder.car_status_200.setVisibility(View.GONE);
+//                holder.car_status_300.setVisibility(View.VISIBLE);
             }else if (status >= 400 && status < 500){//매입완료
                 holder.car_status_200.setVisibility(View.VISIBLE);
                 holder.car_status_300.setVisibility(View.VISIBLE);
