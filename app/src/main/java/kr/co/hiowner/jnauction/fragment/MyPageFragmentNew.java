@@ -41,6 +41,7 @@ public class MyPageFragmentNew extends Fragment implements View.OnClickListener 
     TextView mTvUserBidCompleteToday, mTvUserBidCompleteEntire;
     TextView mTvMonthlyPoint, mTvExtraPoint, mTvExtraAddPoint, mTvExtraAddPointBase;
     SeekBar  mSeekBarBonus;
+    TextView mTvBonusHelp;
 
 
 
@@ -69,13 +70,16 @@ public class MyPageFragmentNew extends Fragment implements View.OnClickListener 
         mTvExtraAddPointBase = (TextView)rootView.findViewById(R.id.main_user_txt_monthly_addpoint_base);
         mTvMonthlyPoint = (TextView)rootView.findViewById(R.id.main_user_txt_monthly_point);
         mSeekBarBonus = (SeekBar) rootView.findViewById(R.id.this_month_bonus_seekBar);
+        mTvBonusHelp = (TextView)rootView.findViewById(R.id.bonus_help_txt);
         ((ImageButton)rootView.findViewById(R.id.main_user_btn_info)).setOnClickListener(this);
+        ((ImageButton)rootView.findViewById(R.id.mypage_bonus_btn_info)).setOnClickListener(this);
         ((TextView)rootView.findViewById(R.id.main_user_btn_logout)).setOnClickListener(this);
         ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_seccess)).setOnClickListener(this);
         ((RelativeLayout)rootView.findViewById(R.id.main_user_btn_purchase)).setOnClickListener(this);
         ((LinearLayout)rootView.findViewById(R.id.main_user_layout_info)).setOnClickListener(this);
         ((RelativeLayout)rootView.findViewById(R.id.main_user_layout_bid)).setOnClickListener(this);
         ((TextView)rootView.findViewById(R.id.main_user_txt_customer_service_phonenum)).setOnClickListener(this);
+        mTvBonusHelp.setOnClickListener(this);
 
         mSeekBarBonus.setOnTouchListener(new View.OnTouchListener()
         {
@@ -123,6 +127,13 @@ public class MyPageFragmentNew extends Fragment implements View.OnClickListener 
             case R.id.main_user_txt_customer_service_phonenum :
                 intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:070-4349-6021"));
                 startActivity(intent);
+                break;
+            case R.id.mypage_bonus_btn_info :
+            case R.id.bonus_help_txt :
+                if(mTvBonusHelp.getVisibility()==View.INVISIBLE)
+                    mTvBonusHelp.setVisibility(View.VISIBLE);
+                else
+                    mTvBonusHelp.setVisibility(View.INVISIBLE);
                 break;
         }
     }
