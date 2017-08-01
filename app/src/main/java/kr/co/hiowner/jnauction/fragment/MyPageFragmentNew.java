@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -41,7 +42,7 @@ public class MyPageFragmentNew extends Fragment implements View.OnClickListener 
     TextView mTvUserBidCompleteToday, mTvUserBidCompleteEntire;
     TextView mTvMonthlyPoint, mTvExtraPoint, mTvExtraAddPoint, mTvExtraAddPointBase;
     SeekBar  mSeekBarBonus;
-    TextView mTvBonusHelp;
+    ImageView mImgBonusHelp;
 
 
 
@@ -70,7 +71,7 @@ public class MyPageFragmentNew extends Fragment implements View.OnClickListener 
         mTvExtraAddPointBase = (TextView)rootView.findViewById(R.id.main_user_txt_monthly_addpoint_base);
         mTvMonthlyPoint = (TextView)rootView.findViewById(R.id.main_user_txt_monthly_point);
         mSeekBarBonus = (SeekBar) rootView.findViewById(R.id.this_month_bonus_seekBar);
-        mTvBonusHelp = (TextView)rootView.findViewById(R.id.bonus_help_txt);
+        mImgBonusHelp = (ImageView) rootView.findViewById(R.id.bonus_help_txt);
         ((ImageButton)rootView.findViewById(R.id.main_user_btn_info)).setOnClickListener(this);
         ((ImageButton)rootView.findViewById(R.id.mypage_bonus_btn_info)).setOnClickListener(this);
         ((TextView)rootView.findViewById(R.id.main_user_btn_logout)).setOnClickListener(this);
@@ -79,7 +80,7 @@ public class MyPageFragmentNew extends Fragment implements View.OnClickListener 
         ((LinearLayout)rootView.findViewById(R.id.main_user_layout_info)).setOnClickListener(this);
         ((RelativeLayout)rootView.findViewById(R.id.main_user_layout_bid)).setOnClickListener(this);
         ((TextView)rootView.findViewById(R.id.main_user_txt_customer_service_phonenum)).setOnClickListener(this);
-        mTvBonusHelp.setOnClickListener(this);
+        mImgBonusHelp.setOnClickListener(this);
 
         mSeekBarBonus.setOnTouchListener(new View.OnTouchListener()
         {
@@ -89,9 +90,6 @@ public class MyPageFragmentNew extends Fragment implements View.OnClickListener 
                 return true;
             }
         });
-
-
-        출처: http://itpangpang.xyz/212 [ITPangPang]
 
         new MyPageAsyncTask().execute();
 
@@ -130,10 +128,10 @@ public class MyPageFragmentNew extends Fragment implements View.OnClickListener 
                 break;
             case R.id.mypage_bonus_btn_info :
             case R.id.bonus_help_txt :
-                if(mTvBonusHelp.getVisibility()==View.INVISIBLE)
-                    mTvBonusHelp.setVisibility(View.VISIBLE);
+                if(mImgBonusHelp.getVisibility()==View.INVISIBLE)
+                    mImgBonusHelp.setVisibility(View.VISIBLE);
                 else
-                    mTvBonusHelp.setVisibility(View.INVISIBLE);
+                    mImgBonusHelp.setVisibility(View.INVISIBLE);
                 break;
         }
     }
