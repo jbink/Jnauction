@@ -9,28 +9,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.fragment.AuctionFragment;
-import kr.co.hiowner.jnauction.fragment.AutionFragment;
-import kr.co.hiowner.jnauction.fragment.MyPageFragment;
-import kr.co.hiowner.jnauction.util.SharedPreUtil;
+import kr.co.hiowner.jnauction.fragment.MyPageFragmentNew;
 
 /**
  * Created by user on 2017-06-26.
@@ -117,7 +105,7 @@ public class NewMainActivity extends AppCompatActivity {
     }
 
 
-    MyPageFragment myPageFragment = new MyPageFragment().newInstance();
+    MyPageFragmentNew myPageFragment = new MyPageFragmentNew().newInstance();
     class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
