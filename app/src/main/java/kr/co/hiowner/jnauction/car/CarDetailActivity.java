@@ -37,6 +37,7 @@ import kr.co.hiowner.jnauction.car.popup.TenderPopup1;
 import kr.co.hiowner.jnauction.car.popup.TenderPopup2;
 import kr.co.hiowner.jnauction.car.popup.TenderPopupRe;
 import kr.co.hiowner.jnauction.util.GlobalValues;
+import kr.co.hiowner.jnauction.util.InsuranceHistoryActivity;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -208,6 +209,11 @@ public class CarDetailActivity extends AppCompatActivity {
                     setResult(RESULT_CANCELED);
                     finish();
                 }
+                break;
+            case R.id.car_detail_btn_insurance_history :
+                intent = new Intent(mContext, InsuranceHistoryActivity.class);
+                intent.putExtra("url", mCarData.getResult().getCh_url());
+                startActivity(intent);
                 break;
             case R.id.car_detail_btn_buy:
                 intent = new Intent(mContext, TenderPopup1.class);

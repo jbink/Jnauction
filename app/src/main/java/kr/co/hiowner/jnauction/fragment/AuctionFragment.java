@@ -1,6 +1,7 @@
 package kr.co.hiowner.jnauction.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +19,11 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +52,11 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
     private final int LISTVIEW_CUR_FULL = 1100;
     private final int LISTVIEW_CUR_MY = 2200;
+
+    private final int LIST_FULL = 3201;
+    private final int LIST_MY = 3202;
+    private final int LIST_FREE_MY = 3203;
+    private final int LIST_FREE_FULL = 3204;
 
     NewMainActivity mActivity;
 
@@ -88,11 +98,34 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     boolean mLastItemMyVisibleFlag = false;
 
     //다음 겸매오픈 시간 알림
-    LinearLayout mLayoutNext;
+    RelativeLayout mLayoutNext;
     TextView mTvNext;
 
     //Pull to refresh
-    SwipeRefreshLayout mPulltoRefresh_full, mPulltoRefresh_My;
+    SwipeRefreshLayout mPulltoRefresh_Full, mPulltoRefresh_My;
+
+
+    //status_min과 status_max 값 변수
+    //시간에 따라 변화한다
+    private int mIntStatus_min=0, mIntStatus_max=0;
+
+
+    //Free추가로 인한 변수(View) 추가
+    CheckBox mChkFree;
+
+    List<AuctionsData.Resultfdg.Auctionsfdg> mDataCar_Free_Full;
+    ListView mListViewFreeFull;
+    CarListAdapter mAdapterFreeFull;
+    SwipeRefreshLayout mPulltoRefresh_Free_Full;
+
+    List<AuctionsData.Resultfdg.Auctionsfdg> mDataCar_Free_My;
+    ListView mListViewFreeMy;
+    CarListAdapter mAdapterFreeMy;
+    SwipeRefreshLayout mPulltoRefresh_Free_My;
+
+    //2시간 전이나 종료 후 2시간에 관한 VIew
+    LinearLayout m2hourLayout;//main_2hour_layout
+    TextView mTv2HourTitle, mTv2HourTime,mTv2HourCount;
 
     public AuctionFragment() {
     }
@@ -108,6 +141,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
         mIntLimit_Full = GlobalValues.LIMIT;
         mIntLimit_My = GlobalValues.LIMIT;
+
     }
 
     @Override
@@ -130,7 +164,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
         mSpinSort = (Spinner)rootView.findViewById(R.id.main_spinner_sort);
 
-        mLayoutNext = (LinearLayout)rootView.findViewById(R.id.main_auction_layout_next);
+        mLayoutNext = (RelativeLayout)rootView.findViewById(R.id.main_auction_layout_next);
         mTvNext = (TextView)rootView.findViewById(R.id.main_auction_txt_next);
 
         mTvRemainTime = (TextView)rootView.findViewById(R.id.main_txt_remain_time);
@@ -149,6 +183,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 //        mTvMainUnderline_2 = (ImageView)rootView.findViewById(R.id.main_btn_underline_2);
         mChkMyAuctions = (CheckBox)rootView.findViewById(R.id.main_chk_my_product);
         mChkMyAuctions.setOnClickListener(this);
+        mChkFree = (CheckBox)rootView.findViewById(R.id.main_chk_free);
+        mChkFree.setOnClickListener(this);
 
         mCurListViewPage = LISTVIEW_CUR_FULL;
 
@@ -157,14 +193,41 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
         mListViewFullCar.setAdapter(mAdapterFullCar);
         mListViewFullCar.setOnItemClickListener(mItemClickFullListener);
         mListViewFullCar.setOnScrollListener(mOnScrollFullListener);
-        mPulltoRefresh_full = (SwipeRefreshLayout)rootView.findViewById(R.id.main_car_full_pullto) ;
-        mPulltoRefresh_full.setOnRefreshListener(this);
+        mPulltoRefresh_Full = (SwipeRefreshLayout)rootView.findViewById(R.id.main_car_full_pullto) ;
+        mPulltoRefresh_Full.setOnRefreshListener(this);
+        ((ImageButton)rootView.findViewById(R.id.main_btn_info)).setOnClickListener(this);
+
 
         mListViewMyCar = (ListView)rootView.findViewById(R.id.main_car_my_listview);
         mAdapterMyCar = new CarListAdapter(getActivity());
         mListViewMyCar.setAdapter(mAdapterMyCar);
         mListViewMyCar.setOnItemClickListener(mItemClickMyListener);
         mListViewMyCar.setOnScrollListener(mOnScrollMyListener);
+        mPulltoRefresh_My = (SwipeRefreshLayout)rootView.findViewById(R.id.main_car_my_pullto) ;
+        mPulltoRefresh_My.setOnRefreshListener(this);
+
+        //무료 - 전체
+        mListViewFreeFull = (ListView)rootView.findViewById(R.id.main_car_free_full_listview);
+        mAdapterFreeFull = new CarListAdapter(getActivity());
+        mListViewFreeFull.setAdapter(mAdapterFreeFull);
+        mListViewFreeFull.setOnItemClickListener(mItemClickFullListener);
+        mPulltoRefresh_Free_Full = (SwipeRefreshLayout)rootView.findViewById(R.id.main_car_free_full_pullto) ;
+        mPulltoRefresh_Free_Full.setOnRefreshListener(this);
+
+        //무료 - My
+        mListViewFreeMy = (ListView)rootView.findViewById(R.id.main_car_free_my_listview);
+        mAdapterFreeMy = new CarListAdapter(getActivity());
+        mListViewFreeMy.setAdapter(mAdapterFreeMy);
+        mListViewFreeMy.setOnItemClickListener(mItemClickFullListener);
+        mPulltoRefresh_Free_My = (SwipeRefreshLayout)rootView.findViewById(R.id.main_car_free_my_pullto) ;
+        mPulltoRefresh_Free_My.setOnRefreshListener(this);
+
+        //2시간에 관한
+        m2hourLayout = (LinearLayout)rootView.findViewById(R.id.main_2hour_layout);
+        mTv2HourTitle = (TextView)rootView.findViewById(R.id.main_2hour_txt_title);
+        mTv2HourTime = (TextView)rootView.findViewById(R.id.main_2hour_txt_time);
+        mTv2HourCount = (TextView)rootView.findViewById(R.id.main_2hour_txt_count);
+
 
         mSpinSort.setOnItemSelectedListener(mSpinSelect);
         mStrSpinValue = "reg_desc";
@@ -279,14 +342,81 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.main_chk_free :
             case R.id.main_chk_my_product :
                 if(mChkMyAuctions.isChecked()){
-                    mListViewFullCar.setVisibility(View.GONE);
-                    mListViewMyCar.setVisibility(View.VISIBLE);
+                    if(mChkFree.isChecked()){//내입찰 O , Free O
+                        setVisibleListView(LIST_FREE_MY);
+                    }else{//내입찰 O , Free X
+                        setVisibleListView(LIST_MY);
+                    }
                 }else{
-                    mListViewFullCar.setVisibility(View.VISIBLE);
-                    mListViewMyCar.setVisibility(View.GONE);
+                    if(mChkFree.isChecked()){//내입찰 X , Free O
+                        setVisibleListView(LIST_FREE_FULL);
+                    }else{//내입찰 X , Free X
+                        setVisibleListView(LIST_FULL);
+                    }
                 }
+                break;
+            case R.id.main_btn_info :
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("입찰권 차감없이 자유롭게\n" +"입찰 할수  있는 차량")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // FIRE ZE MISSILES!
+                            }
+                        });
+                builder.create();
+                builder.show();
+                break;
+        }
+    }
+
+    private void setVisibleListView(int value){
+        switch (value){
+            case LIST_FULL :
+                mPulltoRefresh_Full.setVisibility(View.VISIBLE);
+                mListViewFullCar.setVisibility(View.VISIBLE);
+
+                mPulltoRefresh_My.setVisibility(View.GONE);
+                mListViewMyCar.setVisibility(View.GONE);
+                mPulltoRefresh_Free_My.setVisibility(View.GONE);
+                mListViewFreeMy.setVisibility(View.GONE);
+                mPulltoRefresh_Free_Full.setVisibility(View.GONE);
+                mListViewFreeFull.setVisibility(View.GONE);
+                break;
+            case LIST_FREE_FULL :
+                mPulltoRefresh_Free_Full.setVisibility(View.VISIBLE);
+                mListViewFreeFull.setVisibility(View.VISIBLE);
+
+                mPulltoRefresh_Free_My.setVisibility(View.GONE);
+                mListViewFreeMy.setVisibility(View.GONE);
+                mPulltoRefresh_Full.setVisibility(View.GONE);
+                mListViewFullCar.setVisibility(View.GONE);
+                mPulltoRefresh_My.setVisibility(View.GONE);
+                mListViewMyCar.setVisibility(View.GONE);
+                break;
+            case LIST_MY :
+                mPulltoRefresh_My.setVisibility(View.VISIBLE);
+                mListViewMyCar.setVisibility(View.VISIBLE);
+
+                mPulltoRefresh_Free_My.setVisibility(View.GONE);
+                mListViewFreeMy.setVisibility(View.GONE);
+                mPulltoRefresh_Free_Full.setVisibility(View.GONE);
+                mListViewFreeFull.setVisibility(View.GONE);
+                mPulltoRefresh_Full.setVisibility(View.GONE);
+                mListViewFullCar.setVisibility(View.GONE);
+                break;
+            case LIST_FREE_MY :
+                mPulltoRefresh_Free_My.setVisibility(View.VISIBLE);
+                mListViewFreeMy.setVisibility(View.VISIBLE);
+
+                mPulltoRefresh_Free_Full.setVisibility(View.GONE);
+                mListViewFreeFull.setVisibility(View.GONE);
+                mPulltoRefresh_Full.setVisibility(View.GONE);
+                mListViewFullCar.setVisibility(View.GONE);
+                mPulltoRefresh_My.setVisibility(View.GONE);
+                mListViewMyCar.setVisibility(View.GONE);
                 break;
         }
     }
@@ -315,8 +445,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("limit", ""+mIntLimit_Full);
 //            map.put("limit", "10");
             map.put("offset", ""+mIntOffSet_Full);
-            map.put("status_min", "200");
-            map.put("status_max", "299");
+            map.put("status_min", ""+mIntStatus_min);
+            map.put("status_max", ""+mIntStatus_max);
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -331,10 +461,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                     mDataCar_Full = response.body().getResult().getAuctions();
                     mAdapterFullCar.addItems(mDataCar_Full);
 
-
                     mTvTotalCount_Full.setText("매물수 "+GlobalValues.getWonFormat(String.valueOf(mIntTotal_Full))+"대");
-
-
+                    mTv2HourCount.setText("금일 입찰 대기 매물" + mIntTotal_Full);
                 }
 
                 @Override
@@ -370,8 +498,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("order", mStrSpinValue);
             map.put("limit", ""+refreshOffset);//+mIntLimit_Full);
             map.put("offset", "0");
-            map.put("status_min", "200");
-            map.put("status_max", "299");
+            map.put("status_min", ""+mIntStatus_min);
+            map.put("status_max", ""+mIntStatus_max);
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -416,8 +544,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("limit", ""+mIntLimit_My);
     //            map.put("limit", "10");
             map.put("offset", ""+mIntOffSet_My);
-            map.put("status_min", "200");
-            map.put("status_max", "299");
+            map.put("status_min", ""+mIntStatus_min);
+            map.put("status_max", ""+mIntStatus_max);
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -468,8 +596,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("order", mStrSpinValue);
             map.put("limit", ""+refreshOffset);//+mIntLimit_My);
             map.put("offset", "0");
-            map.put("status_min", "200");
-            map.put("status_max", "299");
+            map.put("status_min", ""+mIntStatus_min);
+            map.put("status_max", ""+mIntStatus_max);
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -498,7 +626,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            mPulltoRefresh_full.setRefreshing(false);
+            mPulltoRefresh_Full.setRefreshing(false);
+            mPulltoRefresh_My.setRefreshing(false);
         }
     }
 /*************************************************************************************************************************************************/
@@ -524,15 +653,39 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
                     //경매 상태 (O:열림, C:닫힘)
                     if ("C".equals(TimeData.getResult().getAuction_status())){
-                        mTvRemainTime.setText("금일 입찰 종료");
-
                         String month, day = null;
-                        month = (TimeData.getResult().getAuction_close_date()).substring(5, 7);
-                        day = (TimeData.getResult().getAuction_close_date()).substring(8, 10);
-                        mTvEndDate.setText(month + "월 "+day+"일 입찰마감");
+                        month = (TimeData.getResult().getAuction_next_open_date()).substring(5, 7);
+                        day = (TimeData.getResult().getAuction_next_open_date()).substring(8, 10);
+                        mTvEndDate.setText(month + "월 "+day+"일 | ");
+                        int nextOpenTime = TimeData.getResult().getAuction_next_open_seconds();
+                        int closeTime = TimeData.getResult().getAuction_close_seconds();
 
-                        mLayoutNext.setVisibility(View.VISIBLE);
-                        mTvNext.setText(TimeData.getResult().getAuction_next_open_date());
+                        if(nextOpenTime >1 && nextOpenTime <7200){//경매오픈 2시간 전
+                            Log.d("where", "경매오픈 2시간 전");
+                            mTvRemainTime.setText("입찰 오픈 전");
+                            m2hourLayout.setVisibility(View.VISIBLE);
+                            mTv2HourTitle.setText("BEFORE OPENING");
+                            mTv2HourTime.setText(GlobalValues.getDetailDay("yyyy-MM-dd hh:mm:ss", TimeData.getResult().getAuction_next_open_date(), 0) + " 오픈 예정입니다.");
+
+                            mIntStatus_min = 100;
+                            mIntStatus_max = 199;
+                        }else if(closeTime < -1 && closeTime > -7200){//경매마감 후 2시간
+                            Log.d("where", "경매마감 후 2시간");
+                            mTvRemainTime.setText("입찰 종료");
+                            m2hourLayout.setVisibility(View.VISIBLE);
+                            mTv2HourTitle.setText("NEXT OPEN");
+                            mTv2HourTime.setText(GlobalValues.getDetailDay("yyyy-MM-dd hh:mm:ss", TimeData.getResult().getAuction_next_open_date(), 0) + " 오픈 예정입니다.");
+                            mIntStatus_min = 300;
+                            mIntStatus_max = 399;
+                        }else{//나머지
+                            Log.d("where", "나머지");
+                            mTvRemainTime.setText("입찰 오픈 전");
+                            mIntStatus_min = 0;
+                            mIntStatus_max = 0;
+                            m2hourLayout.setVisibility(View.GONE);
+                            mLayoutNext.setVisibility(View.VISIBLE);
+                            mTvNext.setText(GlobalValues.getDetailDay("yyyy-MM-dd hh:mm:ss", TimeData.getResult().getAuction_next_open_date(), 0) + " 금일 오픈 전입니다.");
+                        }
 
                         if(startHandler == null){
                             startHandler = new StartTimerHandler();
@@ -540,6 +693,9 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                         startHandler.sendEmptyMessageDelayed(0, (TimeData.getResult().getAuction_next_open_seconds()*1000));
 
                     }else if("O".equals(TimeData.getResult().getAuction_status())){
+                        mIntStatus_min = 200;
+                        mIntStatus_max = 299;
+                        m2hourLayout.setVisibility(View.GONE);
                         mLayoutNext.setVisibility(View.GONE);
                         setTimeLayout();
                     }else{
@@ -567,7 +723,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             String month, day;
             month = (TimeData.getResult().getAuction_close_date()).substring(5, 7);
             day = (TimeData.getResult().getAuction_close_date()).substring(8, 10);
-            mTvEndDate.setText(month + "월 "+day+"일 입찰마감 시간");
+            mTvEndDate.setText(month + "월 "+day+"일 | ");
 
             Message msg = new Message();
             msg.arg1 = TimeData.getResult().getAuction_close_seconds();
@@ -643,6 +799,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
         mAdapterMyCar.removeAllData();
         new AuctionsAsyncTask().execute();
         new MyAuctionsAsyncTask().execute();
+        new FreeAuctionsAsyncTask().execute();
+        new FreeMyAsyncTask().execute();
     }
 
     private String setTimeAdd_0(long value){
@@ -704,6 +862,92 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
         }
 
         super.onStop();
+    }
+
+
+
+
+    /*************************************************************************************************************************************************/
+    //무료상품관련 AsyncTask
+    private class FreeAuctionsAsyncTask extends AsyncTask<Void, Void, Void>{
+
+
+        public FreeAuctionsAsyncTask() {
+        }
+
+        @Override
+        public Void doInBackground(Void... voids) {
+
+            HashMap<String, String> map = new HashMap<>();
+            map.put("token", SharedPreUtil.getTokenID(getActivity()));
+            map.put("mybid", "N");
+            map.put("order", mStrSpinValue);
+            map.put("limit", "1000");
+//            map.put("limit", "10");
+            map.put("offset", "0");
+            map.put("status_min", ""+mIntStatus_min);
+            map.put("status_max", ""+mIntStatus_max);
+            map.put("free", "Y");
+            Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
+            auctions.enqueue(new Callback<AuctionsData>() {
+                @Override
+                public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
+                    if(!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
+                        Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mDataCar_Free_Full = response.body().getResult().getAuctions();
+                    mAdapterFreeFull.addItems(mDataCar_Free_Full);
+                }
+
+                @Override
+                public void onFailure(Call<AuctionsData> call, Throwable t) {
+
+                }
+            });
+            return null;
+        }
+    }
+
+    //무료 내 입찰 상품관련 AsyncTask
+    private class FreeMyAsyncTask extends AsyncTask<Void, Void, Void>{
+
+
+        public FreeMyAsyncTask() {
+        }
+
+        @Override
+        public Void doInBackground(Void... voids) {
+
+            HashMap<String, String> map = new HashMap<>();
+            map.put("token", SharedPreUtil.getTokenID(getActivity()));
+            map.put("mybid", "Y");
+            map.put("order", mStrSpinValue);
+            map.put("limit", "1000");
+//            map.put("limit", "10");
+            map.put("offset", "0");
+            map.put("status_min", ""+mIntStatus_min);
+            map.put("status_max", ""+mIntStatus_max);
+            map.put("free", "Y");
+            Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
+            auctions.enqueue(new Callback<AuctionsData>() {
+                @Override
+                public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
+                    if(!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
+                        Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mDataCar_Free_My = response.body().getResult().getAuctions();
+                    mAdapterFreeMy.addItems(mDataCar_Free_My);
+                }
+
+                @Override
+                public void onFailure(Call<AuctionsData> call, Throwable t) {
+
+                }
+            });
+            return null;
+        }
     }
 
 }

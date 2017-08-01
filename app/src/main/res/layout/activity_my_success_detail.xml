@@ -176,7 +176,8 @@
                             android:textSize="20dp" />
 
                         <ImageButton
-                            android:visibility="gone"
+                            android:id="@+id/my_success_detail_btn_insurance_history"
+                            android:onClick="onClick"
                             android:layout_width="110dp"
                             android:layout_height="25dp"
                             android:layout_marginLeft="10dp"

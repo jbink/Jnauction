@@ -176,10 +176,12 @@
                             android:textSize="20dp" />
 
                         <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/my_purchase_detail_btn_insurance_history"
+                            android:onClick="onClick"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
                             android:layout_marginLeft="10dp"
-                            android:text="사고이력조회" />
+                            android:background="@drawable/sel_btn_history"/>
                     </LinearLayout>
                 </LinearLayout>
                 <!-- END : 차이름, 차넘버 -->

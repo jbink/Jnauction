@@ -30,15 +30,31 @@
                 android:textColor="#ffffff"
                 android:textSize="49sp" />
 
-            <TextView
-                android:id="@+id/main_txt_end_date"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:lineSpacingExtra="6sp"
-                android:text="0월 00일 입찰마감 시간"
-                android:textColor="#ffdc90"
-                android:textSize="15sp" />
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/main_txt_end_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="6sp"
+                    android:text="0월 00일 | "
+                    android:textColor="#ffdc90"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/main_car_total_count_full"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="매물수  대"
+                    android:textColor="#ffdc90"
+                    android:textSize="15dp" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -50,6 +66,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="5dp">
 
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,9 +74,35 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/main_chk_free"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:button="@drawable/checkbox_free_background"
+                    android:checked="false"
+                    android:onClick="onClick" />
+
+                <TextView
+                    android:id="@+id/main_txt_free"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="FREE"
+                    android:textColor="#7dcc0c"
+                    android:textSize="15dp" />
+
+                <ImageButton
+                    android:id="@+id/main_btn_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/ic_info"
+                    android:onClick="onClick" />
+
+                <CheckBox
                     android:id="@+id/main_chk_my_product"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
+                    android:layout_marginLeft="10dp"
                     android:button="@drawable/checkbox_background"
                     android:checked="false"
                     android:onClick="onClick" />
@@ -68,10 +111,11 @@
                     android:id="@+id/main_txt_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="7dp"
+                    android:layout_marginLeft="5dp"
                     android:text="내 입찰차량 "
                     android:textColor="#666666"
                     android:textSize="15dp" />
+
 
                 <TextView
                     android:id="@+id/main_car_total_count_my"
@@ -81,14 +125,6 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="15dp" />
 
-                <TextView
-                    android:id="@+id/main_car_total_count_full"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="매물수  대"
-                    android:textColor="@color/text_color_blue1"
-                    android:textSize="15dp" />
             </LinearLayout>
 
 
@@ -97,12 +133,62 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:gravity="left|center_vertical"
                 android:layout_centerVertical="true"
                 android:entries="@array/spinner_item"
+                android:gravity="left|center_vertical"
                 android:textColor="@color/text_color_4d4d4d" />
 
         </RelativeLayout>
+
+        <!-- 경매 2시간 전이나 종료 후 2시간만 나타나는 레이아웃 -->
+        <LinearLayout
+            android:id="@+id/main_2hour_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/WHITE"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="98dp"
+                android:background="@color/BLACK"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
+
+                <TextView
+                    android:id="@+id/main_2hour_txt_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BEFORE OPENING"
+                    android:textColor="@color/WHITE"
+                    android:textSize="22dp" />
+
+                <TextView
+                    android:id="@+id/main_2hour_txt_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/WHITE"
+                    android:textSize="22dp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/main_2hour_txt_count"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="금일 입찰 종료 매물 20"
+                android:textColor="@color/colorPrimary"
+                android:textSize="22dp" />
+
+        </LinearLayout>
+        <!-- END : 경매 2시간 전이나 종료 후 2시간만 나타나는 레이아웃 -->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -110,9 +196,10 @@
             android:layout_marginTop="6dp">
 
             <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/main_car_full_pullto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/main_car_full_pullto">
+                android:layout_height="match_parent">
+
                 <ListView
                     android:id="@+id/main_car_full_listview"
                     android:layout_width="match_parent"
@@ -122,58 +209,121 @@
 
             </android.support.v4.widget.SwipeRefreshLayout>
 
-
-
-            <ListView
-                android:id="@+id/main_car_my_listview"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/main_car_my_pullto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="@color/default_background"
-                android:dividerHeight="6dp"
-                android:visibility="gone" />
+                android:visibility="gone">
 
-            <LinearLayout
-                android:divider="@color/default_background"
+
+                <ListView
+                    android:id="@+id/main_car_my_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@color/default_background"
+                    android:dividerHeight="6dp"
+                    android:visibility="gone" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <!-- 무료 전체 -->
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/main_car_free_full_pullto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#357532"
+                android:visibility="gone">
+
+
+                <ListView
+                    android:id="@+id/main_car_free_full_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@color/default_background"
+                    android:dividerHeight="6dp"
+                    android:visibility="gone" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <!-- 무료 My -->
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/main_car_free_my_pullto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#e765a2"
+                android:visibility="gone">
+
+
+                <ListView
+                    android:id="@+id/main_car_free_my_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@color/default_background"
+                    android:dividerHeight="6dp"
+                    android:visibility="gone" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <!-- 경매 2시간 전도 아니고 종료 후 2시간도 아닐 때 -->
+            <RelativeLayout
                 android:id="@+id/main_auction_layout_next"
-                android:background="@color/default_background"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16dp"
-                    android:text="매입시장 오픈전입니다."/>
+                android:background="@color/BLACK"
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:visibility="gone">
 
                 <LinearLayout
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="오픈 시간은 "
-                        android:textSize="16dp"
-                        android:textColor="@color/text_color_808080"/>
-                    <TextView
-                        android:id="@+id/main_auction_txt_next"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textSize="15dp"
-                        android:textColor="@color/text_color_808080"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="부터 입니다."
-                        android:textSize="16dp"
-                        android:textColor="@color/text_color_808080"/>
+                    android:layout_alignParentBottom="true"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BEFORE OPENING"
+                        android:textColor="@color/WHITE"
+                        android:textSize="22dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/main_auction_txt_next"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/WHITE"
+                            android:textSize="22dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="금일 오픈 전입니다."
+                            android:textColor="@color/WHITE"
+                            android:textSize="22dp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="오픈 2시간 전 금일 입찰 매물을 미리 확인하실 수 있습니다."
+                        android:textColor="@color/WHITE"
+                        android:textSize="22dp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginTop="25dp"
+                        android:background="@color/WHITE" />
                 </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
 

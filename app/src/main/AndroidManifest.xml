@@ -64,6 +64,8 @@
         <activity android:name=".util.DatePickerActivity"
             android:theme="@style/AppTheme.NoActionBar.Transparent"
             android:screenOrientation="portrait"/>
+        <activity android:name=".util.InsuranceHistoryActivity"
+            android:screenOrientation="portrait"/>
 
 
 

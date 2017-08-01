@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:id="@+id/insurance_history_layout_back"
+            android:onClick="onClick"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true">
+            <Button
+                android:id="@+id/insurance_history_btn_back"
+                android:onClick="onClick"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_back"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="사고이력조회"
+            android:textColor="@color/WHITE"
+            android:textSize="19dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:progressDrawable="@drawable/progressbar_color"
+        android:layout_height="3dp"/>
+
+    <WebView
+        android:id="@+id/insurance_history_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

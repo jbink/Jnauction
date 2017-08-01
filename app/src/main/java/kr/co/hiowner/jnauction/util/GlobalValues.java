@@ -505,9 +505,10 @@ public class GlobalValues {
 			e.printStackTrace();
 		}
 
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy.MM.dd (hh:mm)");
+//		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy.MM.dd (hh:mm)");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd HH:mm");
 		long temp = dDate.getTime();
-		dDate = new Date(temp+(1000*60*60*24*+index)); //어제
+//		dDate = new Date(temp+(1000*60*60*24*+index)); //어제
 		
 		return sdf1.format(dDate);
 	}
