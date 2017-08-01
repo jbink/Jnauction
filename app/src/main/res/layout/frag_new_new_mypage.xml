@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ededed"
+    android:orientation="vertical">
+    <!-- 레이아웃 마이페이지 -->
+    <ScrollView
+        android:id="@+id/main_layout_scr_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="5dp">
+
+            <LinearLayout
+                android:id="@+id/mypage_biding_point_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/WHITE"
+                android:gravity="center_vertical"
+                android:paddingBottom="30dp"
+                android:paddingLeft="17.5dp"
+                android:paddingRight="18dp"
+                android:paddingTop="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="8.1sp"
+                    android:text="입찰 포인트 안내"
+                    android:textColor="#333333"
+                    android:textSize="15.1dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- 이번 달 남은 포인트 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/WHITE"
+                android:orientation="horizontal"
+                android:paddingLeft="17.5dp"
+                android:paddingRight="18dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="7sp"
+                        android:text="이번 달 남은 포인트"
+                        android:textColor="#333333"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/main_user_txt_monthly_addpoint_base"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="10sp"
+                        android:text="매달 기본 50건 제공"
+                        android:textColor="#999999"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/main_user_txt_monthly_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="-12.1sp"
+                        android:text="X"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="35.2dp" />
+
+                    <TextView
+                        android:id="@+id/main_user_txt_monthly_addpoint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/X"
+                        android:textColor="@color/text_color_blue"
+                        android:textSize="17.6sp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <!-- END : 이번 달 남은 포인트-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/WHITE"
+                android:paddingLeft="10.5dp"
+                android:paddingRight="11dp"
+                android:paddingTop="22.5dp">
+
+                <SeekBar
+                    android:id="@+id/this_month_bonus_seekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:maxHeight="1.5dp"
+                    android:progressDrawable="@drawable/progress_bar"
+                    android:thumb="@drawable/ic_bar" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/WHITE"
+                android:paddingLeft="17.5dp"
+                android:paddingRight="18dp"
+                android:paddingTop="24.5dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:src="#dadada" />
+            </LinearLayout>
+
+            <!-- 추가 지급 보너스건수 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/WHITE"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp"
+                android:paddingLeft="17.5dp"
+                android:paddingRight="18dp"
+                android:paddingTop="20.5dp">
+
+                <TextView
+                    android:id="@+id/mypage_bonus_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="8.1sp"
+                    android:text="추가 지급 보너스"
+                    android:textColor="#333333"
+                    android:textSize="15dp" />
+
+                <ImageButton
+                    android:id="@+id/mypage_bonus_btn_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="7dp"
+                    android:layout_toRightOf="@+id/mypage_bonus_txt"
+                    android:background="@drawable/ic_q"
+                    android:onClick="onClick" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/main_user_txt_extra_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="3sp"
+                        android:text="X"
+                        android:textColor="#fa611e"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="건"
+                        android:textColor="#333333"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+            <!-- END : 추가 지급 보너스건수 -->
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#ededed" />
+
+            <!-- 나의 입찰 정보 -->
+            <LinearLayout
+                android:id="@+id/main_user_layout_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/WHITE"
+                android:gravity="center_vertical"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp"
+                android:paddingLeft="17.5dp"
+                android:paddingRight="18dp"
+                android:paddingTop="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="8.1sp"
+                    android:text="나의 입찰 정보"
+                    android:textColor="#1a1a1a"
+                    android:textSize="15.1dp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/main_user_btn_info"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="7dp"
+                    android:background="@drawable/ic_info"
+                    android:onClick="onClick" />
+
+            </LinearLayout>
+            <!-- END : 입찰 성공 -->
+            <!-- 입찰 성공 -->
+            <RelativeLayout
+                android:id="@+id/main_user_btn_seccess"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/WHITE"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingLeft="17.5dp"
+                android:paddingRight="18dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_like" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="13dp"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="9.1sp"
+                        android:text="입찰 성공 차량"
+                        android:textColor="#424446"
+                        android:textSize="14.2dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="6dp"
+                        android:background="@drawable/menu_arrow" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="오늘 "
+                        android:textColor="#424446"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/main_user_txt_bid_success_today"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textColor="#424446"
+                        android:textSize="22.6dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" / "
+                        android:textColor="#b5b5b5"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/main_user_txt_bid_success_entire"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textColor="#b5b5b5"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="전체"
+                        android:textColor="#b5b5b5"
+                        android:textSize="15dp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <!-- END : 입찰 성공 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/WHITE"
+                android:paddingLeft="17.5dp"
+                android:paddingRight="18dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:src="#dadada" />
+            </LinearLayout>
+
+            <!-- 나의 입찰차량 -->
+            <RelativeLayout
+                android:id="@+id/main_user_layout_bid"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/WHITE"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingLeft="17.5dp"
+                android:paddingRight="18dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_car" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="13dp"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="9.1sp"
+                        android:text="나의 입찰 차량"
+                        android:textColor="#424446"
+                        android:textSize="14.2dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="6dp"
+                        android:background="@drawable/menu_arrow" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="오늘 "
+                        android:textColor="#424446"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/main_user_txt_bid_my_today"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textColor="#424446"
+                        android:textSize="22.6dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" / "
+                        android:textColor="#b5b5b5"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/main_user_txt_bid_my_entire"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textColor="#b5b5b5"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="전체"
+                        android:textColor="#b5b5b5"
+                        android:textSize="15dp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <!-- END : 나의 입찰차량 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/WHITE"
+                android:paddingLeft="17.5dp"
+                android:paddingRight="18dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:src="#dadada" />
+            </LinearLayout>
+
+            <!-- 매입 확정 -->
+            <RelativeLayout
+                android:id="@+id/main_user_btn_purchase"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/WHITE"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingLeft="17.5dp"
+                android:paddingRight="18dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/ic_car_check" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="13dp"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="9.1sp"
+                        android:text="매입 확정 차량"
+                        android:textColor="#424446"
+                        android:textSize="14.2dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="6dp"
+                        android:background="@drawable/menu_arrow" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="오늘 "
+                        android:textColor="#424446"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/main_user_txt_bid_complete_today"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textColor="#424446"
+                        android:textSize="22.6dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" / "
+                        android:textColor="#b5b5b5"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/main_user_txt_bid_complete_entire"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textColor="#b5b5b5"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="전체"
+                        android:textColor="#b5b5b5"
+                        android:textSize="15dp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <!-- END : 매입 확정 -->
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dadada" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="8.5dp"
+                android:background="#ededed" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f2f2f2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/main_user_btn_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_mypage_btn"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="로그아웃"
+                    android:textColor="#4d4d4d"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/main_user_txt_customer_service_phonenum"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_mypage_btn"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="고객센터 070-4349-6021"
+                    android:textColor="#4d4d4d"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <!-- END :  마이페이지 -->
+    </ScrollView>
+
+</LinearLayout>
