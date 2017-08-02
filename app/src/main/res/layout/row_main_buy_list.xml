@@ -2,102 +2,119 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="126dp"
-    android:orientation="vertical"
     android:background="@color/WHITE"
+    android:orientation="vertical"
     android:padding="15dp">
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_centerVertical="true"
             android:id="@+id/row_main_layout_thumbnail"
             android:layout_width="120dp"
             android:layout_height="90dp"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
 
             <ImageView
                 android:id="@+id/row_main_img_thumbnail"
-                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
 
 
             <!-- 200  -->
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/row_main_layout_status_200"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
-                android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
-                android:background="@color/HALF_TRANSPARENT" >
+                android:background="@color/HALF_TRANSPARENT"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:visibility="gone">
 
                 <TextView
-                    android:layout_marginLeft="7dp"
                     android:id="@+id/row_main_layout_status_200_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    android:text="22명 입찰중"
                     android:textColor="@color/WHITE"
-                    android:textSize="12dp"
-                    android:text="22명 입찰중"/>
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <!-- 300 -->
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/row_main_layout_status_300"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:background="@color/HALF_TRANSPARENT"
                 android:gravity="center"
-                android:background="@color/HALF_TRANSPARENT" >
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:text="입찰 진행중"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18dp"
-                    android:text="입찰 진행중"/>
+                    android:visibility="gone" />
+
                 <TextView
                     android:id="@+id/row_main_layout_status_300_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18dp"
                     android:layout_centerInParent="true"
+                    android:text="[3명 입찰중]"
                     android:textColor="@color/colorPrimary"
-                    android:text="[3명 입찰중]"/>
+                    android:textSize="18dp" />
             </LinearLayout>
 
         </RelativeLayout>
-        
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/row_main_layout_thumbnail"
             android:gravity="center_vertical"
-            android:layout_toLeftOf="@id/row_main_layout_thumbnail">
+            android:orientation="vertical">
 
-            <TextView
-                android:lines="1"
-                android:ellipsize="end"
-                android:id="@+id/row_main_txt_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="19dp"
-                android:textColor="#333333"
-                android:text="쌍용 티볼리"/>
             <LinearLayout
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/row_main_img_free"
+                    android:layout_width="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_free" />
+
+                <TextView
+                    android:id="@+id/row_main_txt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="쌍용 티볼리"
+                    android:textColor="#333333"
+                    android:textSize="19dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -105,37 +122,39 @@
                     android:id="@+id/row_main_txt_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17dp"
+                    android:text="2016년식"
                     android:textColor="#999999"
-                    android:text="2016년식"/>
+                    android:textSize="17dp" />
+
                 <ImageView
                     android:layout_width="1dp"
                     android:layout_height="13dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:textSize="17dp"
-                    android:background="#d0d0d0"/>
+                    android:background="#d0d0d0"
+                    android:textSize="17dp" />
+
                 <TextView
                     android:id="@+id/row_main_txt_kms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17dp"
+                    android:text="40,000km"
                     android:textColor="#999999"
-                    android:text="40,000km"/>
+                    android:textSize="17dp" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/row_main_txt_loc_addr"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
+                android:layout_marginTop="5dp"
+                android:text="서울 마포구"
                 android:textColor="#999999"
-                android:text="서울 마포구"/>
+                android:textSize="18dp" />
 
         </LinearLayout>
 
 
-        
     </RelativeLayout>
 
 </LinearLayout>

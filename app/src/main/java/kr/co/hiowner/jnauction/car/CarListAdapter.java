@@ -105,6 +105,7 @@ public class CarListAdapter extends BaseAdapter {
             holder = new ViewHolder();
 
             holder.car_image = (ImageView)convertView.findViewById(R.id.row_main_img_thumbnail);
+            holder.car_free = (ImageView)convertView.findViewById(R.id.row_main_img_free);
             holder.car_name = (TextView)convertView.findViewById(R.id.row_main_txt_name);
             holder.car_loc_addr = (TextView)convertView.findViewById(R.id.row_main_txt_loc_addr);
             holder.car_year = (TextView)convertView.findViewById(R.id.row_main_txt_year);
@@ -125,6 +126,12 @@ public class CarListAdapter extends BaseAdapter {
         holder.car_year.setText(data.getC_myear()+"년식");
         holder.car_name.setText(data.getC_brand() +" "+ data.getC_mname());
         holder.car_status_200_person.setText("입찰 참여자 "+data.getA_bid_count()+"명");
+
+        if("Y".equals(data.getA_free())){
+            holder.car_free.setVisibility(View.VISIBLE);
+        }else{
+            holder.car_free.setVisibility(View.GONE);
+        }
 
 
         try{
@@ -180,6 +187,7 @@ public class CarListAdapter extends BaseAdapter {
 
     private class ViewHolder{
         ImageView car_image;
+        ImageView car_free;
         TextView car_name;
         TextView car_loc_addr;
         TextView car_year;
