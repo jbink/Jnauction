@@ -134,7 +134,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     private boolean mBoolSpinnerFirst = true;
 
     //Free의 info 정보를 보여주기 위한 View
-    TextView mTvFreeInfo;
+    ImageView mIvFreeInfo;
 
     //오늘 날짜를 저장하기 위한 변수
     String mStrServerCurrentDate = null;
@@ -240,8 +240,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
         mTv2HourTime = (TextView)rootView.findViewById(R.id.main_2hour_txt_time);
         mTv2HourCount = (TextView)rootView.findViewById(R.id.main_2hour_txt_count);
 
-        mTvFreeInfo = (TextView)rootView.findViewById(R.id.main_free_txt_info);
-        mTvFreeInfo.setOnClickListener(this);
+        mIvFreeInfo = (ImageView)rootView.findViewById(R.id.main_free_img_info);
+        mIvFreeInfo.setOnClickListener(this);
 
         mSpinSort.setOnItemSelectedListener(mSpinSelect);
         mStrSpinValue = "reg_desc";
@@ -378,10 +378,10 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                 }
                 break;
             case R.id.main_btn_info :
-                if(mTvFreeInfo.getVisibility() == View.GONE){
-                    mTvFreeInfo.setVisibility(View.VISIBLE);
+                if(mIvFreeInfo.getVisibility() == View.GONE){
+                    mIvFreeInfo.setVisibility(View.VISIBLE);
                 }else{
-                    mTvFreeInfo.setVisibility(View.GONE);
+                    mIvFreeInfo.setVisibility(View.GONE);
                 }
 //                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 //                builder.setMessage("입찰권 차감없이 자유롭게\n" +"입찰 할수  있는 차량")
@@ -393,8 +393,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 //                builder.create();
 //                builder.show();
                 break;
-            case R.id.main_free_txt_info:
-                mTvFreeInfo.setVisibility(View.GONE);
+            case R.id.main_free_img_info:
+                mIvFreeInfo.setVisibility(View.GONE);
                 break;
         }
     }
