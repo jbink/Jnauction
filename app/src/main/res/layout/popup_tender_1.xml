@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="310dp"
         android:layout_height="500dp"
-        android:background="@drawable/round_rectangle1">
+        android:background="@drawable/background_top">
 
         <Button
             android:id="@+id/tender_popup1_btn_x"

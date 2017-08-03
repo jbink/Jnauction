@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:background="@drawable/round_rectangle1">
+        android:background="@drawable/background_top">
 
         <TextView
             android:layout_width="wrap_content"
