@@ -1,11 +1,13 @@
 package kr.co.hiowner.jnauction.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -117,10 +119,25 @@ public class MyPageFragmentNew extends Fragment implements View.OnClickListener 
                 startActivity(intent);
                 break;
             case R.id.main_user_btn_logout :
-                SharedPreUtil.setTokenID(getActivity(), "");
-                intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("로그아웃 하시겠습니까?")
+                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                            SharedPreUtil.setTokenID(getActivity(), "");
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
+                        }
+                    })
+                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            dialog.dismiss();
+                        }
+                });
+                builder.create();
+                builder.show();
                 break;
             case R.id.main_user_txt_customer_service_phonenum :
                 intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:070-4349-6021"));

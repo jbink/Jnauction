@@ -48,6 +48,15 @@ import retrofit2.Response;
  */
 public class AuctionFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
+    private final int BID_NONE = -1;
+
+    private final int BEFORE_BID_MIN = 100;
+    private final int BEFORE_BID_MAX = 199;
+    private final int BIDDING_MIN = 200;
+    private final int BIDDING_MAX = 299;
+    private final int AFTER_BID_MIN = 300;
+    private final int AFTER_BID_MAX = 399;
+
     private final int LISTVIEW_CUR_FULL = 1100;
     private final int LISTVIEW_CUR_MY = 2200;
 
@@ -105,7 +114,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
     //status_min과 status_max 값 변수
     //시간에 따라 변화한다
-    private int mIntStatus_min=0, mIntStatus_max=0;
+    private int mIntStatus_min=-1, mIntStatus_max=-1;
 
 
     //Free추가로 인한 변수(View) 추가
@@ -352,16 +361,19 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        new TimeAsyncTask().execute();
-        new AuctionsRefreshAsyncTask().execute();
-        if (requestCode == 4444){
-            if (resultCode == getActivity().RESULT_OK){
-                mAdapterMyCar.addOneItem(new AuctionsData.Resultfdg.Auctionsfdg());
-                mActivity.refreshMyPageData();
+        //경매가 진행중일 때만 갱신이 되면 된다?
+        // 리스트 새로고침(pull to refresh 제외)은 경매가 진행중 일때만 하는걸로
+        if(mIntStatus_min == BIDDING_MIN) {
+            new AuctionsRefreshAsyncTask().execute();
+            if (requestCode == 4444) {
+                if (resultCode == getActivity().RESULT_OK) {
+                    mAdapterMyCar.addOneItem(new AuctionsData.Resultfdg.Auctionsfdg());
+                    mActivity.refreshMyPageData();
+                }
             }
+            Log.d("where", "Activity Result");
+            new MyAuctionsRefreshAsyncTask().execute();
         }
-        Log.d("where", "Activity Result");
-        new MyAuctionsRefreshAsyncTask().execute();
     }
 
     @Override
@@ -483,7 +495,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", ""+mIntOffSet_Full);
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
-            if(mIntStatus_min != 100)
+            if(mIntStatus_min != BEFORE_BID_MIN)
                 map.put("schedule_idx", mStrServerCurrentSchedule);
 //            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
 //            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
@@ -502,9 +514,9 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                     mAdapterFullCar.addItems(mDataCar_Full);
 
                     mTvTotalCount_Full.setText("매물수 "+GlobalValues.getWonFormat(String.valueOf(mIntTotal_Full))+"대");
-                    if(mIntStatus_min == 100){
+                    if(mIntStatus_min == BEFORE_BID_MIN){
                         mTv2HourCount.setText("금일 입찰 대기 매물 " + mIntTotal_Full);
-                    }else if(mIntStatus_min == 300){
+                    }else if(mIntStatus_min == AFTER_BID_MIN){
                         mTv2HourCount.setText("금일 입찰 종료 매물 " + mIntTotal_Full);
                     }
 
@@ -545,7 +557,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", "0");
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
-            if(mIntStatus_min != 100)
+            if(mIntStatus_min != BEFORE_BID_MIN)
                 map.put("schedule_idx", mStrServerCurrentSchedule);
 //            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
 //            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
@@ -595,7 +607,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", ""+mIntOffSet_My);
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
-            if(mIntStatus_min != 100)
+            if(mIntStatus_min != BEFORE_BID_MIN)
                 map.put("schedule_idx", mStrServerCurrentSchedule);
 //            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
 //            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
@@ -651,7 +663,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", "0");
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
-            if(mIntStatus_min != 100)
+            if(mIntStatus_min != BEFORE_BID_MIN)
                 map.put("schedule_idx", mStrServerCurrentSchedule);
 //            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
 //            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
@@ -728,21 +740,23 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                             mTv2HourTitle.setText("BEFORE OPENING");
                             mTv2HourTime.setText(GlobalValues.getDetailDay("yyyy-MM-dd hh:mm:ss", TimeData.getResult().getAuction_next_open_date(), 0) + " 오픈 예정입니다.");
 
-                            mIntStatus_min = 100;
-                            mIntStatus_max = 199;
+                            mIntStatus_min = BEFORE_BID_MIN;
+                            mIntStatus_max = BEFORE_BID_MAX;
+                            listInIt();
                         }else if(closeTime < -1 && closeTime > -7200){//경매마감 후 2시간
                             Log.d("where", "경매마감 후 2시간");
                             mTvRemainTime.setText("입찰 종료");
                             m2hourLayout.setVisibility(View.VISIBLE);
                             mTv2HourTitle.setText("NEXT OPEN");
                             mTv2HourTime.setText(GlobalValues.getDetailDay("yyyy-MM-dd hh:mm:ss", TimeData.getResult().getAuction_next_open_date(), 0) + " 오픈 예정입니다.");
-                            mIntStatus_min = 300;
-                            mIntStatus_max = 399;
+                            mIntStatus_min = AFTER_BID_MIN;
+                            mIntStatus_max = AFTER_BID_MAX;
+                            listInIt();
                         }else{//나머지
                             Log.d("where", "나머지");
                             mTvRemainTime.setText("입찰 오픈 전");
-                            mIntStatus_min = 0;
-                            mIntStatus_max = 0;
+                            mIntStatus_min = BID_NONE;
+                            mIntStatus_max = BID_NONE;
                             m2hourLayout.setVisibility(View.GONE);
                             mLayoutNext.setVisibility(View.VISIBLE);
                             mTvNext.setText(GlobalValues.getDetailDay("yyyy-MM-dd hh:mm:ss", TimeData.getResult().getAuction_next_open_date(), 0) + " 금일 오픈 전입니다.");
@@ -750,7 +764,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
                         Log.d("where", "status_min  2 : " + mIntStatus_min);
 
-                        listInIt();
+//                        listInIt(); - 나머지 일 경우에는 받아올 필요가 없지 않을까?
 
                         if(startHandler == null){
                             startHandler = new StartTimerHandler();
@@ -759,8 +773,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
                     }else if("O".equals(TimeData.getResult().getAuction_status())){
 
-                        mIntStatus_min = 200;
-                        mIntStatus_max = 299;
+                        mIntStatus_min = BIDDING_MIN;
+                        mIntStatus_max = BIDDING_MAX;
 
                         if(mBoolFirstCheck == true){
                             mBoolFirstCheck = false;
@@ -967,7 +981,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
             map.put("free", "Y");
-            if(mIntStatus_min != 100)
+            if(mIntStatus_min != BEFORE_BID_MIN)
                 map.put("schedule_idx", mStrServerCurrentSchedule);
 //            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
 //            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
@@ -1018,7 +1032,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
             map.put("free", "Y");
-            if(mIntStatus_min != 100)
+            if(mIntStatus_min != BEFORE_BID_MIN)
                 map.put("schedule_idx", mStrServerCurrentSchedule);
 //            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
 //            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
@@ -1072,7 +1086,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
             map.put("free", "Y");
-            if(mIntStatus_min != 100)
+            if(mIntStatus_min != BEFORE_BID_MIN)
                 map.put("schedule_idx", mStrServerCurrentSchedule);
 //            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
 //            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
@@ -1122,7 +1136,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
             map.put("free", "Y");
-            if(mIntStatus_min != 100)
+            if(mIntStatus_min != BEFORE_BID_MIN)
                 map.put("schedule_idx", mStrServerCurrentSchedule);
 //            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
 //            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
