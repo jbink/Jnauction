@@ -71,9 +71,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:textStyle="bold"
                     android:text="[3명 입찰중]"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="18dp" />
+                    android:textSize="20dp" />
             </LinearLayout>
 
         </RelativeLayout>

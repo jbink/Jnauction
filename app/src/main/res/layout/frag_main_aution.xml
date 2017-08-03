@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="116dp"
             android:background="@color/colorPrimary"
-            android:gravity="center"
+            android:paddingTop="10dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
@@ -81,6 +82,7 @@
                     android:id="@+id/main_chk_free"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
+                    android:layout_marginLeft="10dp"
                     android:button="@drawable/checkbox_free_background"
                     android:checked="false"
                     android:onClick="onClick" />
@@ -89,10 +91,10 @@
                     android:id="@+id/main_txt_free"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="6dp"
                     android:text="FREE"
                     android:textColor="#7dcc0c"
-                    android:textSize="15dp" />
+                    android:textSize="18dp" />
 
                 <ImageButton
                     android:id="@+id/main_btn_info"
@@ -107,7 +109,7 @@
                     android:id="@+id/main_chk_my_product"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="15dp"
                     android:button="@drawable/checkbox_background"
                     android:checked="false"
                     android:onClick="onClick" />
@@ -116,16 +118,17 @@
                     android:id="@+id/main_txt_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="6dp"
                     android:text="내 입찰차량 "
-                    android:textColor="#666666"
-                    android:textSize="15dp" />
+                    android:textColor="#f36430"
+                    android:textSize="16dp" />
 
 
                 <TextView
                     android:id="@+id/main_car_total_count_my"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="X대"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15dp" />
@@ -326,7 +329,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/main_layout_number_2"
-            android:layout_marginLeft="65dp"
+            android:layout_marginLeft="85dp"
             android:layout_marginTop="35dp"
             android:background="@drawable/tooltip"
             android:onClick="onClick"

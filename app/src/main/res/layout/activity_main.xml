@@ -85,7 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="116dp"
                 android:orientation="vertical"
-                android:gravity="center"
+                android:paddingTop="8dp"
+                android:gravity="center_horizontal"
                 android:background="@color/colorPrimary">
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,6 +141,7 @@
                         android:id="@+id/main_car_total_count_my"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:text="X대"
                         android:textSize="15dp"
                         android:textColor="@color/colorPrimary" />
