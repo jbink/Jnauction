@@ -34,6 +34,7 @@
             android:textSize="16dp"
             android:layout_weight="1.9"
             android:hint="휴대폰번호"
+            android:textColorHint="#FFDEDCDC"
             android:inputType="number"
             android:background="@drawable/border"/>
 
@@ -60,6 +61,7 @@
         android:inputType="number"
         android:textSize="16dp"
         android:hint="인증번호 입력"
+        android:textColorHint="#FFDEDCDC"
         android:background="@drawable/border"/>
     <Button
         android:id="@+id/login_btn_login"
@@ -97,12 +99,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="10dp">
+        android:paddingBottom="30dp">
         <TextView
             android:id="@+id/login_txt_customer_service_phonenum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="고객센터 070-4349-6021"
+            android:text="고객센터  070-4349-6021"
             android:onClick="onClick"
             android:textSize="16dp"
             android:layout_centerHorizontal="true"
