@@ -205,8 +205,7 @@
             android:id="@+id/main_layout_number_3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/main_2hour_layout"
-            android:layout_marginTop="6dp">
+            android:layout_below="@id/main_2hour_layout">
 
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/main_car_full_pullto"

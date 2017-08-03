@@ -28,8 +28,7 @@
                 android:layout_centerInParent="true"
                 android:text="매입신청"
                 android:textColor="@color/WHITE"
-                android:textSize="17dp"
-                android:textStyle="bold" />
+                android:textSize="18dp"/>
 
             <ImageView
                 android:id="@+id/main_btn_underline_1"
@@ -54,7 +53,7 @@
                 android:layout_centerInParent="true"
                 android:text="마이페이지"
                 android:textColor="@color/text_color_99ffffff"
-                android:textSize="17dp" />
+                android:textSize="18dp"/>
 
             <ImageView
                 android:id="@+id/main_btn_underline_2"

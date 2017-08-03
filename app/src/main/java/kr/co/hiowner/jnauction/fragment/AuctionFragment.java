@@ -758,12 +758,14 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                         startHandler.sendEmptyMessageDelayed(0, (TimeData.getResult().getAuction_next_open_seconds()*1000));
 
                     }else if("O".equals(TimeData.getResult().getAuction_status())){
+
+                        mIntStatus_min = 200;
+                        mIntStatus_max = 299;
+
                         if(mBoolFirstCheck == true){
                             mBoolFirstCheck = false;
                             listInIt();
                         }
-                        mIntStatus_min = 200;
-                        mIntStatus_max = 299;
 
                         Log.d("where", "status_min  3 : " + mIntStatus_min);
 
