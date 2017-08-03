@@ -1,9 +1,6 @@
 package kr.co.hiowner.jnauction.car;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,7 +135,7 @@ public class CarListAdapter extends BaseAdapter {
             if (count == 1)
                 holder.car_status_300_person.setText("단독 입찰중");
             else{
-                holder.car_status_300_person.setText(""+(count-1)+"명과 경쟁중");
+                holder.car_status_300_person.setText(data.getB_price()+"만원\n"+(count)+"명 입찰");
             }
         }catch (Exception e){
             holder.car_status_300_person.setText(""+data.getA_bid_count());

@@ -249,7 +249,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
        mSpinSort.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.spinner_text, getResources().getStringArray(R.array.spinner_item)));
 
 
-        new TimeAsyncTask().execute();
+//        new TimeAsyncTask().execute();
 
         return rootView;
     }
@@ -352,6 +352,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+//        new TimeAsyncTask().execute();
         new AuctionsRefreshAsyncTask().execute();
         if (requestCode == 4444){
             if (resultCode == getActivity().RESULT_OK){
@@ -457,6 +458,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     public void onRefresh() {
         new MyAuctionsRefreshAsyncTask().execute();
         new AuctionsRefreshAsyncTask().execute();
+        new FreeAuctionsRefreshAsyncTask().execute();
+        new FreeMyRefreshAsyncTask().execute();
     }
 
     /*************************************************************************************************************************************************/
@@ -469,6 +472,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
         @Override
         public Void doInBackground(Void... voids) {
+            Log.d("where", "status_min  1 : " + mIntStatus_min);
 
             HashMap<String, String> map = new HashMap<>();
             map.put("token", SharedPreUtil.getTokenID(getActivity()));
@@ -744,6 +748,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                             mTvNext.setText(GlobalValues.getDetailDay("yyyy-MM-dd hh:mm:ss", TimeData.getResult().getAuction_next_open_date(), 0) + " 금일 오픈 전입니다.");
                         }
 
+                        Log.d("where", "status_min  2 : " + mIntStatus_min);
+
                         listInIt();
 
                         if(startHandler == null){
@@ -758,6 +764,9 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                         }
                         mIntStatus_min = 200;
                         mIntStatus_max = 299;
+
+                        Log.d("where", "status_min  3 : " + mIntStatus_min);
+
                         m2hourLayout.setVisibility(View.GONE);
                         mLayoutNext.setVisibility(View.GONE);
                         setTimeLayout();
@@ -860,6 +869,10 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
         mIntOffSet_My = 0;
         mAdapterFullCar.removeAllData();
         mAdapterMyCar.removeAllData();
+
+        Log.d("where", "status_min : " + mIntStatus_min);
+
+
         new AuctionsAsyncTask().execute();
         new MyAuctionsAsyncTask().execute();
         new FreeAuctionsAsyncTask().execute();
@@ -905,13 +918,13 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     @Override
     public void onPause() {
         super.onPause();
-//        testHandler.sendEmptyMessageDelayed(0, 1000);
+        testHandler.sendEmptyMessageDelayed(0, 1000);
 //        mTvRemainTime.setText("00:00:00");
     }
 
     @Override
     public void onResume() {
-//        new TimeAsyncTask().execute();
+        new TimeAsyncTask().execute();
         super.onResume();
     }
 
@@ -937,6 +950,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
         public FreeAuctionsAsyncTask() {
         }
+
 
         @Override
         public Void doInBackground(Void... voids) {
@@ -974,8 +988,68 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             });
             return null;
         }
-    }
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mPulltoRefresh_Free_Full.setRefreshing(false);
+        }
+    }
+    //무료상품관련 AsyncTask
+    private class FreeAuctionsRefreshAsyncTask extends AsyncTask<Void, Void, Void>{
+
+
+        public FreeAuctionsRefreshAsyncTask() {
+        }
+
+
+        @Override
+        public Void doInBackground(Void... voids) {
+
+            HashMap<String, String> map = new HashMap<>();
+            map.put("token", SharedPreUtil.getTokenID(getActivity()));
+            map.put("mybid", "N");
+            map.put("order", mStrSpinValue);
+            map.put("limit", "1000");
+//            map.put("limit", "10");
+            map.put("offset", "0");
+            map.put("status_min", ""+mIntStatus_min);
+            map.put("status_max", ""+mIntStatus_max);
+            map.put("free", "Y");
+            if(mIntStatus_min != 100)
+                map.put("schedule_idx", mStrServerCurrentSchedule);
+//            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+//            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
+            Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
+            auctions.enqueue(new Callback<AuctionsData>() {
+                @Override
+                public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
+                    if(!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
+                        Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    mAdapterFreeFull.removeAllData();
+                    mDataCar_Free_Full = new ArrayList<>();
+                    mDataCar_Free_Full = response.body().getResult().getAuctions();
+                    mAdapterFreeFull.addItems(mDataCar_Free_Full);
+                }
+
+                @Override
+                public void onFailure(Call<AuctionsData> call, Throwable t) {
+
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mPulltoRefresh_Free_Full.setRefreshing(false);
+        }
+    }
+/*-------------------------------------------------------------------------------------------------------*/
     //무료 내 입찰 상품관련 AsyncTask
     private class FreeMyAsyncTask extends AsyncTask<Void, Void, Void>{
 
@@ -1018,6 +1092,64 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                 }
             });
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mPulltoRefresh_Free_My.setRefreshing(false);
+        }
+    }
+    //무료 내 입찰 상품관련 AsyncTask
+    private class FreeMyRefreshAsyncTask extends AsyncTask<Void, Void, Void>{
+
+
+        public FreeMyRefreshAsyncTask() {
+        }
+
+        @Override
+        public Void doInBackground(Void... voids) {
+
+            HashMap<String, String> map = new HashMap<>();
+            map.put("token", SharedPreUtil.getTokenID(getActivity()));
+            map.put("mybid", "Y");
+            map.put("order", mStrSpinValue);
+            map.put("limit", "1000");
+//            map.put("limit", "10");
+            map.put("offset", "0");
+            map.put("status_min", ""+mIntStatus_min);
+            map.put("status_max", ""+mIntStatus_max);
+            map.put("free", "Y");
+            if(mIntStatus_min != 100)
+                map.put("schedule_idx", mStrServerCurrentSchedule);
+//            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+//            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
+            Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
+            auctions.enqueue(new Callback<AuctionsData>() {
+                @Override
+                public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
+                    if(!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
+                        Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mAdapterFreeMy.removeAllData();
+                    mDataCar_Free_My = new ArrayList<>();
+                    mDataCar_Free_My = response.body().getResult().getAuctions();
+                    mAdapterFreeMy.addItems(mDataCar_Free_My);
+                }
+
+                @Override
+                public void onFailure(Call<AuctionsData> call, Throwable t) {
+
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mPulltoRefresh_Free_My.setRefreshing(false);
         }
     }
 
