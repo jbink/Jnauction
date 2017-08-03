@@ -1,7 +1,6 @@
 package kr.co.hiowner.jnauction.fragment;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,17 +26,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import kr.co.hiowner.jnauction.NewMainActivity;
-import kr.co.hiowner.jnauction.car.CarDetailActivity;
 import kr.co.hiowner.jnauction.R;
 import kr.co.hiowner.jnauction.api.API_Adapter;
 import kr.co.hiowner.jnauction.api.data.AuctionsData;
 import kr.co.hiowner.jnauction.api.data.ServerTimeData;
+import kr.co.hiowner.jnauction.car.CarDetailActivity;
 import kr.co.hiowner.jnauction.car.CarListAdapter;
 import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.SharedPreUtil;
@@ -138,6 +135,9 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
     //오늘 날짜를 저장하기 위한 변수
     String mStrServerCurrentDate = null;
+
+    //경매회차를 저장하기 위한 변수(새롭게 추가)
+    String mStrServerCurrentSchedule = null;
 
     public AuctionFragment() {
     }
@@ -248,6 +248,9 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
        mSpinSort.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.spinner_text, getResources().getStringArray(R.array.spinner_item)));
 
+
+        new TimeAsyncTask().execute();
+
         return rootView;
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -329,6 +332,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                 return;
             }
 
+            Log.d("where", "리스너 동작 : " + i);
             if(i == 0) {
                 mStrSpinValue = "reg_desc";
                 listInIt();
@@ -355,6 +359,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                 mActivity.refreshMyPageData();
             }
         }
+        Log.d("where", "Activity Result");
         new MyAuctionsRefreshAsyncTask().execute();
     }
 
@@ -474,8 +479,10 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", ""+mIntOffSet_Full);
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
-            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
-            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
+            if(mIntStatus_min != 100)
+                map.put("schedule_idx", mStrServerCurrentSchedule);
+//            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+//            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -534,8 +541,10 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", "0");
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
-            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
-            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
+            if(mIntStatus_min != 100)
+                map.put("schedule_idx", mStrServerCurrentSchedule);
+//            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+//            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -582,8 +591,10 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", ""+mIntOffSet_My);
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
-            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
-            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
+            if(mIntStatus_min != 100)
+                map.put("schedule_idx", mStrServerCurrentSchedule);
+//            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+//            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -636,13 +647,16 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("offset", "0");
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
-            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
-            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
+            if(mIntStatus_min != 100)
+                map.put("schedule_idx", mStrServerCurrentSchedule);
+//            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+//            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
                 public void onResponse(Call<AuctionsData> call, Response<AuctionsData> response) {
                     if(!GlobalValues.SERVER_SUCCESS.equals(response.body().getStatus_code())){
+                        Log.d("where", "Server : "+response.body().getStatus_msg());
                         Toast.makeText(getActivity(), response.body().getStatus_msg(), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -691,6 +705,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                     TimeData.setStatus_msg(response.body().getStatus_msg());
                     TimeData.setResult(response.body().getResult());
                     mStrServerCurrentDate = (TimeData.getResult().getServer_current_date()).substring(0, 10);
+                    mStrServerCurrentSchedule = TimeData.getResult().getAuction_schedule_idx();
+
 
                     //경매 상태 (O:열림, C:닫힘)
                     if ("C".equals(TimeData.getResult().getAuction_status())){
@@ -889,13 +905,13 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     @Override
     public void onPause() {
         super.onPause();
-        testHandler.sendEmptyMessageDelayed(0, 1000);
+//        testHandler.sendEmptyMessageDelayed(0, 1000);
 //        mTvRemainTime.setText("00:00:00");
     }
 
     @Override
     public void onResume() {
-        new TimeAsyncTask().execute();
+//        new TimeAsyncTask().execute();
         super.onResume();
     }
 
@@ -935,8 +951,10 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
             map.put("free", "Y");
-            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
-            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
+            if(mIntStatus_min != 100)
+                map.put("schedule_idx", mStrServerCurrentSchedule);
+//            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+//            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override
@@ -978,8 +996,10 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             map.put("status_min", ""+mIntStatus_min);
             map.put("status_max", ""+mIntStatus_max);
             map.put("free", "Y");
-            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
-            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
+            if(mIntStatus_min != 100)
+                map.put("schedule_idx", mStrServerCurrentSchedule);
+//            map.put("reg_date_min", mStrServerCurrentDate + " 00:00:00");
+//            map.put("reg_date_max", mStrServerCurrentDate + " 23:59:59");
             Call<AuctionsData> auctions = API_Adapter.getInstance().Auctions(map);
             auctions.enqueue(new Callback<AuctionsData>() {
                 @Override

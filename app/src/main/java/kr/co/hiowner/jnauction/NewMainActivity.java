@@ -19,6 +19,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import kr.co.hiowner.jnauction.fragment.AuctionFragment;
 import kr.co.hiowner.jnauction.fragment.MyPageFragmentNew;
+import kr.co.hiowner.jnauction.util.SharedPreUtil;
 
 /**
  * Created by user on 2017-06-26.
@@ -43,7 +44,7 @@ public class NewMainActivity extends AppCompatActivity {
         mContext = NewMainActivity.this;
 
         mStrPushToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d("where", "푸쉬토큰 : " + mStrPushToken);
+        Log.d("where", "푸쉬토큰 : " + SharedPreUtil.getTokenID(mContext));
 
         mTvMainTxt_1 = (TextView)findViewById(R.id.main_btn_txt_1);
         mTvMainTxt_2 = (TextView)findViewById(R.id.main_btn_txt_2);
@@ -101,7 +102,6 @@ public class NewMainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("where", "ACTIVITY   onActivityResult");
     }
 
 

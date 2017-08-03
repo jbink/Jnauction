@@ -55,7 +55,17 @@ public class ServerTimeData {
         private String auction_close_date;
         private int auction_close_seconds;
         private String auction_next_open_date;
+
         private int auction_next_open_seconds;
+        private String auction_schedule_idx;
+
+        public String getAuction_schedule_idx() {
+            return auction_schedule_idx;
+        }
+
+        public void setAuction_schedule_idx(String auction_schedule_idx) {
+            this.auction_schedule_idx = auction_schedule_idx;
+        }
 
         public String getServer_current_date() {
             return server_current_date;
