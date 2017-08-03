@@ -198,6 +198,7 @@
                 android:textColor="#999999"
                 android:text="- 입찰가격은 평균가보다 높아야합니다."/>
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tender_popup1_txt_txt_1"
                 android:layout_marginLeft="6dp"
                 android:layout_marginTop="6dp"
