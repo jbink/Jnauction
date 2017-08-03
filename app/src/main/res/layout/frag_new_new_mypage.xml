@@ -37,7 +37,7 @@
                     android:lineSpacingExtra="8.1sp"
                     android:text="입찰 포인트 안내"
                     android:textColor="#333333"
-                    android:textSize="15.1dp"
+                    android:textSize="17dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -64,7 +64,7 @@
                         android:lineSpacingExtra="7sp"
                         android:text="이번 달 남은 포인트"
                         android:textColor="#333333"
-                        android:textSize="16dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/main_user_txt_monthly_addpoint_base"
@@ -75,7 +75,7 @@
                         android:lineSpacingExtra="10sp"
                         android:text="매달 기본 50건 제공"
                         android:textColor="#999999"
-                        android:textSize="13dp" />
+                        android:textSize="15dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -159,7 +159,7 @@
                     android:lineSpacingExtra="8.1sp"
                     android:text="추가 지급 보너스"
                     android:textColor="#333333"
-                    android:textSize="15dp" />
+                    android:textSize="17dp" />
 
                 <ImageButton
                     android:id="@+id/mypage_bonus_btn_info"
@@ -226,7 +226,7 @@
                     android:lineSpacingExtra="8.1sp"
                     android:text="나의 입찰 정보"
                     android:textColor="#1a1a1a"
-                    android:textSize="15.1dp"
+                    android:textSize="17dp"
                     android:textStyle="bold" />
 
                 <ImageButton
@@ -270,7 +270,7 @@
                         android:lineSpacingExtra="9.1sp"
                         android:text="입찰 성공 차량"
                         android:textColor="#424446"
-                        android:textSize="14.2dp" />
+                        android:textSize="16dp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -373,7 +373,7 @@
                         android:lineSpacingExtra="9.1sp"
                         android:text="나의 입찰 차량"
                         android:textColor="#424446"
-                        android:textSize="14.2dp" />
+                        android:textSize="16dp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -474,7 +474,7 @@
                         android:lineSpacingExtra="9.1sp"
                         android:text="매입 확정 차량"
                         android:textColor="#424446"
-                        android:textSize="14.2dp" />
+                        android:textSize="16dp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -558,8 +558,8 @@
                     android:gravity="center"
                     android:onClick="onClick"
                     android:text="로그아웃"
-                    android:textColor="#4d4d4d"
-                    android:textSize="15dp" />
+                    android:textColor="#bebebe"
+                    android:textSize="13dp" />
 
                 <TextView
                     android:id="@+id/main_user_txt_customer_service_phonenum"
@@ -570,8 +570,8 @@
                     android:gravity="center"
                     android:onClick="onClick"
                     android:text="고객센터 070-4349-6021"
-                    android:textColor="#4d4d4d"
-                    android:textSize="15dp" />
+                    android:textColor="#bebebe"
+                    android:textSize="13dp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -581,7 +581,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bonus_ltip"
                 android:layout_marginTop="225dp"
-                android:layout_marginLeft="105dp"
+                android:layout_marginLeft="115dp"
                 android:visibility="invisible"
                 android:onClick="onClick" />
         </FrameLayout>
