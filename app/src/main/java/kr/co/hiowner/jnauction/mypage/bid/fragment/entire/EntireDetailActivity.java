@@ -639,9 +639,9 @@ public class EntireDetailActivity extends AppCompatActivity {
             //여기서 시간을 받아와라
             new TimeAsyncTask().execute();
             if ("Y".equals(mCarData.getResult().getB_mybid())){
-                mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
+                mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.btn_background_black_opa));
                 mBtnTender.setText("입찰 완료된 차량입니다.");
-                mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
+                mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.WHITE));
                 mBtnTender.setEnabled(false);
 
                 mIbRetryBid.setVisibility(View.VISIBLE);
@@ -659,9 +659,9 @@ public class EntireDetailActivity extends AppCompatActivity {
             //최고가격표시
             mTvAvgPrice.setText(GlobalValues.getWonFormat(mCarData.getResult().getA_max_price()) + "만원");
 
-            mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
+            mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.btn_background_black_opa));
             mBtnTender.setText("경매 종료된 차량입니다.");
-            mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
+            mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.WHITE));
             mBtnTender.setEnabled(false);
 
             mIbRetryBid.setVisibility(View.GONE);

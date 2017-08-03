@@ -539,9 +539,9 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
         if(status >= 100 && status < 200){//입찰대기
         }else if (status >= 200 && status < 300){//입찰중
             if ("Y".equals(mCarData.getResult().getB_mybid())){
-                mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
+                mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.btn_background_black_opa));
                 mBtnTender.setText("입찰 완료된 차량입니다.");
-                mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
+                mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.WHITE));
                 mBtnTender.setEnabled(false);
             }else{
 //                mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
@@ -549,9 +549,9 @@ public class MyPurchaseDetailActivity extends AppCompatActivity {
 //                mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
             }
         }else if (status >= 300 && status < 400){//입찰완료
-            mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
+            mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.btn_background_black_opa));
             mBtnTender.setText("매입 완료된 차량입니다.");
-            mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
+            mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.WHITE));
             mBtnTender.setEnabled(false);
         }else if (status >= 400 && status < 500){//매입완료
         }
