@@ -26,7 +26,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import kr.co.hiowner.jnauction.R;
@@ -34,7 +33,6 @@ import kr.co.hiowner.jnauction.api.API_Adapter;
 import kr.co.hiowner.jnauction.api.data.AuctionData;
 import kr.co.hiowner.jnauction.api.data.ServerTimeData;
 import kr.co.hiowner.jnauction.car.popup.TenderPopup1;
-import kr.co.hiowner.jnauction.car.popup.TenderPopup2;
 import kr.co.hiowner.jnauction.car.popup.TenderPopupRe;
 import kr.co.hiowner.jnauction.util.GlobalValues;
 import kr.co.hiowner.jnauction.util.InsuranceHistoryActivity;
@@ -70,6 +68,8 @@ public class CarDetailActivity extends AppCompatActivity {
 
     TextView mTvBidCount, mTvRemainTime, mTvAvgPrice;
 
+    TextView mTvRemain;
+
     //나의 입찰가
     RelativeLayout mRLayoutMyPrice;
     TextView mTvMyPrice, mTvMyPriceDate;
@@ -97,6 +97,7 @@ public class CarDetailActivity extends AppCompatActivity {
         mTvCarNumber = (TextView)findViewById(R.id.car_detail_txt_car_number);
         mTvBidCount = (TextView)findViewById(R.id.car_detail_txt_bid_count);
         mTvRemainTime = (TextView)findViewById(R.id.car_detail_txt_remain_time);
+        mTvRemain = (TextView)findViewById(R.id.car_detail_txt_remain);
         mTvCarOpsTrans = (TextView)findViewById(R.id.cas_ops_trans);
         mTvCarOpsRsensor = (TextView)findViewById(R.id.cas_ops_rsensor);
         mTvCarOpsRcam = (TextView)findViewById(R.id.cas_ops_rcam);
@@ -638,9 +639,9 @@ public class CarDetailActivity extends AppCompatActivity {
         if(status >= 100 && status < 200){//입찰대기
         }else if (status >= 200 && status < 300){//입찰중
             if ("Y".equals(mCarData.getResult().getB_mybid())){
-                mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
+                mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.btn_background_black_opa));
                 mBtnTender.setText("입찰 완료된 차량입니다.");
-                mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
+                mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.WHITE));
                 mBtnTender.setEnabled(false);
             }else{
 //                mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
@@ -648,9 +649,9 @@ public class CarDetailActivity extends AppCompatActivity {
 //                mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
             }
         }else if (status >= 300 && status < 400){//입찰완료
-            mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background_color_e0e0e0));
+            mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.btn_background_black_opa));
             mBtnTender.setText("경매 종료된 차량입니다.");
-            mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_b3b3b3));
+            mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.WHITE));
             mBtnTender.setEnabled(false);
         }else if (status >= 400 && status < 500){//매입완료
         }
@@ -710,8 +711,10 @@ public class CarDetailActivity extends AppCompatActivity {
 
                     //경매 상태 (O:열림, C:닫힘)
                     if ("C".equals(TimeData.getResult().getAuction_status())){
+                        mTvRemain.setVisibility(View.GONE);
                         mTvRemainTime.setText("금일 입찰 종료");
                     }else if("O".equals(TimeData.getResult().getAuction_status())){
+                        mTvRemain.setVisibility(View.VISIBLE);
                         setTimeLayout();
                     }else{
                         Toast.makeText(mContext, TimeData.getStatus_msg(), Toast.LENGTH_SHORT).show();

@@ -652,9 +652,10 @@
             <TextView
                 android:id="@+id/cas_ops_memo"
                 android:layout_marginLeft="14dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_primary_solid"
+                android:textSize="15dp"
                 android:padding="15dp"
                 android:textColor="@color/WHITE"/>
         </LinearLayout>

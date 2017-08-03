@@ -29,4 +29,7 @@
     <color name="text_color_808080">#808080</color>
     <color name="text_color_ffdaad">#ffdaad</color>
 
+
+    <color name="btn_background_black_opa">#b4000000</color>
+
 </resources>
