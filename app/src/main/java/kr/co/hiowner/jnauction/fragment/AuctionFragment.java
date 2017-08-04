@@ -148,6 +148,9 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
     //경매회차를 저장하기 위한 변수(새롭게 추가)
     String mStrServerCurrentSchedule = null;
 
+    //
+    boolean mBoolBidInitList = true;
+
     public AuctionFragment() {
     }
 
@@ -742,7 +745,16 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
                             mIntStatus_min = BEFORE_BID_MIN;
                             mIntStatus_max = BEFORE_BID_MAX;
-                            listInIt();
+                            if(mBoolBidInitList == true){
+                                listInIt();
+                                mBoolBidInitList = false;
+                            }
+                            else{
+                                new AuctionsRefreshAsyncTask().execute();
+                                new MyAuctionsRefreshAsyncTask().execute();
+                                new FreeAuctionsRefreshAsyncTask().execute();
+                                new FreeMyRefreshAsyncTask().execute();
+                            }
                         }else if(closeTime < -1 && closeTime > -7200){//경매마감 후 2시간
                             Log.d("where", "경매마감 후 2시간");
                             mTvRemainTime.setText("입찰 종료");
@@ -751,7 +763,16 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                             mTv2HourTime.setText(GlobalValues.getDetailDay("yyyy-MM-dd hh:mm:ss", TimeData.getResult().getAuction_next_open_date(), 0) + " 오픈 예정입니다.");
                             mIntStatus_min = AFTER_BID_MIN;
                             mIntStatus_max = AFTER_BID_MAX;
-                            listInIt();
+                            if(mBoolBidInitList == true){
+                                listInIt();
+                                mBoolBidInitList = false;
+                            }
+                            else{
+                                new AuctionsRefreshAsyncTask().execute();
+                                new MyAuctionsRefreshAsyncTask().execute();
+                                new FreeAuctionsRefreshAsyncTask().execute();
+                                new FreeMyRefreshAsyncTask().execute();
+                            }
                         }else{//나머지
                             Log.d("where", "나머지");
                             mTvRemainTime.setText("입찰 오픈 전");
