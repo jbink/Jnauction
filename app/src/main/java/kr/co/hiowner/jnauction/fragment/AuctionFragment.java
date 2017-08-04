@@ -85,6 +85,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
     //전체차량, 내입찰차량
     CheckBox mChkMyAuctions;
+    TextView mTxtMyAuctions;
     private int mCurListViewPage;
 
     //list의 Index 관리 - FULL
@@ -119,6 +120,7 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 
     //Free추가로 인한 변수(View) 추가
     CheckBox mChkFree;
+    TextView mTxtFree;
 
     List<AuctionsData.Resultfdg.Auctionsfdg> mDataCar_Free_Full;
     ListView mListViewFreeFull;
@@ -207,8 +209,12 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
 //        mTvMainUnderline_2 = (ImageView)rootView.findViewById(R.id.main_btn_underline_2);
         mChkMyAuctions = (CheckBox)rootView.findViewById(R.id.main_chk_my_product);
         mChkMyAuctions.setOnClickListener(this);
+        mTxtMyAuctions = (TextView)rootView.findViewById(R.id.main_chk_txt_product);
+        mTxtMyAuctions.setOnClickListener(this);
         mChkFree = (CheckBox)rootView.findViewById(R.id.main_chk_free);
+        mTxtFree = (TextView)rootView.findViewById(R.id.main_chk_txt_free);
         mChkFree.setOnClickListener(this);
+        mTxtFree.setOnClickListener(this);
 
         mCurListViewPage = LISTVIEW_CUR_FULL;
 
@@ -305,7 +311,8 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
             AuctionsData.Resultfdg.Auctionsfdg data = (AuctionsData.Resultfdg.Auctionsfdg) adapterView.getAdapter().getItem(i);
             Intent intent = new Intent(getActivity(), CarDetailActivity.class);
             intent.putExtra("auction_idx",  data.getAuction_idx());
-            startActivityForResult(intent, 7777);
+            intent.putExtra("status",  mIntStatus_min);
+            startActivityForResult(intent, 4444);
         }
     };
 
@@ -379,24 +386,28 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
         }
     }
 
+    public void chkToShowList(){
+        if(mChkMyAuctions.isChecked()){
+            if(mChkFree.isChecked()){//내입찰 O , Free O
+                setVisibleListView(LIST_FREE_MY);
+            }else{//내입찰 O , Free X
+                setVisibleListView(LIST_MY);
+            }
+        }else{
+            if(mChkFree.isChecked()){//내입찰 X , Free O
+                setVisibleListView(LIST_FREE_FULL);
+            }else{//내입찰 X , Free X
+                setVisibleListView(LIST_FULL);
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.main_chk_free :
             case R.id.main_chk_my_product :
-                if(mChkMyAuctions.isChecked()){
-                    if(mChkFree.isChecked()){//내입찰 O , Free O
-                        setVisibleListView(LIST_FREE_MY);
-                    }else{//내입찰 O , Free X
-                        setVisibleListView(LIST_MY);
-                    }
-                }else{
-                    if(mChkFree.isChecked()){//내입찰 X , Free O
-                        setVisibleListView(LIST_FREE_FULL);
-                    }else{//내입찰 X , Free X
-                        setVisibleListView(LIST_FULL);
-                    }
-                }
+                chkToShowList();
                 break;
             case R.id.main_btn_info :
                 if(mIvFreeInfo.getVisibility() == View.GONE){
@@ -416,6 +427,21 @@ public class AuctionFragment extends Fragment implements View.OnClickListener, S
                 break;
             case R.id.main_free_img_info:
                 mIvFreeInfo.setVisibility(View.GONE);
+                break;
+
+            case R.id.main_chk_txt_free :
+                if(mChkFree.isChecked())
+                    mChkFree.setChecked(false);
+                else
+                    mChkFree.setChecked(true);
+                chkToShowList();
+                break;
+            case R.id.main_chk_txt_product :
+                if(mChkMyAuctions.isChecked())
+                    mChkMyAuctions.setChecked(false);
+                else
+                    mChkMyAuctions.setChecked(true);
+                chkToShowList();
                 break;
         }
     }

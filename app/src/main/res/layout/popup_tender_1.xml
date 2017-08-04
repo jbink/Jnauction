@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:textColor="#999999"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:text="제조사/차량명" />
 
                 <TextView
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7.5dp"
                     android:textColor="#222222"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:text="" />
             </LinearLayout>
 
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:textColor="#999999"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:text="연식" />
 
                 <TextView
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7.5dp"
                     android:textColor="#222222"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:text="" />
             </LinearLayout>
 
@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:textColor="#999999"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:text="주행거리" />
 
                 <TextView
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7.5dp"
                     android:textColor="#222222"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:text="" />
             </LinearLayout>
 
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:textColor="#999999"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:text="지역" />
 
                 <TextView
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7.5dp"
                     android:textColor="#222222"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:text="" />
             </LinearLayout>
 
@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:textColor="#999999"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:text="평균 입찰 가격" />
 
                 <TextView
@@ -159,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7.5dp"
                     android:textColor="#222222"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:text="" />
             </LinearLayout>
 
@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:textColor="@color/colorPrimary"
-                android:textSize="15dp"
+                android:textSize="16dp"
                 android:text="신규 입찰 가격" />
 
             <EditText

@@ -88,7 +88,7 @@
                     android:onClick="onClick" />
 
                 <TextView
-                    android:id="@+id/main_txt_free"
+                    android:id="@+id/main_chk_txt_free"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
@@ -115,7 +115,7 @@
                     android:onClick="onClick" />
 
                 <TextView
-                    android:id="@+id/main_txt_product"
+                    android:id="@+id/main_chk_txt_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
@@ -205,6 +205,7 @@
             android:id="@+id/main_layout_number_3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
             android:layout_below="@id/main_2hour_layout">
 
             <android.support.v4.widget.SwipeRefreshLayout
