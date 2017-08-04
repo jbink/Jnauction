@@ -141,6 +141,7 @@ public class CarDetailActivity extends AppCompatActivity {
                 mBtnTender.setText("입찰 오픈 전 입니다.");
                 mBtnTender.setEnabled(false);
                 mBtnTender.setClickable(false);
+                mTvRemainTime.setText("금일 입찰 오픈 전");
                 break;
             case 200 :
                 mBtnTender.setText("입찰 신청하기");
@@ -149,6 +150,7 @@ public class CarDetailActivity extends AppCompatActivity {
                 mBtnTender.setText("입찰 종료");
                 mBtnTender.setEnabled(false);
                 mBtnTender.setClickable(false);
+                mTvRemainTime.setText("금일 입찰 종료");
                 break;
         }
 
@@ -637,6 +639,10 @@ public class CarDetailActivity extends AppCompatActivity {
         int status = Integer.parseInt(mCarData.getResult().getA_status());
 
         if(status >= 100 && status < 200){//입찰대기
+            mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.btn_background_black_opa));
+            mBtnTender.setText("입찰 오픈 전 입니다.");
+            mBtnTender.setTextColor(ContextCompat.getColor(mContext, R.color.WHITE));
+            mBtnTender.setEnabled(false);
         }else if (status >= 200 && status < 300){//입찰중
             if ("Y".equals(mCarData.getResult().getB_mybid())){
                 mBtnTender.setBackgroundColor(ContextCompat.getColor(mContext, R.color.btn_background_black_opa));
@@ -712,7 +718,6 @@ public class CarDetailActivity extends AppCompatActivity {
                     //경매 상태 (O:열림, C:닫힘)
                     if ("C".equals(TimeData.getResult().getAuction_status())){
                         mTvRemain.setVisibility(View.GONE);
-                        mTvRemainTime.setText("금일 입찰 종료");
                     }else if("O".equals(TimeData.getResult().getAuction_status())){
                         mTvRemain.setVisibility(View.VISIBLE);
                         setTimeLayout();
