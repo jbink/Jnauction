@@ -191,6 +191,7 @@
                 android:background="@drawable/border_primary"/>
 
             <TextView
+                android:id="@+id/tender_popup1_txt_high"
                 android:layout_marginLeft="6dp"
                 android:layout_marginTop="12dp"
                 android:layout_width="wrap_content"

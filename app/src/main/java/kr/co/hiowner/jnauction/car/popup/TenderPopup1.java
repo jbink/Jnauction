@@ -35,6 +35,7 @@ public class TenderPopup1 extends AppCompatActivity{
     EditText mEdtCost;
 
     TextView mTvBrandName, mTvYear, mTvKms, mTvAddr, mTvPrice;
+    TextView mTvHigh;
 
     String strCollectAmount ="";
     String mStrAuctionIdx ="";
@@ -55,10 +56,13 @@ public class TenderPopup1 extends AppCompatActivity{
         mTvAddr = (TextView)findViewById(R.id.tender_popup1_txt_addr);
         mTvAddr.setText(getIntent().getStringExtra("car_addr"));
         mTvPrice = (TextView)findViewById(R.id.tender_popup1_txt_price);
+        mTvHigh = (TextView)findViewById(R.id.tender_popup1_txt_high);
         if("0".equals(getIntent().getStringExtra("car_price"))){
             mTvPrice.setText("3명 이상 입찰 시 노출");
+            mTvHigh.setVisibility(View.GONE);
         }else{
             mTvPrice.setText(GlobalValues.getWonFormat(getIntent().getStringExtra("car_price"))+"만원");
+            mTvHigh.setVisibility(View.VISIBLE);
         }
         mStrAuctionIdx = getIntent().getStringExtra("car_auction_idx");
 
